@@ -1,0 +1,107 @@
+.container
+  overflow: hidden
+  display: flex
+  justify-content: center
+  align-items: center
+
+.slider
+  user-select: none
+  position: relative
+  display: flex
+  justify-content: center
+  background-color: #000
+  height: 500px
+  width: 885px
+  cursor: pointer
+
+.btns
+  width: 100%
+  position: absolute
+  height: 100%
+  display: flex
+  align-items: center
+
+.btnLeft, .btnRight
+  position: absolute
+  z-index: 10
+  cursor: pointer
+  transition: 0.3s
+  &:hover
+    color: #999
+
+
+.btnLeft
+  left: 0
+  svg
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.6))
+  &:active
+    svg
+      filter: drop-shadow(2px 3px 1px rgb(0 0 0 / 0.9))
+
+.btnRight
+  color: #fff
+  right: 0
+  svg
+    filter: drop-shadow(3px 5px 2px rgb(255 255 255 / 0.2))
+  &:active
+    svg
+      filter: drop-shadow(2px 3px 1px rgb(255 255 255 / 0.3))
+
+.img
+  position: relative
+  width: 60%
+  > img
+    position: absolute
+    object-fit: cover
+    width: 100%
+    height: 100%
+
+  
+.body
+  position: relative
+  color: #fff
+  width: 40%
+  > div
+    background-color: #000
+    height: 100%
+    padding: 1rem
+    position: absolute
+
+._active
+  z-index: 3
+  &.down
+    animation: TopToCenter 1s ease forwards
+  &.up
+    animation: DownToCenter 1s ease forwards
+
+._prev
+  z-index: 2
+  &.down
+    animation: CenterToDown 1s ease forwards
+  &.up
+    animation: CenterToTop 1s ease forwards
+
+
+@keyframes TopToCenter
+  from
+    transform: translateY(-100%)
+  to
+    transform: translateY(0)
+
+@keyframes CenterToDown
+  from
+    transform: translateY(0)
+  to
+    transform: translateY(100%)
+
+@keyframes DownToCenter
+  from
+    transform: translateY(100%)
+  to
+    transform: translateY(0)
+
+@keyframes CenterToTop
+  from
+    transform: translateY(0)
+  to
+    transform: translateY(-100%)

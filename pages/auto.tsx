@@ -1,11 +1,11 @@
 import React from 'react'
 import HomeMenu from '../components/HomeMenu'
-import ImgSlider from '../components/ImgSlider';
+import ImgSplitSlider from '../components/ImgSplitSlider';
 
 const auto = () => {
   return (
-    <div>
-      <ImgSlider/>
+    <div style={{height: '100vh'}}>
+      <ImgSplitSlider/>
     </div>
   );
 }

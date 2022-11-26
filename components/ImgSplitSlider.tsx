@@ -1,12 +1,12 @@
-import Image from "next/image";
 import React, { useState } from "react";
-import cl from "../styles/components/ImgSlider.module.sass";
+import cl from "../styles/components/ImgSplitSlider.module.sass";
 import img1 from "../public/slider-1.webp";
 import img2 from "../public/slider-2.jpg";
 import img3 from "../public/slider-3.jpg";
 import img4 from "../public/slider-4.jpg";
 import LeftIcon from "./Icons/LeftIcon";
 import RightIcon from "./Icons/RightIcon";
+import Image from "next/image";
 
 const imgs = [
   {
@@ -28,41 +28,29 @@ const imgs = [
 ];
 const l = imgs.length;
 
-const ImgSlider = () => {
+const ImgSplitSlider = () => {
   const [active, setActive] = useState<number>(0);
   const [previous, setPrevious] = useState<number>(0);
-  const [direction, setDirection] = useState<string>(cl.right);
+  const [imgDirection, setImgDirection] = useState<string>(cl.down);
+  const [bodyDirection, setBodyDirection] = useState<string>(cl.up);
 
   const onLeftClick = () => {
     setPrevious(active);
     setActive((prev) => (prev === 0 ? l - 1 : prev - 1));
-    setDirection(cl.left);
-  };
-
+    setImgDirection(cl.up);
+    setBodyDirection(cl.down);
+  }
   const onRightClick = () => {
     setPrevious(active);
     setActive((prev) => (prev === l - 1 ? 0 : prev + 1));
-    setDirection(cl.right);
+    setImgDirection(cl.down);
+    setBodyDirection(cl.up);
   };
 
   return (
-    <>
-      <div className={cl.container}>
-        <div className={cl.slider}>
-          {imgs.map((img, index) => (
-            <Image
-              className={
-                index === active
-                  ? [cl._active, direction].join(" ")
-                  : index === previous
-                  ? [cl._prev, direction].join(" ")
-                  : ""
-              }
-              key={index}
-              src={img.url}
-              alt=""
-            ></Image>
-          ))}
+    <div className={cl.container}>
+      <div className={cl.slider}>
+        <div className={cl.btns}>
           <div onClick={onLeftClick} className={cl.btnLeft}>
             <LeftIcon />
           </div>
@@ -70,16 +58,42 @@ const ImgSlider = () => {
             <RightIcon />
           </div>
         </div>
+
+        <div className={cl.img}>
+          {imgs.map((img, index) => (
+            <Image
+              className={
+                index === active
+                  ? [cl._active, imgDirection].join(" ")
+                  : index === previous
+                  ? [cl._prev, imgDirection].join(" ")
+                  : ""
+              }
+              key={index}
+              src={img.url}
+              alt=""
+            />
+          ))}
+        </div>
+        <div className={cl.body}>
+          {imgs.map((img, index) => (
+            <div
+              className={
+                index === active
+                  ? [cl._active, bodyDirection].join(" ")
+                  : index === previous
+                  ? [cl._prev, bodyDirection].join(" ")
+                  : ""
+              }
+              key={index}
+            >
+              <p>{img.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={cl.description}>
-        {imgs.map((img, index) => (
-          <p className={index === active ? cl.appear : cl.hide} key={index}>
-            {img.body}
-          </p>
-        ))}
-      </div>
-    </>
+    </div>
   );
 };
 
-export default ImgSlider;
+export default ImgSplitSlider;

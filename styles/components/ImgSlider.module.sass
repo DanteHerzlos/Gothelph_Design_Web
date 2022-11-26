@@ -1,9 +1,14 @@
-.slider
+.container
   margin-top: 3rem
-  height: 70vh
-  width: 70vw 
-  min-height: 200px
-  min-width: 354px
+  display: flex
+  justify-content: center
+
+.slider
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px
+  width: 60vw
+  height: calc(60vw/1.77) 
+  min-height: 100px
+  min-width: 177px
   overflow: hidden
   display: flex
   position: relative
@@ -15,7 +20,7 @@
     height: 100%
     width: 100%
 
-.active
+._active
   z-index: 3
   &.right
     animation: RightToCenter 1s ease forwards
@@ -23,7 +28,7 @@
     animation: leftToCenter 1s ease forwards
 
 
-.prev
+._prev
   z-index: 2
   &.right
     animation: centerToLeft 1s ease forwards
@@ -49,17 +54,14 @@
 .btnRight
   right: 0 
 
-.container
-  width: 100%
-  display: flex
-  justify-content: center
+
 
 .description
   max-width: 700px
   margin: 0 auto
   margin-bottom: 8rem
   p
-    padding: 2rem 0
+    padding: 2rem 1rem
     max-width: 700px
     position: absolute
   
@@ -96,3 +98,11 @@
     transform: translateX(0)
   to
     transform: translateX(100%)
+
+
+@media screen and (max-width: 576px) 
+  .slider
+    width: 95vw
+    height: calc( 95vw /1.77 )
+  .description
+    margin-bottom: 10rem
