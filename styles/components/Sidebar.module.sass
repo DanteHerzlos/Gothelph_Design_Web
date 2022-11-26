@@ -1,0 +1,72 @@
+.btn
+  padding: .25rem
+  z-index: 99
+  position: fixed
+  top: 2rem
+  left: 2rem
+  cursor: pointer
+  background-color: #fff
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
+  line-height: 0
+  &.open
+    display: none
+  svg
+    width: 2rem
+    height: 2rem
+
+.container
+  z-index: -99
+  position: fixed
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  transition-delay: .3s
+  transition-property: background-color, z-index
+  &.open
+    transition-property: none
+    background-color: rgba(0, 0, 0, 0.5)
+    display: block
+    z-index: 99
+    .sidebar
+      transform: translateX(0)
+
+.sidebar
+  padding: 1rem 0
+  display: flex
+  flex-direction: column
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px
+  position: relative
+  left: 0
+  top: 0
+  width: 300px
+  height: 100%
+  background-color: #fff
+  transform: translateX(-300px)
+  transition: .3s
+
+@media (max-width: 300px)
+  .sidebar
+    width: 100%
+
+
+.DoubleLeftBtn
+  padding: .75rem
+  margin-top: auto
+  transition: .3s
+  cursor: pointer
+  svg
+    width: 5rem
+    hight: 5rem
+  &:hover
+    background-color: #000
+    color: #fff
+
+.menuBtn
+  user-select: none
+  cursor: pointer
+  padding: 1rem
+  transition: .3s
+  &:hover
+    background-color: #000
+    color: #fff

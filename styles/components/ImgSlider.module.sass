@@ -1,0 +1,98 @@
+.slider
+  margin-top: 3rem
+  height: 70vh
+  width: 70vw 
+  min-height: 200px
+  min-width: 354px
+  overflow: hidden
+  display: flex
+  position: relative
+  align-items: center 
+  user-select: none
+  img
+    position: absolute
+    object-fit: cover
+    height: 100%
+    width: 100%
+
+.active
+  z-index: 3
+  &.right
+    animation: RightToCenter 1s ease forwards
+  &.left
+    animation: leftToCenter 1s ease forwards
+
+
+.prev
+  z-index: 2
+  &.right
+    animation: centerToLeft 1s ease forwards
+  &.left
+    animation: centerToRight 1s ease forwards
+
+.btnLeft, .btnRight
+  position: absolute
+  z-index: 10
+  cursor: pointer
+  transition: 0.3s
+  &:hover
+    color: #fff
+  svg
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.6))
+  &:active
+    svg
+      filter: drop-shadow(2px 3px 1px rgb(0 0 0 / 0.9))
+
+.btnLeft
+  left: 0
+
+.btnRight
+  right: 0 
+
+.container
+  width: 100%
+  display: flex
+  justify-content: center
+
+.description
+  max-width: 700px
+  margin: 0 auto
+  margin-bottom: 8rem
+  p
+    padding: 2rem 0
+    max-width: 700px
+    position: absolute
+  
+.appear
+  opacity: 1
+  transition: 1s
+
+.hide
+  opacity: 0
+  transition: 1s
+
+
+@keyframes RightToCenter
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0)
+
+@keyframes centerToLeft
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(-100%)
+
+
+@keyframes leftToCenter
+  from
+    transform: translateX(-100%)
+  to
+    transform: translateX(0)
+
+@keyframes centerToRight
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(100%)

@@ -1,0 +1,164 @@
+.menu
+  top: 0
+  left: 0
+  position: fixed
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100vw
+  height: 100vh
+  gap: 3rem
+
+.img
+  width: 100%
+  height: 100%
+  object-fit: cover
+  filter: grayscale(100%)
+  -webkit-filter: grayscale(100%)
+  border-radius: 10px
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+  opacity: .9
+  transition: .3s
+
+
+.menuBtn
+  cursor: pointer
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 1rem
+  transform: perspective(700px)
+  width: 200px
+  height: 400px
+  animation-iteration-count: 1
+  animation-fill-mode: both
+  &:hover > .img
+    opacity: 1
+    filter: grayscale(0)
+    -webkit-filter: grayscale(0)
+  &:hover > span
+    &::after
+      transform: scaleX(1)
+      transform-origin: bottom left
+  span
+    animation-iteration-count: 1
+    animation-fill-mode: both
+    animation: menuTitle 1s ease-in forwards
+    animation-play-state: paused
+    font-size: 1.5rem
+    &::after
+      content: ''
+      position: absolute
+      width: 100%
+      transform: scaleX(0)
+      height: 1px
+      bottom: 0
+      left: 0
+      background-color: black
+      transform-origin: bottom right
+      transition: transform 0.25s ease-out
+  &:nth-child(1)
+    animation: menu1 1s ease forwards
+    animation-play-state: paused
+  &:nth-child(2)
+    animation: menu2 1s ease forwards
+    animation-play-state: paused
+  &:nth-child(3)
+    z-index: 2
+    animation: menu3 1s ease forwards
+    animation-play-state: paused
+  &:nth-child(4)
+    animation: menu4 1s ease forwards
+    animation-play-state: paused
+
+@keyframes menu1
+  0%
+    transform: translateX(calc(300px + 4.5rem)) rotateY(-90deg)
+  35%
+    transform: translateX(calc(300px + 4.5rem)) rotateY(-90deg)
+  40%
+    transform: translateX(calc(300px + 4.5rem)) rotateY(0)
+  45%
+    transform: translateX(calc(300px + 4.5rem))
+  60%
+    transform: translateX(calc(200px + 3rem))
+  70%
+    transform: translateX(calc(200px + 3rem))
+  85%
+    transform: translateX(0)
+    transform: rotateY(0)
+  100%
+    transform: translateX(0)
+    transform: rotateY(0)
+
+@keyframes menu2
+  0%
+    transform: translateX(calc(100px + 1.5rem)) rotateY(-90deg)
+  35%
+    transform: translateX(calc(100px + 1.5rem)) rotateY(-90deg)
+  40%
+    transform: translateX(calc(100px + 1.5rem)) rotateY(0)
+  45%
+    transform: translateX(calc(100px + 1.5rem))
+  60%
+    transform: translateX(0)
+  85%
+    transform: translateX(0)
+    transform: rotateY(0)
+  100%
+    transform: translateX(0)
+    transform: rotateY(0)
+
+@keyframes menu3
+  0%
+    transform: translateX(calc(-100px - 1.5rem)) rotateY(-90deg)
+  35%
+    transform: translateX(calc(-100px - 1.5rem)) rotateY(-90deg)
+  40%
+    transform: translateX(calc(-100px - 1.5rem)) rotateY(0)
+  45%
+    transform: translateX(calc(-100px - 1.5rem))
+  60%
+    transform: translateX(0)
+  85%
+    transform: translateX(0)
+    transform: rotateY(0)
+  100%
+    transform: translateX(0)
+    transform: rotateY(0)
+
+@keyframes menu4
+  0%
+    transform: translateX(calc(-300px - 4.5rem)) rotateY(-90deg)
+  35%
+    transform: translateX(calc(-300px - 4.5rem)) rotateY(-90deg)
+  40%
+    transform: translateX(calc(-300px - 4.5rem)) rotateY(0)
+  45%
+    transform: translateX(calc(-300px - 4.5rem))
+  60%
+    transform: translateX(calc(-200px - 3rem))
+  70%
+    transform: translateX(calc(-200px - 3rem))
+  85%
+    transform: translateX(0)
+    transform: rotateY(0)
+  100%
+    transform: translateX(0)
+    transform: rotateY(0)
+
+@keyframes menuTitle
+  0%
+    opacity: 0
+    transform: translateY(-3rem)
+  85%
+    opacity: 0
+    transform: translateY(-3rem)
+  95%
+    opacity: 1
+    transform: translateX(0)
+    transform: rotateY(0)
+  100%
+    opacity: 1
+    transform: translateX(0)
+    transform: rotateY(0)
