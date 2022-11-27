@@ -30,7 +30,7 @@ const l = imgs.length;
 
 const ImgSplitSlider = () => {
   const [active, setActive] = useState<number>(0);
-  const [previous, setPrevious] = useState<number>(0);
+  const [previous, setPrevious] = useState<number>(l-1);
   const [imgDirection, setImgDirection] = useState<string>(cl.down);
   const [bodyDirection, setBodyDirection] = useState<string>(cl.up);
 

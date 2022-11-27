@@ -17,15 +17,15 @@ const Clothes = () => {
         </div>
         <div className={cl.container}>
           <div className={cl.categories}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
           </div>
         </div>
         <div className={cl.btn}>
-          <Button>Заказать инндивидуальный пошив</Button>
+          <Button active>Заказать инндивидуальный пошив</Button>
         </div>
       </div>
     </Layout>

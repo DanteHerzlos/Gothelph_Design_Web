@@ -17,9 +17,9 @@ const Arts = () => {
             <span>ПРАЙС</span>
           </div>
           <div className={cl.cards}>
-            <Card />
-            <Card />
-            <Card />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
+            <Card className={cl.card} />
           </div>
           <div className={cl.btn}>
             <Button>Сделать заказ</Button>
