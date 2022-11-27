@@ -7,7 +7,6 @@
   align-items: center
   width: 100vw
   transition: .3s
-  min-width: 950px
   height: 100vh
   gap: 3rem
 
@@ -57,7 +56,7 @@
       height: 1px
       bottom: 0
       left: 0
-      background-color: black
+      background-color: #000
       transform-origin: bottom right
       transition: transform 0.25s ease-out
   &:nth-child(1)
@@ -88,11 +87,9 @@
   70%
     transform: translateX(calc(200px + 3rem))
   85%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
   100%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
 
 @keyframes menu2
   0%
@@ -106,11 +103,9 @@
   60%
     transform: translateX(0)
   85%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
   100%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
 
 @keyframes menu3
   0%
@@ -124,11 +119,9 @@
   60%
     transform: translateX(0)
   85%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
   100%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
 
 @keyframes menu4
   0%
@@ -144,11 +137,9 @@
   70%
     transform: translateX(calc(-200px - 3rem))
   85%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
   100%
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
 
 @keyframes menuTitle
   0%
@@ -159,9 +150,114 @@
     transform: translateY(-3rem)
   95%
     opacity: 1
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
   100%
     opacity: 1
-    transform: translateX(0)
-    transform: rotateY(0)
+    transform: translateX(0) rotateY(0)
+
+@media screen and (max-width: 900px) 
+  .menu
+    margin-top: 20vh
+    height: 70vh
+    gap: 0.5rem
+    padding: 0 1rem
+    flex-direction: column
+  .menuBtn
+    width: 100%
+    max-width: 500px
+    height: 120px
+    span
+      transform: translateY(-3rem)
+      color: #fff
+      animation: menuTitleMinWith 1s ease-in forwards
+      animation-play-state: paused
+      text-shadow: 1px 1px 2px #000
+      &::after
+        background-color: #fff
+    &:nth-child(1)
+      z-index: 4
+      animation: menu1MinWith 1s ease forwards
+      animation-play-state: paused
+    &:nth-child(2)
+      z-index: 3
+      animation: menu2MinWith 1s ease forwards
+      animation-play-state: paused
+    &:nth-child(3)
+      z-index: 2
+      animation: menu3MinWith 1s ease forwards
+      animation-play-state: paused
+    &:nth-child(4)
+      z-index: 1
+      animation: menu4MinWith 1s ease forwards
+      animation-play-state: paused
+
+@keyframes menuTitleMinWith
+  0%
+    opacity: 0
+  85%
+    opacity: 0
+  95%
+    opacity: 1
+  100%
+    opacity: 1
+
+
+@keyframes menu1MinWith
+  0%
+    transform: translateY(0) rotateY(-90deg)
+  35%
+    transform: translateY(0) rotateY(-90deg)
+  40%
+    transform: translateY(0) rotateY(0)
+  100%
+    transform: translateY(0) rotateY(0)
+
+@keyframes menu2MinWith
+  0%
+    transform: translateY(calc( -120px - 0.5rem)) rotateY(-90deg)
+  35%
+    transform: translateY(calc( -120px - 0.5rem)) rotateY(-90deg)
+  40%
+    transform: translateY(calc( -120px - 0.5rem)) rotateY(0)
+  45%
+    transform: translateY(calc( -120px - 0.5rem))
+  60%
+    transform: translateY(0)
+  85%
+    transform: translateY(0) 
+  100%
+    transform: translateY(0) rotateY(0)
+
+@keyframes menu3MinWith
+  0%
+    transform: translateY(calc(-240px - 1rem)) rotateY(-90deg)
+  35%
+    transform: translateY(calc(-240px - 1rem)) rotateY(-90deg)
+  45%
+    transform: translateY(calc(-240px - 1rem)) rotateY(0)
+  60%
+    transform: translateY(calc(-120px - 0.5rem))
+  75%
+    transform: translateY(0)
+  85%
+    transform: translateY(0)
+  100%
+    transform: translateY(0) rotateY(0)
+
+@keyframes menu4MinWith
+  0%
+    transform: translateY(calc(-360px - 1.5rem)) rotateY(-90deg)
+  35%
+    transform: translateY(calc(-360px - 1.5rem)) rotateY(-90deg)
+  40%
+    transform: translateY(calc(-360px - 1.5rem)) rotateY(0)
+  45%
+    transform: translateY(calc(-360px - 1.5rem))
+  60%
+    transform: translateY(calc(-240px - 1rem))
+  75%
+    transform: translateY(calc(-120px - 0.5rem))
+  85%
+    transform: translateY(0) rotateY(0)
+  100%
+    transform: translateY(0) rotateY(0)
