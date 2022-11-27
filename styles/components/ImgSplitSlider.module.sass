@@ -63,11 +63,20 @@
   position: relative
   color: #fff
   width: 40%
+  background-color: #000
   > div
+    overflow: auto 
     background-color: #000
     height: 100%
     padding: 1rem
     position: absolute
+    &::-webkit-scrollbar
+      width: 5px
+    &::-webkit-scrollbar-thumb
+      border-radius: 1rem
+      background: rgba(255,255, 255, 0.4)
+    &::-webkit-scrollbar-thumb:hover
+      background: rgba(255, 255, 255, 0.7)
 
 ._active
   z-index: 3
@@ -115,7 +124,6 @@
     width: 95vw
     height: calc( 95vw /1.77 )
   .body
-    font-size: .5rem
     >div
       padding: .2rem
     

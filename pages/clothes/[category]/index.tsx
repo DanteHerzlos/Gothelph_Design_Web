@@ -1,10 +1,15 @@
-import React from "react";
-import Card from "../../components/Card";
-import Layout from "../../components/Layout";
-import Button from "../../components/UI/Button";
-import cl from '../../styles/Clothes.module.sass'
+import { useRouter } from 'next/router';
+import React from 'react'
+import Card from "../../../components/Card";
+import Layout from "../../../components/Layout";
+import Button from "../../../components/UI/Button";
+import cl from "../../../styles/Clothes.module.sass";
 
-const Clothes = () => {
+const ClothesCategory = () => {
+  const router = useRouter();
+  const { category } = router.query;
+
+  
   return (
     <Layout title="CLOTHES">
       <div
@@ -12,7 +17,7 @@ const Clothes = () => {
         className={cl.body}
       >
         <div className={cl.title}>
-          <span>КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ</span>
+          <span>КАТАЛОГ {category}</span>
         </div>
         <div className={cl.container}>
           <div className={cl.categories}>
@@ -29,6 +34,6 @@ const Clothes = () => {
       </div>
     </Layout>
   );
-};
+}
 
-export default Clothes;
+export default ClothesCategory
