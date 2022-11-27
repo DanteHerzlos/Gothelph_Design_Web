@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import cl from "../styles/components/Sidebar.module.sass";
 import DoubleLeftIcon from "./Icons/DoubleLeftIcon";
@@ -20,7 +21,9 @@ const Sidebar = () => {
         className={isOpen ? [cl.container, cl.open].join(" ") : cl.container}
       >
         <div onClick={(e) => e.stopPropagation()} className={cl.sidebar}>
-          <div className={cl.menuBtn}>Главная</div>
+          <Link href="/">
+            <div className={cl.menuBtn}>Главная</div>
+          </Link>
           <div className={cl.menuBtn}>Menu 1</div>
           <div className={cl.menuBtn}>Menu 2</div>
           <div className={cl.menuBtn}>Menu 3</div>

@@ -2,7 +2,7 @@ import React from 'react'
 import HomeMenu from '../components/HomeMenu'
 import ImgSplitSlider from '../components/ImgSplitSlider';
 
-const auto = () => {
+const Auto = () => {
   return (
     <div style={{height: '100vh'}}>
       <ImgSplitSlider/>
@@ -10,4 +10,4 @@ const auto = () => {
   );
 }
 
-export default auto
+export default Auto

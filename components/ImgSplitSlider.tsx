@@ -87,7 +87,7 @@ const ImgSplitSlider = () => {
               }
               key={index}
             >
-              <p>{img.body}</p>
+              <span>{img.body}</span>
             </div>
           ))}
         </div>

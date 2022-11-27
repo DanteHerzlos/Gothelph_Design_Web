@@ -1,0 +1,44 @@
+.body
+  padding-top: 10rem
+  position: relative
+  background-repeat: no-repeat
+  background-size: cover
+  background-position-x: center
+  background-position-y: top
+  
+.title
+  text-align: center
+  width: 100%
+  > span
+    text-shadow: 1px 1px 2px black
+    font-size: 3rem
+    color: #fff
+
+.container
+  padding: 10rem 0
+  display: flex
+  justify-content: center
+
+.categories
+  display: grid
+  grid-template-columns: max-content max-content max-content max-content
+  column-gap: 1rem
+  row-gap: 2rem
+
+
+@media screen and (max-width: 1342px) 
+  .categories
+    grid-template-columns: max-content max-content max-content
+  
+@media screen and (max-width: 1000px) 
+  .categories
+    grid-template-columns: max-content max-content
+
+@media screen and (max-width: 680px) 
+  .categories
+    grid-template-columns: max-content
+  .title
+    >span
+      font-size: 2rem
+
+    
