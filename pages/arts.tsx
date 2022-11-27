@@ -1,13 +1,33 @@
-import React from 'react'
-import ImgSplitSlider from '../components/ImgSplitSlider';
-import Layout from '../components/Layout'
+import React from "react";
+import Card from "../components/Card";
+import ImgSplitSlider from "../components/ImgSplitSlider";
+import Layout from "../components/Layout";
+import Button from "../components/UI/Button";
+import cl from "../styles/Arts.module.sass"
 
-const arts = () => {
+const Arts = () => {
   return (
-    <Layout title='ARTS'>
-      <div><ImgSplitSlider/></div>
+    <Layout title="ARTS">
+      <>
+        <div className={cl.slider}>
+          <ImgSplitSlider />
+        </div>
+        <div className={cl.services}>
+          <div className={cl.serviceTitle}>
+            <span>ПРАЙС</span>
+          </div>
+          <div className={cl.cards}>
+            <Card />
+            <Card />
+            <Card />
+          </div>
+          <div className={cl.btn}>
+            <Button>Сделать заказ</Button>
+          </div>
+        </div>
+      </>
     </Layout>
   );
-}
+};
 
-export default arts
+export default Arts;
