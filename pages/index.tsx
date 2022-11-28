@@ -33,8 +33,8 @@ export default function Home() {
 
   return (
     <>
-      <div className={cl.scrollAnimation}>
-        <div className={cl.logoBckgnd}></div>
+      <div className={cl.scroll_animation}>
+        <div className={cl.logo_background}></div>
         <Image
           style={{ animationDelay: -scroll + "s" }}
           className={cl.logo}
@@ -46,8 +46,8 @@ export default function Home() {
         </div>
         <HomeMenu scroll={scroll} />
       </div>
-      <div className={cl.secondSection}>
-        <div className={cl.descriptionImg}>
+      <div className={cl.second_section}>
+        <div className={cl.description_img}>
           <div
             ref={animRef}
             className={isVisible ? [cl.img, cl._anim].join(" ") : cl.img}
@@ -90,7 +90,7 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className={cl.thirdSection}>
+      <div className={cl.third_section}>
         <span className={cl.textXL}>ПРЕИМУЩЕСТВА</span>
         <ImgSlider />
       </div>

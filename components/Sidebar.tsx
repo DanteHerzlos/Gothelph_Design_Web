@@ -22,12 +22,12 @@ const Sidebar = () => {
       >
         <div onClick={(e) => e.stopPropagation()} className={cl.sidebar}>
           <Link href="/">
-            <div className={cl.menuBtn}>Главная</div>
+            <div className={cl.menu_btn}>Главная</div>
           </Link>
-          <div className={cl.menuBtn}>Menu 1</div>
-          <div className={cl.menuBtn}>Menu 2</div>
-          <div className={cl.menuBtn}>Menu 3</div>
-          <div onClick={() => setIsOpen(false)} className={cl.DoubleLeftBtn}>
+          <div className={cl.menu_btn}>Menu 1</div>
+          <div className={cl.menu_btn}>Menu 2</div>
+          <div className={cl.menu_btn}>Menu 3</div>
+          <div onClick={() => setIsOpen(false)} className={cl.double_left_btn}>
             <DoubleLeftIcon />
           </div>
         </div>

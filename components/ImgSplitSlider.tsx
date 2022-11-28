@@ -51,10 +51,10 @@ const ImgSplitSlider = () => {
     <div className={cl.container}>
       <div className={cl.slider}>
         <div className={cl.btns}>
-          <div onClick={onLeftClick} className={cl.btnLeft}>
+          <div onClick={onLeftClick} className={cl.btn_left}>
             <LeftIcon />
           </div>
-          <div onClick={onRightClick} className={cl.btnRight}>
+          <div onClick={onRightClick} className={cl.btn_right}>
             <RightIcon />
           </div>
         </div>

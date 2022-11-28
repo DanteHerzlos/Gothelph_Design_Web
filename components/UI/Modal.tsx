@@ -8,9 +8,9 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
   return (
-    <div onClick={onClose} className={cl.modalContainer}>
+    <div onClick={onClose} className={cl.container_modal}>
       <div onClick={(e) => e.stopPropagation()} className={cl.modal}>
-        <span onClick={onClose} className={cl.closeBtn}>
+        <span onClick={onClose} className={cl.close_btn}>
           &times;
         </span>
         {children}

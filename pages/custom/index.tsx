@@ -16,9 +16,9 @@ const Custom = () => {
   return (
     <Layout title="Custom Collection">
       <>
-        <div className={cl.carouselSection}>
-          <div className={cl.btnsContainer}>
-            <div className={cl.btns}>
+        <div className={cl.carousel_container}>
+          <div className={cl.carousel_btns}>
+            <div className={cl.carousel_btns_btns}>
               <Button>Valhalla</Button>
               <Button>Cannibal</Button>
               <Button>Suicide</Button>
@@ -31,8 +31,8 @@ const Custom = () => {
             <Carousel />
           </div>
         </div>
-        <div className={cl.descriptionSection}>
-          <div className={cl.orderBtn}>
+        <div className={cl.description_container}>
+          <div className={cl.order_btn}>
             <Button onClick={() => setIsOrderForm(true)}>
               Заказать Кастом
             </Button>

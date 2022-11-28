@@ -13,7 +13,7 @@ const Arts = () => {
           <ImgSplitSlider />
         </div>
         <div className={cl.services}>
-          <div className={cl.serviceTitle}>
+          <div className={cl.service_title}>
             <span>ПРАЙС</span>
           </div>
           <div className={cl.cards}>
