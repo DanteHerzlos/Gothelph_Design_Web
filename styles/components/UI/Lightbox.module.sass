@@ -1,5 +1,5 @@
-.modalContainer
-  z-index: 100
+.container
+  z-index: 99
   position: fixed
   display: flex
   justify-content: center
@@ -8,25 +8,26 @@
   right: 0
   top: 0
   bottom: 0
-  background-color: rgba(0, 0, 0, 0.3)
+  background-color: rgba(0, 0, 0, 0.6)
 
-.modal
-  position: relative
-  max-width: 600px
-  border-radius: 0.5rem
-  padding: 1.25rem
-  background-color: #fff
+
+.lightbox
+  z-index: 100
+  width: 90vw
+  height: auto
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px
 
-.closeBtn
+.close_btn
   position: absolute
   top: 5px
   right: 15px
-  color: #9c152c
-  font-size: 2rem
+  color: #000
+  font-size: 4rem
   cursor: pointer
   transition: .3s
-
-
   &:hover
-    color: #75081a
+    color: #fff
+
+@media screen and (max-width: 576px) 
+  .lightbox
+    width: 95vw

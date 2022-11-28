@@ -1,0 +1,69 @@
+$slider_width: 400px
+$tumbnail_img_width: calc($slider_width*8/35)
+$tumbnail_gap: calc($tumbnail_img_width/8)
+
+.slider
+  user-select: none
+  width: $slider_width
+
+.slider_img_box
+  cursor: zoom-in
+  display: flex
+  position: relative
+  > img
+    width: 100%
+    height: 500px
+    object-fit: cover
+  
+.slider_tumbnails
+  display: flex
+  justify-content: flex-start
+  margin-top: $tumbnail_gap
+  gap: $tumbnail_gap
+  height: $tumbnail_img_width
+  width: 100%
+
+.slider_tumbnails_item
+  transition: .3s
+  opacity: 0.5
+  cursor: pointer
+  height: $tumbnail_img_width
+  width: $tumbnail_img_width
+  object-fit: cover
+  &:hover
+    opacity: 0.8
+  &._active
+    opacity: 1
+    
+
+.slider_img_box_btns
+  width: 100%
+  position: absolute
+  height: 100%
+  display: flex
+  align-items: center
+
+.btn_left, .btn_right
+  position: absolute
+  z-index: 10
+  cursor: pointer
+  transition: 0.3s
+  &:hover
+    color: #eee
+  svg
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.6))
+  &:active
+    svg
+      filter: drop-shadow(2px 3px 1px rgb(0 0 0 / 0.9))
+
+.btn_left
+  left: 0
+
+.btn_right
+  right: 0
+
+.lightbox
+  display: flex
+  width: 100%
+  height: 100%
+  object-fit: contain 
