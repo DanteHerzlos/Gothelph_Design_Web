@@ -1,12 +1,13 @@
-import React from "react";
-import ClothesLayout from "../../../components/ClothesLayout";
-import GallerySlider from "../../../components/GallerySlider";
-import ItemInfo from "../../../components/ItemInfo";
+import React from 'react'
+import AutoLayout from '../../../components/AutoLayout'
+import GallerySlider from '../../../components/GallerySlider';
+import ItemInfo from '../../../components/ItemInfo';
 import cl from "../../../styles/ProductItem.module.sass";
 
-const ClothesItem = () => {
+
+const AutoItem = () => {
   return (
-    <ClothesLayout title="Название товара">
+    <AutoLayout title="название товара">
       <div className={cl.body}>
         <GallerySlider>
           <ItemInfo />
@@ -24,8 +25,8 @@ const ClothesItem = () => {
           justo in ultrices fringilla.
         </p>
       </div>
-    </ClothesLayout>
+    </AutoLayout>
   );
-};
+}
 
-export default ClothesItem;
+export default AutoItem
