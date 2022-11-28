@@ -16,7 +16,7 @@ const ClothesItem = () => {
         <div className={cl.container}>
         </div>
         <div className={cl.btn}>
-          <Button active>Заказать индивидуальный пошив</Button>
+          <Button>Заказать индивидуальный пошив</Button>
         </div>
       </div>
     </Layout>

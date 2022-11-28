@@ -1,5 +1,6 @@
 import React from "react";
 import GallerySlider from "../components/GallerySlider";
+import ItemInfo from "../components/ItemInfo";
 
 const Test = () => {
   return (
@@ -11,7 +12,7 @@ const Test = () => {
         alignItems: "center",
       }}
     >
-      <GallerySlider/>
+      <GallerySlider><ItemInfo/></GallerySlider>
     </div>
   );
 };

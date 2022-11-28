@@ -1,21 +1,31 @@
-import React from 'react'
+import React from "react";
 import cl from "../../styles/components/UI/Button.module.sass";
 
 interface ButtonProps {
   children?: string;
-  active?: boolean;
+  white?: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, active, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  className,
+  white,
+  onClick,
+}) => {
   return (
     <div
       onClick={onClick}
-      className={active ? [cl.btn, cl.active].join(" ") : cl.btn}
+      className={
+        white
+          ? [cl.btn, cl.white, className].join(" ")
+          : [cl.btn, className].join(" ")
+      }
     >
       <span>{children}</span>
     </div>
   );
 };
 
-export default Button
+export default Button;

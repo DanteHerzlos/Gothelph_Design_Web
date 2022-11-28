@@ -22,7 +22,7 @@ const Custom = () => {
               <Button>Valhalla</Button>
               <Button>Cannibal</Button>
               <Button>Suicide</Button>
-              <Button onClick={() => setIsActive(!isActive)} active={isActive}>
+              <Button onClick={() => setIsActive(!isActive)} white={isActive}>
                 Behemoth
               </Button>
             </div>
