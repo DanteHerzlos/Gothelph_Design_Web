@@ -31,7 +31,11 @@ const imgs = [
 
 const l = imgs.length
 
-const GallerySlider = () => {
+interface GallerySliderProps {  
+  children?: React.ReactNode | string;
+}
+
+const GallerySlider: React.FC<GallerySliderProps> = ({children}) => {
   const [active, setActive] = useState<number>(0);
   const [isLightbox, setIsLightbox] = useState<boolean>(false);
 
@@ -46,38 +50,41 @@ const GallerySlider = () => {
   };
 
   return (
-    <div className={cl.slider}>
-      <div onClick={() => setIsLightbox(true)} className={cl.slider_img_box}>
-        <Image src={imgs[active].url} alt="" />
-        <div className={cl.slider_img_box_btns}>
-          <div onClick={(e) => onLeftClick(e)} className={cl.btn_left}>
-            <LeftIcon />
-          </div>
-          <div onClick={(e) => onRightClick(e)} className={cl.btn_right}>
-            <RightIcon />
+    <div className={cl.container}>
+      <div className={cl.slider}>
+        <div onClick={() => setIsLightbox(true)} className={cl.slider_img_box}>
+          <Image src={imgs[active].url} alt="" />
+          <div className={cl.slider_img_box_btns}>
+            <div onClick={(e) => onLeftClick(e)} className={cl.btn_left}>
+              <LeftIcon />
+            </div>
+            <div onClick={(e) => onRightClick(e)} className={cl.btn_right}>
+              <RightIcon />
+            </div>
           </div>
         </div>
+        <div className={cl.slider_tumbnails}>
+          {imgs.map((img, index) => (
+            <Image
+              onClick={() => setActive(index)}
+              key={index}
+              src={img.url}
+              alt=""
+              className={
+                index === active
+                  ? [cl.slider_tumbnails_item, cl._active].join(" ")
+                  : cl.slider_tumbnails_item
+              }
+            />
+          ))}
+        </div>
+        {isLightbox && (
+          <Lightbox onClose={() => setIsLightbox(false)}>
+            <Image className={cl.lightbox} src={imgs[active].url} alt="" />
+          </Lightbox>
+        )}
       </div>
-      <div className={cl.slider_tumbnails}>
-        {imgs.map((img, index) => (
-          <Image
-            onClick={() => setActive(index)}
-            key={index}
-            src={img.url}
-            alt=""
-            className={
-              index === active
-                ? [cl.slider_tumbnails_item, cl._active].join(" ")
-                : cl.slider_tumbnails_item
-            }
-          />
-        ))}
-      </div>
-      {isLightbox && (
-        <Lightbox onClose={() => setIsLightbox(false)}>
-          <Image className={cl.lightbox} src={imgs[active].url} alt="" />
-        </Lightbox>
-      )}
+      {children && <div className={cl.body}>{children}</div>}
     </div>
   );
 };
