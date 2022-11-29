@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import cl from "../styles/components/Sidebar.module.sass";
 import DoubleLeftIcon from "./Icons/DoubleLeftIcon";
 import ListIcon from "./Icons/ListIcon";
+import { routes } from "../routes";
 
 
 const Sidebar = () => {
@@ -21,12 +22,11 @@ const Sidebar = () => {
         className={isOpen ? [cl.container, cl.open].join(" ") : cl.container}
       >
         <div onClick={(e) => e.stopPropagation()} className={cl.sidebar}>
-          <Link href="/">
-            <div className={cl.menu_btn}>Главная</div>
-          </Link>
-          <div className={cl.menu_btn}>Menu 1</div>
-          <div className={cl.menu_btn}>Menu 2</div>
-          <div className={cl.menu_btn}>Menu 3</div>
+          {routes.map((route, index) => (
+            <Link key={index} href={route.href}>
+              <div className={cl.menu_btn}>{route.title}</div>
+            </Link>
+          ))}
           <div onClick={() => setIsOpen(false)} className={cl.double_left_btn}>
             <DoubleLeftIcon />
           </div>

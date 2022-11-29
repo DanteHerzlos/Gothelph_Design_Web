@@ -91,7 +91,7 @@ export default function Home() {
         </div>
       </div>
       <div className={cl.third_section}>
-        <span className={cl.textXL}>ПРЕИМУЩЕСТВА</span>
+        <h2 className={cl.textXL}>ПРЕИМУЩЕСТВА</h2>
         <ImgSlider />
       </div>
       <div style={{ backgroundColor: "#fff", position: "sticky" }}>

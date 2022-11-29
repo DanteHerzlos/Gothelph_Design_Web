@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import React from 'react'
+import Image from "next/image";
+import React from "react";
 import cl from "../styles/components/Carousel.module.sass";
 import cat1 from "../public/cat-1.jpg";
 import cat2 from "../public/cat-2.jpg";
@@ -8,8 +8,14 @@ import cat3 from "../public/cat-3.png";
 const Carousel = () => {
   return (
     <>
-      <div className={cl.container}>
-        <input defaultChecked className={cl.radio_1} type="radio" id="item-1" name="slider" />
+      <div className={cl.carousel}>
+        <input
+          defaultChecked
+          className={cl.radio_1}
+          type="radio"
+          id="item-1"
+          name="slider"
+        />
         <input className={cl.radio_2} type="radio" id="item-2" name="slider" />
         <input className={cl.radio_3} type="radio" id="item-3" name="slider" />
         <div className={cl.cards}>
@@ -26,6 +32,6 @@ const Carousel = () => {
       </div>
     </>
   );
-}
+};
 
-export default Carousel
+export default Carousel;

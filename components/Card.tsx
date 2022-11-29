@@ -5,13 +5,14 @@ import Image from 'next/image';
 
 interface CardProps {
   className?: string
+  title?: string
 }
 
-const Card:React.FC<CardProps> = ({className}) => {
+const Card:React.FC<CardProps> = ({className, title}) => {
   return (
     <div className={cl.card + ' ' + className}>
       <Image src={cat1} alt="" />
-      <span>Text</span>
+      {title && <span>{title}</span>}
     </div>
   )
 }

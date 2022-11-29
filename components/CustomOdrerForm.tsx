@@ -8,6 +8,7 @@ const CustomOdrerForm = () => {
   return (
     <form className={cl.form}>
       <h2>О, моё почтение! Давай зактулхуячем тебе брутальный кастом.</h2>
+      <br/>
       <TextInput placeholder="Имя..." />
       <br />
       <br />
