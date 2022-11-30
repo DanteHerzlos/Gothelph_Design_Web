@@ -9,7 +9,6 @@ datasource db {
 
 model Product {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  type String
   title String
   long_title  String
   body String
@@ -22,6 +21,7 @@ model Product {
 
 model Category {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  type String
   title String
   coverUrl String
   product Product[]

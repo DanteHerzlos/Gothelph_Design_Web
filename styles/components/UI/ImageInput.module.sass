@@ -1,0 +1,30 @@
+.file_container
+  height: 100px
+  width: 100px
+  border: 1px dashed black 
+  border-radius: 10px
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  transition: .3s
+  > img
+    border: 1px solid black 
+    border-radius: 10px
+    width: 100px
+    height: 100px 
+    object-fit: cover
+  > svg
+    transition: .3s
+    width: 2rem
+    height: 2rem
+  &:hover
+    border: dashed 2px 
+    > svg
+      width: 2.5rem
+      height: 2.5rem
+
+
+
+.file_input
+  display: none
