@@ -7,12 +7,12 @@ import Modal from "../../components/UI/Modal";
 import cl from "../../styles/Clothes.module.sass";
 
 const Clothes = () => {
-  const [isModal, setIsModal] = useState<boolean>(false)
+  const [isModal, setIsModal] = useState<boolean>(false);
   return (
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditPanel onAdd={() =>  setIsModal(true)} add edit/>
+          <EditPanel onAdd={() => setIsModal(true)} add edit />
           <Card className={cl.card} />
           <Card className={cl.card} />
           <Card className={cl.card} />
@@ -20,7 +20,11 @@ const Clothes = () => {
           <Card className={cl.card} />
         </div>
       </div>
-      { isModal && <Modal onClose={() => setIsModal(false)}><AddCategoryForm/></Modal>}
+      {isModal && (
+        <Modal onClose={() => setIsModal(false)}>
+          <AddCategoryForm type={"clothes"} />
+        </Modal>
+      )}
     </ClothesLayout>
   );
 };

@@ -4,14 +4,14 @@ import cl from "../../styles/components/UI/ImageInput.module.sass";
 import AddIcon from "../Icons/AddIcon";
 
 interface ImageInputProps {
-  id?: string;
+  name?: string;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({ id = "file" }) => {
+const ImageInput: React.FC<ImageInputProps> = ({ name = "file" }) => {
   const [filePreview, setFilePreview] = useState<string>("");
 
   return (
-    <label className={cl.file_label} htmlFor={id}>
+    <label className={cl.file_label} htmlFor='file'>
       <div className={cl.file_container}>
         {filePreview === "" ? (
           <AddIcon />
@@ -25,11 +25,12 @@ const ImageInput: React.FC<ImageInputProps> = ({ id = "file" }) => {
         )}
       </div>
       <input
+        name={name}
         onChange={(e) =>
           setFilePreview(URL.createObjectURL(e.currentTarget.files![0]))
         }
         className={cl.file_input}
-        id={id}
+        id='file'
         type="file"
         accept="image/*"
       />

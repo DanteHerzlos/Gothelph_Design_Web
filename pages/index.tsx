@@ -1,10 +1,7 @@
-import Head from "next/head";
-import Link from "next/link";
-import Sidebar from "../components/Sidebar";
 import cl from "../styles/Home.module.sass";
 import logo from "../public/logo.png";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import HomeMenu from "../components/HomeMenu";
 import Triangle from "../components/Shapes/Triangle";
 import ImgSlider from "../components/ImgSlider";
