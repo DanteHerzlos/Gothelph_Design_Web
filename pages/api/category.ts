@@ -33,8 +33,16 @@ const handler: NextApiHandler = async (req, res) => {
         return res.status(500).send(error.message);
       }
     });
-  } else {
-    return res.status(500).send("file has not been uploaded");
+  }
+
+  if (req.method === "GET") {
+    try {
+      await dbConnect();
+      const categories = await Category.find({ type: req.query["type"] });
+      return res.status(200).json({ success: true, data: categories });
+    } catch (error: any) {
+      return res.status(500).send(error.message);
+    }
   }
 };
 
@@ -42,8 +50,8 @@ const saveToDB = async (data: ICategory) => {
   try {
     return await Category.create({ ...data });
   } catch (error) {
-    fs.unlinkSync(data.url_img)
-    console.log('delete file: ', data.url_img);
+    fs.unlinkSync(data.url_img);
+    console.log("delete file: ", data.url_img);
   }
 };
 
@@ -58,7 +66,7 @@ const saveFile = (file: File, type: string) => {
   }
 
   fs.writeFileSync(path, data);
-  return path;
+  return path.slice(8);
 };
 
 export default handler;

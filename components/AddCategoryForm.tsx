@@ -1,12 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "./UI/Button";
-import FileInput from "./UI/ImageInput";
+import ImageInput from "./UI/ImageInput";
 import TextInput from "./UI/TextInput";
 import cl from "../styles/components/AddCategoryForm.module.sass";
 import { CategoryType } from "../types/CategoryType";
 import axios from "axios";
-
-
 
 interface AddCategoryFormProps {
   type: CategoryType;
@@ -14,18 +12,26 @@ interface AddCategoryFormProps {
 
 const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
   const formRef = useRef<HTMLFormElement | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const onSubmit = async () => {
+    if (!formRef.current?.checkValidity()) {
+      formRef.current?.reportValidity();
+      return;
+    }
 
-  const onSubmit = async() => {
-    const formData = new FormData(formRef.current!);
-    formData.append("type", type);
+    setIsLoading(true);
+
     try {
-      const { data } = await axios.post("/api/category", formData);  
+      const formData = new FormData(formRef.current!);
+      formData.append("type", type);
+      const { data } = await axios.post("/api/category", formData);
+      formRef.current!.reset();
       console.log(data);
-      
-      return data
     } catch (error: any) {
       console.log(error.response.data);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -33,14 +39,21 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
     <form ref={formRef} className={cl.form}>
       <h2>Добавить категорию</h2>
       <br />
-      <TextInput name="category" id="name" placeholder="Название категории" />
+      <TextInput
+        required
+        name="category"
+        id="name"
+        placeholder="Название категории"
+      />
       <br />
       <br />
       <h3>Изоброжение обложки:</h3>
       <br />
-      <FileInput name="file" />
+      <ImageInput name="file" />
       <br />
-      <Button onClick={onSubmit}>Добавить</Button>
+      <Button progress={isLoading} onClick={onSubmit}>
+        Добавить
+      </Button>
     </form>
   );
 };
