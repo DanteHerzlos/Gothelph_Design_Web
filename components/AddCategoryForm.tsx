@@ -4,7 +4,9 @@ import ImageInput from "./UI/ImageInput";
 import TextInput from "./UI/TextInput";
 import cl from "../styles/components/AddCategoryForm.module.sass";
 import { CategoryType } from "../types/CategoryType";
-import axios from "axios";
+import CategoryService from "../services/CategoryService";
+import { useAppDispatch } from "../hooks/redux";
+import { addCategory } from "../store/reducers/category/categorySlice";
 
 interface AddCategoryFormProps {
   type: CategoryType;
@@ -13,8 +15,10 @@ interface AddCategoryFormProps {
 const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const onSubmit = async () => {
+    formRef.current!.category.value = formRef.current!.category.value.trim();
     if (!formRef.current?.checkValidity()) {
       formRef.current?.reportValidity();
       return;
@@ -25,9 +29,9 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
     try {
       const formData = new FormData(formRef.current!);
       formData.append("type", type);
-      const { data } = await axios.post("/api/category", formData);
+      const { data } = await CategoryService.postCategory(formData);
+      dispatch(addCategory(data));
       formRef.current!.reset();
-      console.log(data);
     } catch (error: any) {
       console.log(error.response.data);
     } finally {

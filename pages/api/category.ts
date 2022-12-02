@@ -39,7 +39,7 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       await dbConnect();
       const categories = await Category.find({ type: req.query["type"] });
-      return res.status(200).json({ success: true, data: categories });
+      return res.status(200).send(categories );
     } catch (error: any) {
       return res.status(500).send(error.message);
     }

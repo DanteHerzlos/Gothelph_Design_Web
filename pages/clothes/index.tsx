@@ -1,4 +1,3 @@
-import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AddCategoryForm from "../../components/AddCategoryForm";
@@ -6,20 +5,29 @@ import Card from "../../components/Card";
 import ClothesLayout from "../../components/ClothesLayout";
 import EditPanel from "../../components/EditPanel";
 import Modal from "../../components/UI/Modal";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import CategoryService from "../../services/CategoryService";
+import { setCategory } from "../../store/reducers/category/categorySlice";
 import cl from "../../styles/Clothes.module.sass";
 import { ICategory } from "../../types/ICategory";
 
 interface ClothesProps {
-  categories: ICategory[];
+  fetchedCategories: ICategory[];
 }
 
-const Clothes: React.FC<ClothesProps> = ({ categories }) => {
+const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
   const [isModal, setIsModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.categoryReducer);
+
+  useEffect(() => {
+    dispatch(setCategory(fetchedCategories));
+  }, [dispatch, fetchedCategories]);
 
   const addCategoryHandle = () => {
-    setIsModal(true)
-  }
-  
+    setIsModal(true);
+  };
+
   return (
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
@@ -47,11 +55,8 @@ const Clothes: React.FC<ClothesProps> = ({ categories }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(
-    "http:127.0.0.1:3000/api/category?type=clothes"
-  );
-
-  return { props: { categories: data.data } };
+  const { data } = await CategoryService.getCategories("clothes");
+  return { props: { fetchedCategories: data } };
 }
 
 export default Clothes;
