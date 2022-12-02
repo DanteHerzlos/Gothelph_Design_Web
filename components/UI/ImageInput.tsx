@@ -11,28 +11,28 @@ const ImageInput: React.FC<ImageInputProps> = ({ name = "file" }) => {
   const [filePreview, setFilePreview] = useState<string>("");
 
   return (
-    <label className={cl.file_label} htmlFor='file'>
+    <label className={cl.file_label} htmlFor="file">
       <div className={cl.file_container}>
         {filePreview === "" ? (
           <AddIcon />
         ) : (
-          <Image
-            width={100}
-            height={100}
-            src={filePreview}
-            alt="preview"
-          />
+          <Image width={100} height={100} src={filePreview} alt="preview" />
         )}
       </div>
       <input
         name={name}
         onChange={(e) =>
-          setFilePreview(URL.createObjectURL(e.currentTarget.files![0]))
+          setFilePreview(
+            e.currentTarget.files && e.currentTarget.files[0]
+              ? URL.createObjectURL(e.currentTarget.files[0])
+              : ""
+          )
         }
         className={cl.file_input}
-        id='file'
+        id="file"
         type="file"
         accept="image/*"
+        required
       />
     </label>
   );
