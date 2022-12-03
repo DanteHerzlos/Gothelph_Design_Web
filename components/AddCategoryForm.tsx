@@ -13,25 +13,24 @@ interface AddCategoryFormProps {
 }
 
 const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
-  const formRef = useRef<HTMLFormElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  const onSubmit = async () => {
-    formRef.current!.category.value = formRef.current!.category.value.trim();
-    if (!formRef.current?.checkValidity()) {
-      formRef.current?.reportValidity();
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    e.currentTarget.category.value = e.currentTarget.category.value.trim();
+    if (!e.currentTarget.checkValidity()) {
+      e.currentTarget.reportValidity();
       return;
     }
-
+    
     setIsLoading(true);
-
     try {
-      const formData = new FormData(formRef.current!);
+      const formData = new FormData(e.currentTarget);
       formData.append("type", type);
       const { data } = await CategoryService.postCategory(formData);
       dispatch(addCategory(data));
-      formRef.current!.reset();
+      e.currentTarget.reset();
     } catch (error: any) {
       console.log(error.response.data);
     } finally {
@@ -40,7 +39,7 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
   };
 
   return (
-    <form ref={formRef} className={cl.form}>
+    <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
       <h2>Добавить категорию</h2>
       <br />
       <TextInput
@@ -55,7 +54,7 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
       <br />
       <ImageInput name="file" />
       <br />
-      <Button progress={isLoading} onClick={onSubmit}>
+      <Button type="submit" progress={isLoading}>
         Добавить
       </Button>
     </form>

@@ -33,6 +33,7 @@ export default function Home() {
       <div className={cl.scroll_animation}>
         <div className={cl.logo_background}></div>
         <Image
+          priority
           style={{ animationDelay: -scroll + "s" }}
           className={cl.logo}
           src={logo}

@@ -4,9 +4,10 @@ import cl from "../../styles/components/UI/Button.module.sass";
 interface ButtonProps {
   children?: string;
   white?: boolean;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   progress?: boolean;
+  type?: "button" | "submit" | "reset"
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,9 +16,11 @@ const Button: React.FC<ButtonProps> = ({
   white,
   onClick,
   progress,
+  type
 }) => {
   return (
-    <div
+    <button
+      type={type}
       onClick={progress ? undefined : onClick}
       className={[
         progress && cl.progress,
@@ -26,8 +29,8 @@ const Button: React.FC<ButtonProps> = ({
         className,
       ].join(" ")}
     >
-      <span>{children}</span>
-    </div>
+      {children}
+    </button>
   );
 };
 
