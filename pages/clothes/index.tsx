@@ -24,19 +24,31 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
     dispatch(setCategory(fetchedCategories));
   }, [dispatch, fetchedCategories]);
 
-  const addCategoryHandle = () => {
+  const addCategoryHandler = () => {
     setIsModal(true);
+  };
+
+  const deleteCategoryHandler = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: string
+  ) => {
+    e.preventDefault()
+ 
+    const data = await CategoryService.removeCategory(id)
+    console.log(data);
+    
   };
 
   return (
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditPanel onAdd={addCategoryHandle} add edit />
+          <EditPanel className={cl.edit_panel} onAdd={addCategoryHandler} addBtn />
           {categories &&
             categories.map((category) => (
               <Link href={"/clothes/" + category._id} key={category._id}>
                 <Card
+                  onDelete={e => deleteCategoryHandler(e, category._id!)}
                   src={category.url_img}
                   title={category.title}
                   className={cl.card}
