@@ -6,6 +6,8 @@ import { randomUUID } from "crypto";
 import dbConnect from "../../lib/dbConnect";
 import Category from "../../models/Category";
 import { ICategory } from "../../types/ICategory";
+import Product from "../../models/Product";
+import mongoose from "mongoose";
 
 export const config = {
   api: {
@@ -14,32 +16,35 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
-  if (req.method === "POST") {
-    const form = new formidable.IncomingForm();
-    form.parse(req, async (err, fields, data) => {
-      try {
-        await dbConnect();
-        
-        const path = saveFile(data.file as File, fields.type as string);
-        const categoryData = {
-          title: fields.category as string,
-          type: fields.type as string,
-          url_img: path,
-        };
-        const newCategory = await saveToDB(categoryData);
+  // if (req.method === "POST") {
+  //   const form = new formidable.IncomingForm();
+  //   form.parse(req, async (err, fields, data) => {
+  //     try {
+  //       await dbConnect();
 
-        return res.status(201).send(newCategory);
-      } catch (error: any) {
-        return res.status(500).send(error.message);
-      }
-    });
-  }
+  //       const path = saveFile(data.file as File, fields.type as string);
+  //       const categoryData = {
+  //         title: fields.category as string,
+  //         type: fields.type as string,
+  //         url_img: path,
+  //       };
+  //       const newCategory = await saveToDB(categoryData);
+
+  //       return res.status(201).send(newCategory);
+  //     } catch (error: any) {
+  //       return res.status(500).send(error.message);
+  //     }
+  //   });
+  // }
 
   if (req.method === "GET") {
     try {
-      await dbConnect();
-      const categories = await Category.find({ type: req.query["type"] });
-      return res.status(200).send(categories );
+      await dbConnect();      
+      const categoryId = new mongoose.Types.ObjectId(req.query["category"] as string);
+      const products = await Product.find({
+        category: categoryId,
+      }).populate('imgs');
+      return res.status(200).send(products);
     } catch (error: any) {
       return res.status(500).send(error.message);
     }
