@@ -1,10 +1,9 @@
 import React, { ReactNode } from 'react'
+import Image from "next/image";
 import Layout from './Layout';
-import Button from './UI/Button';
-import cl from "../styles/components/AutoLayout.module.sass"
-import divider from '../public/autoDivider.jpg'
-import Image from 'next/image';
-import Card from './Card';
+import cl from "../../styles/components/layouts/AutoLayout.module.sass"
+import divider from '../../public/autoDivider.jpg'
+import Card from '../Card';
 
 interface AutoLayoutProps {
   title?: string
@@ -29,8 +28,8 @@ const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
         <div className={cl.services}>
           <h2 className={cl.services_title}>УСЛУГИ АВТОАТЕЛЬЕ</h2>
           <div className={cl.services_cards}>
-            <Card className={cl.card} />
-            <Card className={cl.card} />
+            {/* <Card className={cl.card} />
+            <Card className={cl.card} /> */}
           </div>
         </div>
       </div>

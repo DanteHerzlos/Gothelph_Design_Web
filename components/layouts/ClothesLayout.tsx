@@ -1,9 +1,7 @@
 import React, { ReactNode } from "react";
 import Layout from "./Layout";
-import Button from "./UI/Button";
-import cl from "../styles/components/ClothesLayout.module.sass";
-import Image from "next/image";
-import tri from "../public/Triangle.svg";
+import Button from "../UI/Button";
+import cl from "../../styles/components/layouts/ClothesLayout.module.sass";
 
 interface ClothesLayoutProps {
   title?: string;

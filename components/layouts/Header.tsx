@@ -1,5 +1,5 @@
 import React from 'react'
-import cl from '../styles/components/Header.module.sass'
+import cl from '../../styles/components/layouts/Header.module.sass'
 
 interface HeaderProps {
   title?: string
