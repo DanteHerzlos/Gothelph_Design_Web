@@ -1,22 +1,19 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import AddCategoryForm from "../../components/AddCategoryForm";
+import React, { useEffect } from "react";
 import Card from "../../components/Card";
-import ClothesLayout from "../../components/ClothesLayout";
-import EditPanel from "../../components/EditPanel";
-import Modal from "../../components/UI/Modal";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import ClothesLayout from "../../components/layouts/ClothesLayout";
+import EditCategoryPanel from "../../components/EditCategoryPanel";
 import CategoryService from "../../services/CategoryService";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setCategory } from "../../store/reducers/category/categorySlice";
-import cl from "../../styles/Clothes.module.sass";
 import { ICategory } from "../../types/ICategory";
+import cl from "../../styles/Clothes.module.sass";
 
 interface ClothesProps {
   fetchedCategories: ICategory[];
 }
 
 const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
-  const [isModal, setIsModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.categoryReducer);
 
@@ -24,50 +21,28 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
     dispatch(setCategory(fetchedCategories));
   }, [dispatch, fetchedCategories]);
 
-  const addCategoryHandler = () => {
-    setIsModal(true);
-  };
-
-  const deleteCategoryHandler = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    id: string
-  ) => {
-    e.preventDefault()
- 
-    const data = await CategoryService.removeCategory(id)
-    console.log(data);
-    
-  };
-
   return (
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditPanel className={cl.edit_panel} onAdd={addCategoryHandler} addBtn />
+          <EditCategoryPanel className={cl.edit_panel} addBtn />
           {categories &&
             categories.map((category) => (
-              <Link href={"/clothes/" + category._id} key={category._id}>
-                <Card
-                  onDelete={e => deleteCategoryHandler(e, category._id!)}
-                  src={category.url_img}
-                  title={category.title}
-                  className={cl.card}
-                />
-              </Link>
+              <div className={cl.card_editpanel} key={category._id}>
+                <EditCategoryPanel category={category} editBtn deleteBtn />
+                <Link href={"/clothes/" + category._id}>
+                  <Card category={category} className={cl.card} />
+                </Link>
+              </div>
             ))}
         </div>
       </div>
-      {isModal && (
-        <Modal onClose={() => setIsModal(false)}>
-          <AddCategoryForm type={"clothes"} />
-        </Modal>
-      )}
     </ClothesLayout>
   );
 };
 
 export async function getServerSideProps() {
-  const { data } = await CategoryService.getCategories("clothes");
+  const data = await CategoryService.getCategories("clothes");
   return { props: { fetchedCategories: data } };
 }
 

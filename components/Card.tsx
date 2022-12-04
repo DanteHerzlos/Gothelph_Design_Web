@@ -1,21 +1,18 @@
 import React from "react";
 import cl from "../styles/components/Card.module.sass";
 import Image from "next/image";
-import EditPanel from "./EditPanel";
+import { ICategory } from "../types/ICategory";
 
 interface CardProps {
   className?: string;
-  title?: string;
-  onDelete?: React.MouseEventHandler<HTMLDivElement>;
-  src: string;
+  category: ICategory
 }
 
-const Card: React.FC<CardProps> = ({onDelete, className, title, src }) => {
+const Card: React.FC<CardProps> = ({ className, category }) => {
   return (
     <div className={cl.card + " " + className}>
-      <EditPanel onDelete={onDelete} onEdit={(e) => e.preventDefault()} editBtn deleteBtn />
-      <Image fill src={src} alt={title || ""} />
-      {title && <span>{title}</span>}
+      <Image fill src={category.url_img} alt={category.title || ""} />
+      {category.title && <span>{category.title}</span>}
     </div>
   );
 };

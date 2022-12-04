@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import Carousel from "../../components/Carousel";
-import CustomOdrerForm from "../../components/CustomOdrerForm";
-import Footer from "../../components/Footer";
-import Layout from "../../components/Layout";
-import Sidebar from "../../components/Sidebar";
+import CustomOdrerForm from "../../components/forms/CustomOdrerForm";
+import Layout from "../../components/layouts/Layout";
 import Button from "../../components/UI/Button";
-import Modal from "../../components/UI/Modal";
-import cl from '../../styles/Custom.module.sass'
+import cl from "../../styles/Custom.module.sass";
 
 const Custom = () => {
-  const [isActive, setIsActive] = useState<boolean>(true)
-  const [isOrderForm, setIsOrderForm] = useState<boolean>(false)
-
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const [isOrderForm, setIsOrderForm] = useState<boolean>(false);
 
   return (
     <Layout title="Custom Collection">
@@ -33,9 +29,7 @@ const Custom = () => {
         </div>
         <div className={cl.description_container}>
           <div className={cl.order_btn}>
-            <Button onClick={() => setIsOrderForm(true)}>
-              Заказать Кастом
-            </Button>
+            <CustomOdrerForm  />
           </div>
           <div className={cl.description}>
             <h3>Кастомная касуха Cannibal Corpse.</h3>
@@ -53,12 +47,6 @@ const Custom = () => {
             <p>Сделано с ненавистью к тебе и с любовью к металу.</p>
           </div>
         </div>
-
-        {isOrderForm && (
-          <Modal onClose={() => setIsOrderForm(false)}>
-            <CustomOdrerForm />
-          </Modal>
-        )}
       </>
     </Layout>
   );

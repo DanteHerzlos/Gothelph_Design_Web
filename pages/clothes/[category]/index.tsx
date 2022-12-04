@@ -1,13 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import Card from "../../../components/Card";
-import ClothesLayout from "../../../components/ClothesLayout";
-import EditPanel from "../../../components/EditPanel";
+import ClothesLayout from "../../../components/layouts/ClothesLayout";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import ProductService from "../../../services/ProductService";
 import { setProduct } from "../../../store/reducers/product/productSlice";
 import cl from "../../../styles/Clothes.module.sass";
 import { IProduct } from "../../../types/IProduct";
+import EditCategoryPanel from "../../../components/EditCategoryPanel";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];
@@ -26,21 +25,19 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
     dispatch(setProduct(fetchedProducts));
   }, [dispatch, fetchedProducts]);
 
-  const addProductHandle = () => {};
-
   return (
     <ClothesLayout title={"КАТАЛОГ " + category}>
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditPanel className={cl.edit_panel} onAdd={addProductHandle} addBtn />
-          {products &&
+          <EditCategoryPanel className={cl.edit_panel} addBtn />
+          {/* {products &&
             products.map((product) => (
               <Card
                 key={product._id}
                 title={product.title}
                 src={product.imgs[0].url}
               />
-            ))}
+            ))} */}
         </div>
       </div>
     </ClothesLayout>
