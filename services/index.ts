@@ -1,14 +1,23 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+
 // import AuthService from "./AuthService";
 
-const $host = axios.create({
-  baseURL: process.env.API_URL,
-});
 
-const $authHost = axios.create({
-  // withCredentials: true,
-  baseURL: '/api',
-});
+const baseURL = process.env.API_URL
+const $host = async (url:string, ...params:RequestInit[]) => {
+  const res = await fetch(baseURL + url, ...params);
+  return res.json();
+
+}
+
+// const $host = axios.create({
+//   baseURL: process.env.API_URL,
+// });
+
+const $authHost = async (url: string, ...params: RequestInit[]) => {
+  const res = await fetch('/api' + url, ...params);
+  return res.json()
+};//credentials
+
 
 // $authHost.interceptors.request.use((config: AxiosRequestConfig) => {
 //   config.headers.authorization = `Bearer ${localStorage.getItem("token")}`;
