@@ -1,5 +1,5 @@
 import React from "react";
-import ClothesLayout from "../../../components/ClothesLayout";
+import ClothesLayout from "../../../components/layouts/ClothesLayout";
 import GallerySlider from "../../../components/GallerySlider";
 import ItemInfo from "../../../components/ItemInfo";
 import cl from "../../../styles/ProductItem.module.sass";

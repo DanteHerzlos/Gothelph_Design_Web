@@ -21,7 +21,8 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      onClick={progress ? undefined : onClick}
+      disabled={progress}
+      onClick={onClick}
       className={[
         progress && cl.progress,
         white && cl.white,

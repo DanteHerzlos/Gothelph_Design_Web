@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import HomeMenu from "../components/HomeMenu";
 import Triangle from "../components/Shapes/Triangle";
 import ImgSlider from "../components/ImgSlider";
-import Footer from "../components/Footer";
+import Footer from "../components/layouts/Footer";
 import useElementOnScreenOnce from "../hooks/useElementOnScreenOnce";
 
 export default function Home() {

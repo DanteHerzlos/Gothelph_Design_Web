@@ -1,5 +1,5 @@
 import React from 'react'
-import AutoLayout from '../../../components/AutoLayout'
+import AutoLayout from '../../../components/layouts/AutoLayout'
 import GallerySlider from '../../../components/GallerySlider';
 import ItemInfo from '../../../components/ItemInfo';
 import cl from "../../../styles/ProductItem.module.sass";

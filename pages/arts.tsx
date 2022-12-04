@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../components/Card";
 import ImgSplitSlider from "../components/ImgSplitSlider";
-import Layout from "../components/Layout";
+import Layout from "../components/layouts/Layout";
 import Button from "../components/UI/Button";
 import cl from "../styles/Arts.module.sass"
 
@@ -17,9 +17,9 @@ const Arts = () => {
             <span>ПРАЙС</span>
           </div>
           <div className={cl.cards}>
+            {/* <Card className={cl.card} />
             <Card className={cl.card} />
-            <Card className={cl.card} />
-            <Card className={cl.card} />
+            <Card className={cl.card} /> */}
           </div>
           <div className={cl.btn}>
             <Button>Сделать заказ</Button>

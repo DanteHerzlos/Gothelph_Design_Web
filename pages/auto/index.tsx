@@ -1,5 +1,5 @@
 import React from "react";
-import AutoLayout from "../../components/AutoLayout";
+import AutoLayout from "../../components/layouts/AutoLayout";
 import ImgSplitSlider from "../../components/ImgSplitSlider";
 import Button from "../../components/UI/Button";
 import cl from '../../styles/Auto.module.sass'

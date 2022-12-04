@@ -4,37 +4,50 @@ import cl from "../../styles/components/UI/ImageInput.module.sass";
 import AddIcon from "../Icons/AddIcon";
 
 interface ImageInputProps {
+  required?: boolean;
   name?: string;
+  defaultValue?: string;
+  id?: string
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({ name = "file" }) => {
-  const [filePreview, setFilePreview] = useState<string>("");
+const ImageInput: React.FC<ImageInputProps> = ({
+  required,
+  defaultValue = "",
+  name = "file",
+  id,
+}) => {
+  const [filePreview, setFilePreview] = useState<string>(defaultValue);
+
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    setFilePreview(
+      e.currentTarget.files && e.currentTarget.files[0]
+        ? URL.createObjectURL(e.currentTarget.files[0])
+        : ""
+    );
+  };
 
   return (
-    <label className={cl.file_label} htmlFor="file">
-      <div className={cl.file_container}>
-        {filePreview === "" ? (
-          <AddIcon />
-        ) : (
-          <Image width={100} height={100} src={filePreview} alt="preview" />
-        )}
-      </div>
-      <input
-        name={name}
-        onChange={(e) =>
-          setFilePreview(
-            e.currentTarget.files && e.currentTarget.files[0]
-              ? URL.createObjectURL(e.currentTarget.files[0])
-              : ""
-          )
-        }
-        className={cl.file_input}
-        id="file"
-        type="file"
-        accept="image/*"
-        required
-      />
-    </label>
+    <div className={cl.file_container}>
+      <label className={cl.file_label} htmlFor={id}>
+        <div className={cl.file_input_preview}>
+          <input
+            required={required}
+            name={name}
+            onChange={(e) => inputChangeHandler(e)}
+            className={cl.file_input}
+            id={id}
+            type="file"
+            accept="image/*"
+          />
+          {filePreview === "" ? (
+            <AddIcon />
+          ) : (
+            <Image width={100} height={100} src={filePreview} alt="preview" />
+          )}
+        </div>
+      </label>
+    </div>
   );
 };
 
