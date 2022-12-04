@@ -6,7 +6,7 @@ import ProductService from "../../../services/ProductService";
 import { setProduct } from "../../../store/reducers/product/productSlice";
 import cl from "../../../styles/Clothes.module.sass";
 import { IProduct } from "../../../types/IProduct";
-import EditCategoryPanel from "../../../components/EditCategoryPanel";
+import EditProductPanel from "../../../components/EditProductPanel";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];
@@ -29,7 +29,7 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
     <ClothesLayout title={"КАТАЛОГ " + category}>
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditCategoryPanel className={cl.edit_panel} addBtn />
+          <EditProductPanel className={cl.edit_panel} addBtn />
           {/* {products &&
             products.map((product) => (
               <Card

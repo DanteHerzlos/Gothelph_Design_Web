@@ -19,12 +19,20 @@ export const productSlice = createSlice({
     addProduct(state, action: PayloadAction<IProduct>) {
       state.products.push(action.payload);
     },
+    updateProduct(state, action: PayloadAction<IProduct>) {
+      state.products = state.products.map((product) =>
+        product._id === action.payload._id ? action.payload : product
+      );
+    },
     removeProduct(state, action: PayloadAction<string>) {
-      state.products.filter((product) => product._id !== action.payload);
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload
+      );
     },
   },
 });
 
-export const { setProduct, addProduct, removeProduct } = productSlice.actions;
+export const { setProduct, addProduct, updateProduct, removeProduct } =
+  productSlice.actions;
 
 export default productSlice.reducer;
