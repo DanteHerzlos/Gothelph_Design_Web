@@ -45,10 +45,10 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
 };
 
 export async function getServerSideProps(context: any) {
-  const { data } = await ProductService.getProductsByCategory(
+  const data = await ProductService.getProductsByCategory(
     context.query["category"]
   );
-  return { props: { fetchedProducts: null } };
+  return { props: { fetchedProducts: data } };
 }
 
 export default ClothesCategory;
