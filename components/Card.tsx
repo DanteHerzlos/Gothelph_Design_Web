@@ -5,14 +5,15 @@ import { ICategory } from "../types/ICategory";
 
 interface CardProps {
   className?: string;
-  category: ICategory
+  title?: string;
+  src: string;
 }
 
-const Card: React.FC<CardProps> = ({ className, category }) => {
+const Card: React.FC<CardProps> = ({ className, title, src }) => {
   return (
     <div className={cl.card + " " + className}>
-      <Image fill src={category.url_img} alt={category.title || ""} />
-      {category.title && <span>{category.title}</span>}
+      <Image fill src={src} alt={title || ""} />
+      {title && <span>{title}</span>}
     </div>
   );
 };
