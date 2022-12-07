@@ -11,6 +11,7 @@ interface EditProductPanelProps {
   deleteBtn?: boolean;
   className?: string;
   product?: IProduct;
+  category?: string
 }
 
 const EditProductPanel: React.FC<EditProductPanelProps> = ({
@@ -19,12 +20,13 @@ const EditProductPanel: React.FC<EditProductPanelProps> = ({
   deleteBtn = false,
   className,
   product,
+  category
 }) => {
   // if(!isAuth) return <></>
 
   return (
     <div className={cl.panel + " " + className}>
-      {addBtn && <AddProductForm />}
+      {addBtn && <AddProductForm category={category!} />}
       {editBtn && <EditProductForm product={product!} />}
       {deleteBtn && <DeleteProductForm product={product!} />}
     </div>
