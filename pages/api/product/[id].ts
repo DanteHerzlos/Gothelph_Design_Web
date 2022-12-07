@@ -5,6 +5,7 @@ import fs from "fs";
 import saveFile from "../../../handlers/saveFile";
 import formidable, { File } from "formidable";
 import updateFiledataToDB from "../../../handlers/updateFiledataToDB";
+import Img from "../../../models/Img";
 
 export const config = {
   api: {
@@ -13,6 +14,18 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  if (req.method === "GET") {
+    const { query } = req;
+    const { id } = query;
+    try {
+      await dbConnect();
+      const product = await Product.findById(id).populate({path: "imgs", model: Img});
+      return res.status(200).send(product);
+    } catch (error: any) {
+      return res.status(500).send(error.message);
+    }
+  }
+
   if (req.method === "DELETE") {
     try {
       const { query } = req;
@@ -39,10 +52,10 @@ const handler: NextApiHandler = async (req, res) => {
     form.parse(req, async (err, fields, data) => {
       try {
         await dbConnect();
-    //     let productData;
+        //     let productData;
         // if (data.hasOwnProperty("file")) {
         //   const product = await Product.findById(id);
-          // const path = saveFile(data.file as File, product.type as string);
+        // const path = saveFile(data.file as File, product.type as string);
         //   fs.unlinkSync("./public" + product.url_img);
         //   console.log("delete file: ", "./public" + product.url_img);
         //   productData = {
@@ -58,7 +71,7 @@ const handler: NextApiHandler = async (req, res) => {
         //   id as string,
         //   productData
         // );
-        return res.status(200).send('updatedProduct');
+        return res.status(200).send("updatedProduct");
       } catch (error: any) {
         return res.status(500).send(error.message);
       }
