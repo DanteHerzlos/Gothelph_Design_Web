@@ -1,48 +1,63 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/redux";
 import Button from "../UI/Button";
-import EditButton from "../UI/EditButton";
-import Modal from "../UI/Modal";
 import TextInput from "../UI/TextInput";
-import cl from "../../styles/components/forms/EditProductForm.module.sass";
+import ProductService from "../../services/ProductService";
+import { useAppDispatch } from "../../hooks/redux";
+import Modal from "../UI/Modal";
+import AddButton from "../UI/AddButton";
+import cl from "../../styles/components/forms/AddProductForm.module.sass";
 import Message from "../UI/Message";
-import { IProduct } from "../../types/IProduct";
-import MultiImageInput from "../UI/MultiImageInput";
+import { addProduct } from "../../store/reducers/product/productSlice";
 import Textarea from "../UI/Textarea";
+import MultiImageInput from "../UI/MultiImageInput";
+import ImgService from "../../services/ImgService";
 import { FilePreview } from "../../types/FilePreview";
 
-interface EditProductFormProps {
-  product: IProduct;
+interface AddProductFormProps {
+  category: string
 }
 
-const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
+const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [files, setFiles] = useState<FilePreview[]>([]);
-
   const dispatch = useAppDispatch();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
+    const form = e.currentTarget
+    const productImgs = [];
 
-  const onOpenModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    setOpen(true);
-  };
+    setIsLoading(true);
+    try {
+      for (const file of files) {
+        const imgFormData = new FormData();
+        imgFormData.append("file", file.file);
+        imgFormData.append("position", file.position.toString());
+        imgFormData.append("type", "product");
+        const img = await ImgService.postImg(imgFormData);
+        productImgs.push(img);
+      }
 
-  const onCloseModal = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    e.preventDefault();
-    setOpen(false);
+      const ProductformData = new FormData(form);
+      ProductformData.append("imgs", JSON.stringify(productImgs));
+      ProductformData.append("category", category);
+      const product = await ProductService.postProduct(ProductformData);
+      dispatch(addProduct(product))
+    } catch (error: any) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
-      <EditButton onClick={(e) => onOpenModal(e)} />
+      <AddButton onClick={() => setOpen(true)} />
       <Modal open={open} onClose={(e) => setOpen(false)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
-          <h2>Изменить продукт</h2>
+          <h2>Добавить продукт</h2>
           <br />
           <TextInput
             required
@@ -76,16 +91,15 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
           <h3>Фото продукта:</h3>
           <br />
           <MultiImageInput
-            filesPreview={files}
             setFilesPreview={setFiles}
+            filesPreview={files}
             required
-            name="file"
           />
           <br />
           <Message message={errorMessage} onClick={() => setErrorMessage("")} />
           <br />
           <Button type="submit" progress={isLoading}>
-            Изменить
+            Добавить
           </Button>
         </form>
       </Modal>
@@ -93,4 +107,4 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
   );
 };
 
-export default EditProductForm;
+export default AddProductForm;
