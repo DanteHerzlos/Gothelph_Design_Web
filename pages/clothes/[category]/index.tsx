@@ -7,6 +7,8 @@ import { setProduct } from "../../../store/reducers/product/productSlice";
 import cl from "../../../styles/Clothes.module.sass";
 import { IProduct } from "../../../types/IProduct";
 import EditProductPanel from "../../../components/EditProductPanel";
+import Card from "../../../components/Card";
+import Link from "next/link";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];
@@ -29,15 +31,24 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
     <ClothesLayout title={"КАТАЛОГ " + category}>
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditProductPanel className={cl.edit_panel} addBtn />
-          {/* {products &&
+          <EditProductPanel
+            category={category as string}
+            className={cl.edit_panel}
+            addBtn
+          />
+          {products &&
             products.map((product) => (
-              <Card
-                key={product._id}
-                title={product.title}
-                src={product.imgs[0].url}
-              />
-            ))} */}
+              <div className={cl.card_editpanel} key={product._id}>
+                <EditProductPanel product={product} editBtn deleteBtn />
+                <Link href={`/clothes/${category}/${product._id}`}>
+                  <Card
+                    title={product.title}
+                    src={product.imgs[0].url}
+                    className={cl.card}
+                  />
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
     </ClothesLayout>
@@ -48,6 +59,7 @@ export async function getServerSideProps(context: any) {
   const data = await ProductService.getProductsByCategory(
     context.query["category"]
   );
+  
   return { props: { fetchedProducts: data } };
 }
 

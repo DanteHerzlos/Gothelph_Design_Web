@@ -25,13 +25,22 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditCategoryPanel className={cl.edit_panel} addBtn />
+          <EditCategoryPanel type="clothes" className={cl.edit_panel} addBtn />
           {categories &&
             categories.map((category) => (
               <div className={cl.card_editpanel} key={category._id}>
-                <EditCategoryPanel category={category} editBtn deleteBtn />
+                <EditCategoryPanel
+                  type="clothes"
+                  category={category}
+                  editBtn
+                  deleteBtn
+                />
                 <Link href={"/clothes/" + category._id}>
-                  <Card category={category} className={cl.card} />
+                  <Card
+                    src={category.url_img}
+                    title={category.title}
+                    className={cl.card}
+                  />
                 </Link>
               </div>
             ))}
