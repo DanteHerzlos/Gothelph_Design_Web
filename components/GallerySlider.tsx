@@ -8,52 +8,38 @@ import LeftIcon from "./Icons/LeftIcon";
 import RightIcon from "./Icons/RightIcon";
 import Image from "next/image";
 import Lightbox from "./UI/Lightbox";
+import { IImage } from "../types/IImage";
 
-
-const imgs = [
-  {
-    url: img1,
-    body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  },
-  {
-    url: img2,
-    body: "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-  },
-  {
-    url: img3,
-    body: "but also the leap into electronic typesetting, remaining essentially unchanged",
-  },
-  {
-    url: img4,
-    body: "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-  },
-];
-
-const l = imgs.length
-
-interface GallerySliderProps {  
+interface GallerySliderProps {
+  imgs: IImage[];
   children?: React.ReactNode | string;
 }
 
-const GallerySlider: React.FC<GallerySliderProps> = ({children}) => {
+const GallerySlider: React.FC<GallerySliderProps> = ({ children, imgs }) => {
   const [active, setActive] = useState<number>(0);
   const [isLightbox, setIsLightbox] = useState<boolean>(false);
+  const [imgsLength, setImgsLength] = useState(imgs.length);
 
   const onLeftClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    setActive((prev) => (prev === 0 ? l - 1 : prev - 1));
+    setActive((prev) => (prev === 0 ? imgsLength - 1 : prev - 1));
   };
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    setActive((prev) => (prev === l - 1 ? 0 : prev + 1));
+    setActive((prev) => (prev === imgsLength - 1 ? 0 : prev + 1));
   };
 
   return (
     <div className={cl.container}>
       <div className={cl.slider}>
         <div onClick={() => setIsLightbox(true)} className={cl.slider_img_box}>
-          <Image src={imgs[active].url} alt="" />
+          <Image
+            fill
+            className={cl.slider_img_box__img}
+            src={imgs[active].url}
+            alt=""
+          />
           <div className={cl.slider_img_box_btns}>
             <div onClick={(e) => onLeftClick(e)} className={cl.btn_left}>
               <LeftIcon />
@@ -65,22 +51,26 @@ const GallerySlider: React.FC<GallerySliderProps> = ({children}) => {
         </div>
         <div className={cl.slider_tumbnails}>
           {imgs.map((img, index) => (
-            <Image
-              onClick={() => setActive(index)}
-              key={index}
-              src={img.url}
-              alt=""
+            <div
+              key={img.url}
               className={
                 index === active
                   ? [cl.slider_tumbnails_item, cl._active].join(" ")
                   : cl.slider_tumbnails_item
               }
-            />
+            >
+              <Image
+                fill
+                onClick={() => setActive(index)}
+                src={img.url}
+                alt=""
+              />
+            </div>
           ))}
         </div>
         {isLightbox && (
           <Lightbox onClose={() => setIsLightbox(false)}>
-            <Image className={cl.lightbox} src={imgs[active].url} alt="" />
+            <Image fill className={cl.lightbox} src={imgs[active].url} alt="" />
           </Lightbox>
         )}
       </div>

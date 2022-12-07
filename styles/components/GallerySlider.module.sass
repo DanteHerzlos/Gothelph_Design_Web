@@ -10,13 +10,16 @@ $tumbnail_gap: calc($tumbnail_img_width/8)
 .slider_img_box
   cursor: zoom-in
   display: flex
+  height: $img_height
   position: relative
-  > img
-    width: 100%
-    height: $img_height
-    object-fit: cover
+
+.slider_img_box__img
+  width: 100%
+  height: $img_height
+  object-fit: cover
 
 .slider_tumbnails
+  position: relative
   display: flex
   justify-content: flex-start
   margin-top: $tumbnail_gap
@@ -25,16 +28,19 @@ $tumbnail_gap: calc($tumbnail_img_width/8)
   width: 100%
 
 .slider_tumbnails_item
+  position: relative
   height: $tumbnail_img_width
   width: $tumbnail_img_width
   opacity: 0.5
   cursor: pointer
-  object-fit: cover
   transition: .3s
   &:hover
     opacity: 0.8
   &._active
     opacity: 1
+  > img
+    object-fit: cover
+
 
 .slider_img_box_btns
   position: absolute
@@ -64,8 +70,6 @@ $tumbnail_gap: calc($tumbnail_img_width/8)
 
 .lightbox
   display: flex
-  width: 100%
-  height: 100%
   object-fit: contain
 
 .container
@@ -99,5 +103,5 @@ $tumbnail_gap: calc($tumbnail_img_width/8)
     height: 100%
   .slider
     width: 100%
-  .slider_img_box > img
+  .slider_img_box
     height: $img_height

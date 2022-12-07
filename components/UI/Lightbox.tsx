@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
 import cl from "../../styles/components/UI/Lightbox.module.sass";
 
 interface LightboxProps {
   onClose?: React.MouseEventHandler<HTMLSpanElement>;
   children?: React.ReactElement;
 }
-const Lightbox:React.FC<LightboxProps> = ({ onClose, children }) => {
+const Lightbox: React.FC<LightboxProps> = ({ onClose, children }) => {
   return (
-    <div onClick={onClose} className={cl.container}>
+    <div
+      onClick={onClose}
+      className={cl.container}
+    >
       <span onClick={onClose} className={cl.close_btn}>
         &times;
       </span>
@@ -18,4 +21,4 @@ const Lightbox:React.FC<LightboxProps> = ({ onClose, children }) => {
   );
 };
 
-export default Lightbox
+export default Lightbox;

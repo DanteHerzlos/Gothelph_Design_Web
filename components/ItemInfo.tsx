@@ -1,44 +1,44 @@
 import React from "react";
 import cl from "../styles/components/ItemInfo.module.sass";
+import { IProduct } from "../types/IProduct";
 import Button from "./UI/Button";
 
-const item = {
-  title: "КИЛТ МУЖСКОЙ С КОЖАННЫМИ ВСТАВКАМИ “VALHALLA”. BLACK.",
-  price: "9000 Р",
-  sizes: ["XS", "M", "L"],
-  info: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-};
+interface ItemInfoProps {
+  product: IProduct
+}
 
-const ItemInfo = () => {
+const ItemInfo:React.FC<ItemInfoProps> = ({product}) => {
   return (
     <div className={cl.body}>
       <div className={cl.title}>
-        <h3>{item.title}</h3>
+        <h1>{product.title}</h1>
       </div>
       <div className={cl.price}>
-        <span>{item.price}</span>
+        <span>{product.price} ₽</span>
       </div>
-      {item.sizes.length ? (
+      {product.sizes ? (
         <div className={cl.sizes}>
           <span>Размер:</span>
-          <div className={cl.sizes_bnts}>
-            {item.sizes.map((size, index) => (
-              <Button key={index} className={cl.sizes_bnts__btn} white>
+          <div className={cl.sizes_btns}>
+            {product.sizes.map((size, index) => (
+              <Button key={index} className={cl.sizes_btns__btn} white>
                 {size}
               </Button>
             ))}
           </div>
         </div>
-      ): <></>}
+      ) : (
+        <></>
+      )}
       <div>
         <Button className={cl.buy_btn} white>
           купить
         </Button>
       </div>
       <div className={cl.info}>
-        <p>
-          {item.info}
-        </p>
+        <h3>{product.long_title}</h3>
+        <br/>
+        <p>{product.body}</p>
       </div>
     </div>
   );
