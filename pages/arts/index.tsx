@@ -3,7 +3,7 @@ import Card from "../../components/Card";
 import ImgSplitSlider from "../../components/ImgSplitSlider";
 import Layout from "../../components/layouts/Layout";
 import Button from "../../components/UI/Button";
-import cl from "../styles/Arts.module.sass"
+import cl from "../../styles/Arts.module.sass"
 
 const Arts = () => {
   return (

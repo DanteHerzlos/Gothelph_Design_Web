@@ -1,7 +1,7 @@
 import React from "react";
 import cl from "../styles/components/EditPanel.module.sass";
 import { IProduct } from "../types/IProduct";
-import AddProductForm from "./forms/AddPeoductForm";
+import AddProductForm from "./forms/AddProductForm";
 import DeleteProductForm from "./forms/DeleteProductForm";
 import EditProductForm from "./forms/EditProductForm";
 

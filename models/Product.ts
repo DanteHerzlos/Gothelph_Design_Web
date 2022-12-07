@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IProduct } from "../types/IProduct";
 
-const ProductSchema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema<IProduct>({
   title: {
     // Short product title
     type: String,

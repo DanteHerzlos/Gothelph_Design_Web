@@ -35,11 +35,6 @@ const DeleteCategoryForm: React.FC<DeleteCategoryFormProps> = ({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.currentTarget.confirm.value = e.currentTarget.confirm.value.trim();
-    if (!e.currentTarget.checkValidity()) {
-      e.currentTarget.reportValidity();
-      return;
-    }
 
     if (category._id && e.currentTarget.confirm.value === category._id) {
       setIsLoading(true);

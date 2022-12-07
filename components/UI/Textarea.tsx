@@ -18,8 +18,13 @@ const Textarea: React.FC<TextareaProps> = ({
   onChange,
   id,
 }) => {
+  const blurHandler = (e: React.FocusEvent<HTMLTextAreaElement, Element>) => {
+    e.currentTarget.value = e.currentTarget.value.trim();
+  };
+
   return (
     <textarea
+      onBlur={(e) => blurHandler(e)}
       className={cl.input}
       defaultValue={defaultValue}
       rows={7}

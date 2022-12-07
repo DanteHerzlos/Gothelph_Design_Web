@@ -23,11 +23,6 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.currentTarget.category.value = e.currentTarget.category.value.trim();
-    if (!e.currentTarget.checkValidity()) {
-      e.currentTarget.reportValidity();
-      return;
-    }
 
     const form = e.currentTarget;
     const formData = new FormData(form);

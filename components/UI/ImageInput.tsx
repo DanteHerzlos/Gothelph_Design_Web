@@ -7,7 +7,7 @@ interface ImageInputProps {
   required?: boolean;
   name?: string;
   defaultValue?: string;
-  id?: string
+  id?: string;
 }
 
 const ImageInput: React.FC<ImageInputProps> = ({
@@ -19,7 +19,6 @@ const ImageInput: React.FC<ImageInputProps> = ({
   const [filePreview, setFilePreview] = useState<string>(defaultValue);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
     setFilePreview(
       e.currentTarget.files && e.currentTarget.files[0]
         ? URL.createObjectURL(e.currentTarget.files[0])

@@ -23,11 +23,7 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.currentTarget.category.value = e.currentTarget.category.value.trim();
-    if (!e.currentTarget.checkValidity()) {
-      e.currentTarget.reportValidity();
-      return;
-    }
+    
     const form = e.currentTarget;
     const formData = new FormData();    
     if (form.file.files.length) {

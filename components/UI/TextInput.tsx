@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import cl from "../../styles/components/UI/TextInput.module.sass";
 
 interface TextInputProps {
@@ -8,7 +8,8 @@ interface TextInputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   value?: string | number | readonly string[] | undefined;
   defaultValue?: string | number | readonly string[] | undefined;
-  required?: boolean
+  required?: boolean;
+  pattern?: string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -19,11 +20,22 @@ const TextInput: React.FC<TextInputProps> = ({
   onChange,
   value,
   required,
+  pattern,
 }) => {
+  const [invalid, setInvalid] = useState<boolean>(false);
+
+  const blurHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    e.currentTarget.value = e.currentTarget.value.trim();
+    setInvalid(!e.currentTarget.checkValidity()) 
+  };
+
   return (
     <input
+      onInvalid={() => setInvalid(true)}
+      onBlur={(e) => blurHandler(e)}
+      pattern={pattern}
       required={required}
-      className={cl.input}
+      className={invalid ? cl.input + " " + cl.invalid : cl.input}
       placeholder={placeholder}
       name={name}
       id={id}
