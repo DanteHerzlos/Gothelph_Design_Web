@@ -2,10 +2,9 @@ import { NextApiHandler } from "next";
 import dbConnect from "../../../lib/dbConnect";
 import Product from "../../../models/Product";
 import fs from "fs";
-import saveFile from "../../../handlers/saveFile";
-import formidable, { File } from "formidable";
-import updateFiledataToDB from "../../../handlers/updateFiledataToDB";
-import Img from "../../../models/Img";
+import formidable from "formidable";
+import Category from "../../../models/Category";
+import { IImage } from "../../../types/IImage";
 
 export const config = {
   api: {
@@ -19,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     const { id } = query;
     try {
       await dbConnect();
-      const product = await Product.findById(id).populate({path: "imgs", model: Img});
+      const product = await Product.findById(id);
       return res.status(200).send(product);
     } catch (error: any) {
       return res.status(500).send(error.message);
@@ -32,12 +31,16 @@ const handler: NextApiHandler = async (req, res) => {
       const { id } = query;
       await dbConnect();
       const product = await Product.findByIdAndDelete(id);
-      // if (product) {
-      //   const path = "./public/" + product.url_img;
-      //   fs.unlinkSync(path);
-      //   console.log("file has been delete: " + path);
-      // }
-
+      await Category.findByIdAndUpdate(product.category, {
+        $pull: { products: product._id },
+      });
+      if (product.imgs.length) {
+        for (const img of product.imgs) {
+          const path = "./public" + img.url;
+          fs.unlinkSync(path);
+          console.log("file has been deleted: " + path);
+        }
+      }
       return res.status(200).send(product);
     } catch (error: any) {
       return res.status(500).send(error.message);
@@ -52,26 +55,26 @@ const handler: NextApiHandler = async (req, res) => {
     form.parse(req, async (err, fields, data) => {
       try {
         await dbConnect();
-        //     let productData;
-        // if (data.hasOwnProperty("file")) {
-        //   const product = await Product.findById(id);
-        // const path = saveFile(data.file as File, product.type as string);
-        //   fs.unlinkSync("./public" + product.url_img);
-        //   console.log("delete file: ", "./public" + product.url_img);
-        //   productData = {
-        //     title: fields.product as string,
-        //     url_img: path,
-        //   };
-        // } else {
-        //   productData = {
-        //     title: fields.product as string,
-        //   };
-        // }
-        // const updatedProduct = await updateFiledataToDB(
-        //   id as string,
-        //   productData
-        // );
-        return res.status(200).send("updatedProduct");
+
+        const imgs: IImage[] = JSON.parse(fields.imgs as string);
+        const sizes = (fields.sizes as string)
+          .split(",")
+          .map((el) => el.trim());
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+          id,
+          {
+            title: fields.short_title as string,
+            long_title: fields.long_title as string,
+            body: fields.body as string,
+            price: fields.price as string,
+            sizes: sizes,
+            imgs: imgs,
+          },
+          { new: true }
+        );
+
+        return res.status(201).send(updatedProduct);
       } catch (error: any) {
         return res.status(500).send(error.message);
       }

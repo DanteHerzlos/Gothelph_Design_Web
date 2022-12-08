@@ -7,6 +7,8 @@ import Modal from "../UI/Modal";
 import DeleteButton from "../UI/DeleteButton";
 import Message from "../UI/Message";
 import { IProduct } from "../../types/IProduct";
+import ProductService from "../../services/ProductService";
+import { removeProduct } from "../../store/reducers/product/productSlice";
 
 interface DeleteProductFormProps {
   product: IProduct;
@@ -31,6 +33,21 @@ const DeleteProductForm: React.FC<DeleteProductFormProps> = ({ product }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (product._id && e.currentTarget.confirm.value === product._id) {
+      setIsLoading(true);
+
+      try {
+        const data = await ProductService.removeProduct(product._id);
+        if (data) dispatch(removeProduct(product._id));
+        setOpen(false);
+      } catch (error: any) {
+        setErrorMessage(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setErrorMessage("ID не совпадает!");
+    }
   };
 
   return (

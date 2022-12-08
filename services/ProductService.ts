@@ -15,6 +15,6 @@ export default class ProductService {
     return await $authHost(`/product/${id}`, { method: "delete" });
   }
   static async updateProduct(id: string, fd: FormData) {
-    return await $authHost(`/product/edit/${id}`, { method: "put", body: fd });
+    return await $authHost(`/product/${id}`, { method: "put", body: fd });
   }
 }
