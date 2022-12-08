@@ -33,7 +33,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
     try {
       for (const file of files) {
         const imgFormData = new FormData();
-        imgFormData.append("file", file.file);
+        if (file.file !== null) imgFormData.append("file", file.file);
         imgFormData.append("position", file.position.toString());
         imgFormData.append("type", "product");
         const img = await ImgService.postImg(imgFormData);
@@ -45,6 +45,9 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
       ProductformData.append("category", category);
       const product = await ProductService.postProduct(ProductformData);
       dispatch(addProduct(product))
+      setFiles([])
+      form.reset()
+      setOpen(false);
     } catch (error: any) {
       setErrorMessage(error.message);
     } finally {

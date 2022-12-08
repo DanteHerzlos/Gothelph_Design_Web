@@ -20,7 +20,6 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   const router = useRouter();
   const { category } = router.query;
   const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.categoryReducer);
   const { products } = useAppSelector((state) => state.productReducer);
 
   useEffect(() => {

@@ -1,9 +1,8 @@
 import formidable, { File } from "formidable";
 import { NextApiHandler } from "next";
 import saveFile from "../../handlers/saveFile";
-import dbConnect from "../../lib/dbConnect";
-import Img from "../../models/Img";
 import fs from "fs";
+import Product from "../../models/Product";
 
 export const config = {
   api: {
@@ -17,22 +16,37 @@ const handler: NextApiHandler = async (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, data) => {
       try {
-        await dbConnect();
         path = saveFile(data.file as File, fields.type as string);
         const imgData = {
           url: path,
           position: fields.position,
         };
-        const newImg = await Img.create(imgData);
-        return res.status(201).send(newImg);
+        return res.status(201).send(imgData);
       } catch (error: any) {
         if (path !== null) {
           fs.unlinkSync(path);
-          console.log("delete file: ", path);
+          console.log("file has been deleted: " + path);
         }
         return res.status(500).send(error.message);
       }
     });
+  }
+
+  if (req.method === "DELETE") {
+    try {
+      const { query } = req;
+
+      const product = await Product.findById(query["product"]);
+
+      for (const img of product.imgs) {
+        const path = "./public" + img.url;
+        fs.unlinkSync(path);
+        console.log("file has been deleted: " + path);
+      }
+      return res.status(200).send({ message: "ok" });
+    } catch (error: any) {
+      return res.status(500).send(error.message);
+    }
   }
 };
 

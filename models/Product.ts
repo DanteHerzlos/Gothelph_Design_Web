@@ -28,7 +28,7 @@ const ProductSchema = new mongoose.Schema<IProduct>({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
-  imgs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Img" }],
+  imgs: [{ url: String, position: Number }],
 });
 
 export default mongoose.models.Product ||
