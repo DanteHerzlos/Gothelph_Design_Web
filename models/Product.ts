@@ -25,7 +25,7 @@ const ProductSchema = new mongoose.Schema<IProduct>({
     type: String,
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.Mixed,
     ref: "Category",
   },
   imgs: [{ url: String, position: Number }],

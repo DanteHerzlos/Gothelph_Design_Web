@@ -16,15 +16,16 @@ const ItemInfo:React.FC<ItemInfoProps> = ({product}) => {
       <div className={cl.price}>
         <span>{product.price} ₽</span>
       </div>
-      {product.sizes ? (
+      {product.sizes && product.sizes[0] !== "" ? (
         <div className={cl.sizes}>
           <span>Размер:</span>
           <div className={cl.sizes_btns}>
-            {product.sizes.map((size, index) => (
-              <Button key={index} className={cl.sizes_btns__btn} white>
-                {size}
-              </Button>
-            ))}
+            {product.sizes.length &&
+              product.sizes.map((size, index) => (
+                <Button key={index} className={cl.sizes_btns__btn} white>
+                  {size}
+                </Button>
+              ))}
           </div>
         </div>
       ) : (
@@ -37,7 +38,7 @@ const ItemInfo:React.FC<ItemInfoProps> = ({product}) => {
       </div>
       <div className={cl.info}>
         <h3>{product.long_title}</h3>
-        <br/>
+        <br />
         <p>{product.body}</p>
       </div>
     </div>

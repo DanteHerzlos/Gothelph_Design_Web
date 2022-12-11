@@ -9,6 +9,7 @@ import { IProduct } from "../../../types/IProduct";
 import EditProductPanel from "../../../components/EditProductPanel";
 import Card from "../../../components/Card";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];
@@ -18,6 +19,7 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   fetchedProducts,
 }) => {
   const router = useRouter();
+  const rootPath = router.asPath;
   const { category } = router.query;
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.productReducer);
@@ -39,7 +41,7 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
             products.map((product) => (
               <div className={cl.card_editpanel} key={product._id}>
                 <EditProductPanel product={product} editBtn deleteBtn />
-                <Link href={`/clothes/${category}/${product._id}`}>
+                <Link href={[rootPath, product._id].join("/")}>
                   <Card
                     title={product.title}
                     src={product.imgs[0].url}
@@ -54,12 +56,11 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await ProductService.getProductsByCategory(
-    context.query["category"]
+    context.query["category"] as string
   );
-  
   return { props: { fetchedProducts: data } };
-}
+};
 
 export default ClothesCategory;

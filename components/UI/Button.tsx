@@ -7,7 +7,8 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   progress?: boolean;
-  type?: "button" | "submit" | "reset"
+  type?: "button" | "submit" | "reset";
+  onMouseOver?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,18 +17,20 @@ const Button: React.FC<ButtonProps> = ({
   white,
   onClick,
   progress,
-  type
+  type,
+  onMouseOver,
 }) => {
   return (
     <button
+      onMouseOver={onMouseOver}
       type={type}
       disabled={progress}
       onClick={onClick}
       className={[
-        progress && cl.progress,
-        white && cl.white,
-        cl.btn,
         className,
+        progress ? cl.progress : "",
+        white ? cl.white : "",
+        cl.btn,
       ].join(" ")}
     >
       {children}
