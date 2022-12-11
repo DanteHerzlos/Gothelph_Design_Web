@@ -1,21 +1,29 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 import cl from "../../styles/components/layouts/Footer.module.sass";
 
 const Footer = () => {
   return (
     <div className={cl.footer}>
-      <Link className={cl.btn} href="/">
+      <Link target="_blank" className={cl.btn} href="https://t.me/Gothelph">
         TELEGRAM
       </Link>
-      <Link className={cl.btn} href="/">
+      <Link
+        target="_blank"
+        className={cl.btn}
+        href="https://vk.com/gothelph_design"
+      >
         VKONTAKTE
       </Link>
-      <Link className={cl.btn} href="/">
+      <Link
+        target="_blank"
+        className={cl.btn}
+        href="https://www.instagram.com/gothelph"
+      >
         INSTAGRAM
       </Link>
     </div>
   );
-}
+};
 
-export default Footer
+export default Footer;
