@@ -1,55 +1,90 @@
-import React, { useState } from "react";
+import { GetServerSideProps } from "next";
+import React, { useEffect, useState } from "react";
 import Carousel from "../../components/Carousel";
-import CustomOdrerForm from "../../components/forms/CustomOdrerForm";
+import EditProductPanel from "../../components/EditProductPanel";
+import OdrerForm from "../../components/forms/OdrerForm";
 import Layout from "../../components/layouts/Layout";
 import Button from "../../components/UI/Button";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import ProductService from "../../services/ProductService";
+import { setProduct } from "../../store/reducers/product/productSlice";
 import cl from "../../styles/Custom.module.sass";
+import { CategoryType } from "../../types/CategoryType";
+import { IProduct } from "../../types/IProduct";
 
-const Custom = () => {
-  const [isActive, setIsActive] = useState<boolean>(true);
-  const [isOrderForm, setIsOrderForm] = useState<boolean>(false);
+interface CustomProps {
+  fetchedProducts: IProduct[];
+  type: CategoryType
+}
+
+const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
+  const dispatch = useAppDispatch();
+  const { products } = useAppSelector((state) => state.productReducer);
+  const [activeProduct, setActiveProduct] = useState<IProduct | null>(
+    products ? products[0] : null
+  );
+
+  useEffect(() => {
+    setActiveProduct(products[0]);
+  }, [products]);
+
+  useEffect(() => {
+    dispatch(setProduct(fetchedProducts));
+  }, [dispatch, fetchedProducts]);
 
   return (
     <Layout title="Custom Collection">
       <>
         <div className={cl.carousel_container}>
           <div className={cl.carousel_btns}>
+            <EditProductPanel category={type} addBtn />
             <div className={cl.carousel_btns_btns}>
-              <Button>Valhalla</Button>
-              <Button>Cannibal</Button>
-              <Button>Suicide</Button>
-              <Button onClick={() => setIsActive(!isActive)} white={isActive}>
-                Behemoth
-              </Button>
+              {products &&
+                products.map((product) => (
+                  <div key={product._id} className={cl.btn}>
+                    <EditProductPanel product={product} editBtn deleteBtn />
+
+                    <Button
+                      className={
+                        product._id === activeProduct?._id ? cl._active : ""
+                      }
+                      white={product._id === activeProduct?._id}
+                      onClick={() => setActiveProduct(product)}
+                    >
+                      {product.title}
+                    </Button>
+                  </div>
+                ))}
             </div>
           </div>
           <div className={cl.carousel}>
-            <Carousel />
+            {activeProduct && <Carousel imgs={activeProduct.imgs} />}
           </div>
         </div>
         <div className={cl.description_container}>
           <div className={cl.order_btn}>
-            <CustomOdrerForm  />
+            <OdrerForm product_name="Кастом" >Заказать кастом</OdrerForm>
           </div>
           <div className={cl.description}>
-            <h3>Кастомная касуха Cannibal Corpse.</h3>
-            <p>
-              Смотри, дэто же - чертова косуха c Cannibal Corpse. Джорж, мать
-              его, Фишер заценит такой пригид, когда перстанет вызывать Торнадо
-              своей шеей и обратит внимание дэтот шедевр отечественного
-              кожевельного ремесла.
-            </p>
-            <p>
-              Дэто делалась не очумелыми ручками в дестком кружке по рисованию,
-              а таким же трушником, как ты...только талантливее в разы (чсв
-              шутка, не принимать близко к бессердечию.)
-            </p>
-            <p>Сделано с ненавистью к тебе и с любовью к металу.</p>
+            {activeProduct && (
+              <>
+                <h2>{activeProduct.long_title}</h2>
+                <br />
+                <p>{activeProduct.body}</p>
+              </>
+            )}
           </div>
         </div>
       </>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const type = context.resolvedUrl.slice(1);
+  const data = await ProductService.getProductsByCategory(type);
+
+  return { props: { fetchedProducts: data, type: type } };
 };
 
 export default Custom;

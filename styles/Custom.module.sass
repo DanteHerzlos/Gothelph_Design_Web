@@ -2,26 +2,40 @@
   display: flex
 
 .carousel_btns
+  width: 25vw 
+  position: relative
   display: flex 
   align-items: center
 
 .carousel_btns_btns
+  position: relative
   overflow-y: scroll
   overflow-x: hidden
   max-height: 400px
-  width: 25vw
   min-width: 280px
   button
     margin: 1.5rem auto 
     width: 200px
 
+._active
+  transform: translateX(1.5rem)
+
+.btn
+  position: relative
+
 .carousel
+  position: relative
   display: flex
   justify-content: center
   height: 600px 
   width: 75vw
   padding: 2rem
 
+.order_btn
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 0 1rem
 
 .description_container
   margin-top: 3rem  
@@ -32,7 +46,10 @@
   width: 75vw
 
 
-@media (max-width: 768px)
+@media (max-width: 950px)
+  .carousel_btns_btns, .carousel_btns
+    width: 100%
+    min-width: 0
   .carousel_container, .description_container 
     display: block
   .carousel
@@ -45,3 +62,9 @@
   .description
     width: 100%
     padding: 1rem
+  ._active
+    transform: none
+  .carousel_btns_btns
+    button
+      max-width: 400px
+      width: 90%
