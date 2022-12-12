@@ -1,11 +1,14 @@
 import Image from "next/image";
 import React from "react";
 import cl from "../styles/components/Carousel.module.sass";
-import cat1 from "../public/cat-1.jpg";
-import cat2 from "../public/cat-2.jpg";
-import cat3 from "../public/cat-3.png";
+import { IImage } from "../types/IImage";
 
-const Carousel = () => {
+interface CarouselProps {
+  imgs: IImage[]
+  alt?: string
+}
+
+const Carousel: React.FC<CarouselProps> = ({ imgs, alt }) => {
   return (
     <>
       <div className={cl.carousel}>
@@ -20,13 +23,13 @@ const Carousel = () => {
         <input className={cl.radio_3} type="radio" id="item-3" name="slider" />
         <div className={cl.cards}>
           <label className={cl.card_1} htmlFor="item-1" id="card-1">
-            <Image src={cat1} alt="" />
+            <Image fill src={imgs[0].url} alt={alt || ""} />
           </label>
           <label className={cl.card_2} htmlFor="item-2" id="card-2">
-            <Image src={cat2} alt="" />
+            <Image fill src={imgs[1].url} alt={alt || ""} />
           </label>
           <label className={cl.card_3} htmlFor="item-3" id="card-3">
-            <Image src={cat3} alt="" />
+            <Image fill src={imgs[2].url} alt={alt || ""} />
           </label>
         </div>
       </div>
