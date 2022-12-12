@@ -10,6 +10,7 @@ import Modal from "../UI/Modal";
 import AddButton from "../UI/AddButton";
 import cl from "../../styles/components/forms/AddCategoryForm.module.sass";
 import Message from "../UI/Message";
+import Textarea from "../UI/Textarea";
 
 interface AddCategoryFormProps {
   type: CategoryType;
@@ -41,7 +42,6 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
     }
   };
 
-
   return (
     <>
       <AddButton onClick={() => setOpen(true)} />
@@ -55,6 +55,9 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
             id="name"
             placeholder="Название категории"
           />
+          <br />
+          <br />
+          <Textarea id="body" name="body" placeholder="Описание категории" />
           <br />
           <br />
           <h3>Изоброжение обложки:</h3>

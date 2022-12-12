@@ -10,6 +10,7 @@ import cl from "../../styles/components/forms/EditCategoryForm.module.sass";
 import Message from "../UI/Message";
 import CategoryService from "../../services/CategoryService";
 import { updateCategory } from "../../store/reducers/category/categorySlice";
+import Textarea from "../UI/Textarea";
 
 interface EditCategoryFormProps {
   category: ICategory;
@@ -72,6 +73,14 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
             name="category"
             id="name"
             placeholder="Название категории"
+          />
+          <br />
+          <br />
+          <Textarea
+            defaultValue={category.body}
+            id="body"
+            name="body"
+            placeholder="Описание категории"
           />
           <br />
           <br />

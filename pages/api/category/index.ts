@@ -19,9 +19,11 @@ const handler: NextApiHandler = async (req, res) => {
         await dbConnect();
 
         const path = saveFile(data.file as File, fields.type as string);
+        
         const categoryData = {
           title: fields.category as string,
           type: fields.type as string,
+          body: fields.body as string,
           url_img: path,
         };
         const newCategory = await saveFiledataToDB(categoryData);

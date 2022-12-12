@@ -47,11 +47,13 @@ const handler: NextApiHandler = async (req, res) => {
           console.log("delete file: ", "./public" + category.url_img);
           categoryData = {
             title: fields.category as string,
+            body: fields.body as string,
             url_img: path,
           };
         } else {
           categoryData = {
             title: fields.category as string,
+            body: fields.body as string,
           };
         }
         const updatedCategory = await updateFiledataToDB(
