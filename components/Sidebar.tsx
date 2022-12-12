@@ -1,13 +1,16 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cl from "../styles/components/Sidebar.module.sass";
 import DoubleLeftIcon from "./Icons/DoubleLeftIcon";
 import ListIcon from "./Icons/ListIcon";
 import { routes } from "../routes";
-
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const rootPath = router.asPath;
+  const [active, setActive] = useState<string>(rootPath);
 
   return (
     <>
@@ -24,7 +27,15 @@ const Sidebar = () => {
         <div onClick={(e) => e.stopPropagation()} className={cl.sidebar}>
           {routes.map((route, index) => (
             <Link key={index} href={route.href}>
-              <div className={cl.menu_btn}>{route.title}</div>
+              <div
+                className={
+                  route.href === active
+                    ? [cl._active, cl.menu_btn].join(" ")
+                    : cl.menu_btn
+                }
+              >
+                {route.title}
+              </div>
             </Link>
           ))}
           <div onClick={() => setIsOpen(false)} className={cl.double_left_btn}>
