@@ -1,8 +1,8 @@
 import formidable, { File } from "formidable";
 import { NextApiHandler } from "next";
-import saveFile from "../../handlers/saveFile";
 import fs from "fs";
-import Product from "../../models/Product";
+import saveFile from "@handlers/saveFile";
+import Product from "@models/Product";
 
 export const config = {
   api: {

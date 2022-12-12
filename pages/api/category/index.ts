@@ -1,9 +1,9 @@
 import { NextApiHandler } from "next";
 import formidable, { File } from "formidable";
-import dbConnect from "../../../lib/dbConnect";
-import Category from "../../../models/Category";
-import saveFile from "../../../handlers/saveFile";
-import saveFiledataToDB from "../../../handlers/saveFiledataToDB";
+import dbConnect from "@lib/dbConnect";
+import Category from "@models/Category";
+import saveFile from "@handlers/saveFile";
+import saveFiledataToDB from "@handlers/saveFiledataToDB";
 
 export const config = {
   api: {

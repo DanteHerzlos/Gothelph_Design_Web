@@ -25,6 +25,8 @@
       "@models/*": ["models/*"],
       "@hooks/*": ["hooks/*"],
       "@store/*": ["store/*"],
+      "@lib/*": ["lib/*"],
+      "@handlers/*": ["handlers/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

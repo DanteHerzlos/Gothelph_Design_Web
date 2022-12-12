@@ -1,10 +1,10 @@
 import { NextApiHandler } from "next";
 import formidable from "formidable";
-import dbConnect from "../../../lib/dbConnect";
-import Product from "../../../models/Product";
-import { IProduct } from "../../../types/IProduct";
-import { IImage } from "../../../types/IImage";
-import Category from "../../../models/Category";
+import dbConnect from "@lib/dbConnect";
+import Product from "@models/Product";
+import Category from "@models/Category";
+import { IProduct } from "types/IProduct";
+import { IImage } from "types/IImage";
 
 export const config = {
   api: {
