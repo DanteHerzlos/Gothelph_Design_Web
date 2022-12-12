@@ -5,18 +5,18 @@ import ItemInfo from "../../../components/ItemInfo";
 import cl from "../../../styles/ProductItem.module.sass";
 import ProductService from "../../../services/ProductService";
 import { IProduct } from "../../../types/IProduct";
-
+import { GetServerSideProps } from "next";
 
 interface ClothesItemProps {
-  product: IProduct
+  product: IProduct;
 }
 
-const ClothesItem:React.FC<ClothesItemProps> = ({product}) => {
+const ClothesItem: React.FC<ClothesItemProps> = ({ product }) => {
   return (
     <ClothesLayout title="Название товара">
       <div className={cl.body}>
         <GallerySlider imgs={product.imgs}>
-          <ItemInfo product={product}/>
+          <ItemInfo product={product} />
         </GallerySlider>
       </div>
       <div className={cl.delivery_info}>
@@ -35,11 +35,11 @@ const ClothesItem:React.FC<ClothesItemProps> = ({product}) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await ProductService.getProductById(
-    context.query["itemId"]
+    context.query["itemId"] as string
   );
   return { props: { product: data } };
-}
+};
 
 export default ClothesItem;

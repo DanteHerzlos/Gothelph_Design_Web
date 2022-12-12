@@ -8,12 +8,18 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setCategory } from "../../store/reducers/category/categorySlice";
 import { ICategory } from "../../types/ICategory";
 import cl from "../../styles/Clothes.module.sass";
+import { GetServerSideProps } from "next";
+import { CategoryType } from "../../types/CategoryType";
+import { useRouter } from "next/router";
 
 interface ClothesProps {
   fetchedCategories: ICategory[];
+  type: CategoryType;
 }
 
-const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
+const Clothes: React.FC<ClothesProps> = ({ fetchedCategories, type }) => {
+  const router = useRouter();
+  const rootPath = router.asPath;
   const dispatch = useAppDispatch();
   const { categories } = useAppSelector((state) => state.categoryReducer);
 
@@ -25,17 +31,17 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
     <ClothesLayout title="КАТАЛОГ ГОТИЧЕСКОЙ ОДЕЖДЫ">
       <div className={cl.container}>
         <div className={cl.categories}>
-          <EditCategoryPanel type="clothes" className={cl.edit_panel} addBtn />
+          <EditCategoryPanel type={type} className={cl.edit_panel} addBtn />
           {categories &&
             categories.map((category) => (
               <div className={cl.card_editpanel} key={category._id}>
                 <EditCategoryPanel
-                  type="clothes"
+                  type={type}
                   category={category}
                   editBtn
                   deleteBtn
                 />
-                <Link href={"/clothes/" + category._id}>
+                <Link href={[rootPath, category._id].join("/")}>
                   <Card
                     src={category.url_img}
                     title={category.title}
@@ -50,9 +56,10 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const data = await CategoryService.getCategories("clothes");
-  return { props: { fetchedCategories: data } };
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const type = context.resolvedUrl.slice(1);
+  const data = await CategoryService.getCategories(type);
+  return { props: { fetchedCategories: data, type: type } };
+};
 
 export default Clothes;
