@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     form.parse(req, async (err, fields, data) => {
       try {
         await dbConnect();
-
+        const category = fields.category as string;
         const imgs: IImage[] = JSON.parse(fields.imgs as string);
         const sizes = (fields.sizes as string)
           .split(",")
@@ -31,13 +31,14 @@ const handler: NextApiHandler = async (req, res) => {
           price: fields.price as string,
           sizes: sizes,
           imgs: imgs,
-          category: fields.category as string,
+          category: category,
         };
         const newProduct = await Product.create(productData);
-        await Category.findByIdAndUpdate(fields.category, {
-          $push: { products: newProduct._id },
-        });
-
+        if (category.match(/^[0-9a-fA-F]{24}$/)) {
+          await Category.findByIdAndUpdate(fields.category, {
+            $push: { products: newProduct._id },
+          });
+        }
         return res.status(201).send(newProduct);
       } catch (error: any) {
         return res.status(500).send(error.message);

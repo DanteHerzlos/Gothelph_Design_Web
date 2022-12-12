@@ -31,9 +31,11 @@ const handler: NextApiHandler = async (req, res) => {
       const { id } = query;
       await dbConnect();
       const product = await Product.findByIdAndDelete(id);
-      await Category.findByIdAndUpdate(product.category, {
-        $pull: { products: product._id },
-      });
+      if (product.category.match(/^[0-9a-fA-F]{24}$/)) {
+        await Category.findByIdAndUpdate(product.category, {
+          $pull: { products: product._id },
+        });
+      }
       if (product.imgs.length) {
         for (const img of product.imgs) {
           const path = "./public" + img.url;
