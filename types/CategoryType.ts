@@ -1,1 +1,1 @@
-export  type CategoryType = "clothes" | "custom" | "art" | "auto";
+export type CategoryType = "clothes" | "custom" | "art" | "auto" | "benefits";
