@@ -1,15 +1,14 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 import Image from "next/image";
-import Layout from './Layout';
-import cl from "../../styles/components/layouts/AutoLayout.module.sass"
-import divider from '../../public/autoDivider.jpg'
-import Card from '../Card';
+import Layout from "./Layout";
+import Card from "../Card";
+import divider from "@public/autoDivider.jpg";
+import cl from "@styles/components/layouts/AutoLayout.module.sass";
 
 interface AutoLayoutProps {
-  title?: string
-  children?: ReactNode
+  title?: string;
+  children?: ReactNode;
 }
-
 
 const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
   return (
@@ -37,4 +36,4 @@ const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
   );
 };
 
-export default AutoLayout
+export default AutoLayout;

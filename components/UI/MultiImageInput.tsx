@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import cl from "../../styles/components/UI/MultiImageInput.module.sass";
-import { FilePreview } from "../../types/FilePreview";
+import { FilePreview } from "types/FilePreview";
+import cl from "@styles/components/UI/MultiImageInput.module.sass";
 
 interface MultiImageInputProps {
   required?: boolean;
@@ -18,7 +18,7 @@ const MultiImageInput: React.FC<MultiImageInputProps> = ({
   name,
   id,
   filesPreview,
-  setFilesPreview
+  setFilesPreview,
 }) => {
   const [dragTo, setDragTo] = useState<number>(0);
 
@@ -45,15 +45,17 @@ const MultiImageInput: React.FC<MultiImageInputProps> = ({
 
   const dragEndHandler = (img: FilePreview) => {
     if (dragTo !== img.position) {
-      const newOrder = filesPreview.map((preview) => {
-        if (preview.position === dragTo) {
-          return { ...preview, position: img.position };
-        }
-        if (preview.position === img.position) {
-          return {...preview, position: dragTo};
-        }
-        return preview;
-      }).sort((a,b) => a.position-b.position);
+      const newOrder = filesPreview
+        .map((preview) => {
+          if (preview.position === dragTo) {
+            return { ...preview, position: img.position };
+          }
+          if (preview.position === img.position) {
+            return { ...preview, position: dragTo };
+          }
+          return preview;
+        })
+        .sort((a, b) => a.position - b.position);
 
       setFilesPreview(newOrder);
     }

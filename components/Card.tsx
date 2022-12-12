@@ -1,8 +1,6 @@
 import React from "react";
-import cl from "../styles/components/Card.module.sass";
 import Image from "next/image";
-import { ICategory } from "../types/ICategory";
-
+import cl from "@styles/components/Card.module.sass";
 interface CardProps {
   className?: string;
   title?: string;

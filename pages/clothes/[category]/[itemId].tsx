@@ -1,11 +1,11 @@
 import React from "react";
-import ClothesLayout from "../../../components/layouts/ClothesLayout";
-import GallerySlider from "../../../components/GallerySlider";
-import ItemInfo from "../../../components/ItemInfo";
-import cl from "../../../styles/ProductItem.module.sass";
-import ProductService from "../../../services/ProductService";
-import { IProduct } from "../../../types/IProduct";
 import { GetServerSideProps } from "next";
+import ClothesLayout from "@components/layouts/ClothesLayout";
+import GallerySlider from "@components/GallerySlider";
+import ItemInfo from "@components/ItemInfo";
+import ProductService from "@services/ProductService";
+import { IProduct } from "types/IProduct";
+import cl from "@styles/ProductItem.module.sass";
 
 interface ClothesItemProps {
   product: IProduct;

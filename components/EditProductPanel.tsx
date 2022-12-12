@@ -1,9 +1,9 @@
 import React from "react";
-import cl from "../styles/components/EditPanel.module.sass";
-import { IProduct } from "../types/IProduct";
+import { IProduct } from "types/IProduct";
 import AddProductForm from "./forms/AddProductForm";
 import DeleteProductForm from "./forms/DeleteProductForm";
 import EditProductForm from "./forms/EditProductForm";
+import cl from "@styles/components/EditPanel.module.sass";
 
 interface EditProductPanelProps {
   addBtn?: boolean;
@@ -11,7 +11,7 @@ interface EditProductPanelProps {
   deleteBtn?: boolean;
   className?: string;
   product?: IProduct;
-  category?: string
+  category?: string;
 }
 
 const EditProductPanel: React.FC<EditProductPanelProps> = ({
@@ -20,7 +20,7 @@ const EditProductPanel: React.FC<EditProductPanelProps> = ({
   deleteBtn = false,
   className,
   product,
-  category
+  category,
 }) => {
   // if(!isAuth) return <></>
 

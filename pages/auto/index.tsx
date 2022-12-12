@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import AutoLayout from "../../components/layouts/AutoLayout";
-import ImgSplitSlider from "../../components/ImgSplitSlider";
-import Button from "../../components/UI/Button";
-import cl from "../../styles/Auto.module.sass";
-import CategoryService from "../../services/CategoryService";
-import EditCategoryPanel from "../../components/EditCategoryPanel";
-import { ICategory } from "../../types/ICategory";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setCategory } from "../../store/reducers/category/categorySlice";
-import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import { CategoryType } from "../../types/CategoryType";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import AutoLayout from "@components/layouts/AutoLayout";
+import ImgSplitSlider from "@components/ImgSplitSlider";
+import Button from "@components/UI/Button";
+import EditCategoryPanel from "@components/EditCategoryPanel";
+import CategoryService from "@services/CategoryService";
+import { ICategory } from "types/ICategory";
+import { CategoryType } from "types/CategoryType";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setCategory } from "@store/reducers/category/categorySlice";
+import cl from "@styles/Auto.module.sass";
 
 interface AutoProps {
   fetchedCategories: ICategory[];

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import cl from "../styles/components/ItemInfo.module.sass";
-import { IProduct } from "../types/IProduct";
+import { IProduct } from "types/IProduct";
 import OdrerForm from "./forms/OdrerForm";
 import Button from "./UI/Button";
+import cl from "@styles/components/ItemInfo.module.sass";
 
 interface ItemInfoProps {
   product: IProduct;

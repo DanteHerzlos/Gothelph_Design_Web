@@ -1,13 +1,12 @@
-import React from 'react'
-import Footer from './Footer';
-import Header from './Header';
-import Sidebar from '../Sidebar';
-
+import React from "react";
+import Footer from "./Footer";
+import Header from "./Header";
+import Sidebar from "../Sidebar";
 
 interface LayoutProps {
-  children?: React.ReactElement | string
-  title?: string
-} 
+  children?: React.ReactElement | string;
+  title?: string;
+}
 
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   return (
@@ -20,4 +19,4 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   );
 };
 
-export default Layout
+export default Layout;

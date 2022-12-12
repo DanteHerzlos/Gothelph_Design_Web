@@ -1,16 +1,16 @@
-import Link from "next/link";
 import React, { useEffect } from "react";
-import Card from "../../components/Card";
-import ClothesLayout from "../../components/layouts/ClothesLayout";
-import EditCategoryPanel from "../../components/EditCategoryPanel";
-import CategoryService from "../../services/CategoryService";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setCategory } from "../../store/reducers/category/categorySlice";
-import { ICategory } from "../../types/ICategory";
-import cl from "../../styles/Clothes.module.sass";
+import Link from "next/link";
 import { GetServerSideProps } from "next";
-import { CategoryType } from "../../types/CategoryType";
 import { useRouter } from "next/router";
+import Card from "@components/Card";
+import ClothesLayout from "@components/layouts/ClothesLayout";
+import EditCategoryPanel from "@components/EditCategoryPanel";
+import CategoryService from "@services/CategoryService";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setCategory } from "@store/reducers/category/categorySlice";
+import { ICategory } from "types/ICategory";
+import { CategoryType } from "types/CategoryType";
+import cl from "@styles/Clothes.module.sass";
 
 interface ClothesProps {
   fetchedCategories: ICategory[];

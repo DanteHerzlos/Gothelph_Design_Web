@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import Button from "../UI/Button";
 import TextInput from "../UI/TextInput";
-import ProductService from "../../services/ProductService";
-import { useAppDispatch } from "../../hooks/redux";
 import Modal from "../UI/Modal";
 import AddButton from "../UI/AddButton";
-import cl from "../../styles/components/forms/AddProductForm.module.sass";
 import Message from "../UI/Message";
-import { addProduct } from "../../store/reducers/product/productSlice";
 import Textarea from "../UI/Textarea";
 import MultiImageInput from "../UI/MultiImageInput";
-import ImgService from "../../services/ImgService";
-import { FilePreview } from "../../types/FilePreview";
+import ImgService from "@services/ImgService";
+import { useAppDispatch } from "@hooks/redux";
+import ProductService from "@services/ProductService";
+import { addProduct } from "@store/reducers/product/productSlice";
+import { FilePreview } from "types/FilePreview";
+import cl from "@styles/components/forms/AddProductForm.module.sass";
 
 interface AddProductFormProps {
-  category: string
+  category: string;
 }
 
 const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
@@ -26,7 +26,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget
+    const form = e.currentTarget;
     const productImgs = [];
 
     setIsLoading(true);
@@ -44,9 +44,9 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
       ProductformData.append("imgs", JSON.stringify(productImgs));
       ProductformData.append("category", category);
       const product = await ProductService.postProduct(ProductformData);
-      dispatch(addProduct(product))
-      setFiles([])
-      form.reset()
+      dispatch(addProduct(product));
+      setFiles([]);
+      form.reset();
       setOpen(false);
     } catch (error: any) {
       setErrorMessage(error.message);

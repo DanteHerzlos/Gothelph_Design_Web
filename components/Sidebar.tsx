@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import cl from "../styles/components/Sidebar.module.sass";
+import React, { useState } from "react";
 import DoubleLeftIcon from "./Icons/DoubleLeftIcon";
 import ListIcon from "./Icons/ListIcon";
 import { routes } from "../routes";
 import { useRouter } from "next/router";
+import cl from "@styles/components/Sidebar.module.sass";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "../../styles/components/UI/Textarea.module.sass";
+import cl from "@styles/components/UI/Textarea.module.sass";
 
 interface TextareaProps {
   placeholder?: string;

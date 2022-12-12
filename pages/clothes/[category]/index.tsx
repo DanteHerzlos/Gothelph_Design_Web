@@ -1,15 +1,15 @@
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import ClothesLayout from "../../../components/layouts/ClothesLayout";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import ProductService from "../../../services/ProductService";
-import { setProduct } from "../../../store/reducers/product/productSlice";
-import cl from "../../../styles/Clothes.module.sass";
-import { IProduct } from "../../../types/IProduct";
-import EditProductPanel from "../../../components/EditProductPanel";
-import Card from "../../../components/Card";
-import Link from "next/link";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import EditProductPanel from "@components/EditProductPanel";
+import ClothesLayout from "@components/layouts/ClothesLayout";
+import Card from "@components/Card";
+import ProductService from "@services/ProductService";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setProduct } from "@store/reducers/product/productSlice";
+import { IProduct } from "types/IProduct";
+import cl from "@styles/Clothes.module.sass";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];

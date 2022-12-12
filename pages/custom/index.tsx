@@ -1,20 +1,20 @@
-import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
-import Carousel from "../../components/Carousel";
-import EditProductPanel from "../../components/EditProductPanel";
-import OdrerForm from "../../components/forms/OdrerForm";
-import Layout from "../../components/layouts/Layout";
-import Button from "../../components/UI/Button";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import ProductService from "../../services/ProductService";
-import { setProduct } from "../../store/reducers/product/productSlice";
-import cl from "../../styles/Custom.module.sass";
-import { CategoryType } from "../../types/CategoryType";
-import { IProduct } from "../../types/IProduct";
+import { GetServerSideProps } from "next";
+import Carousel from "@components/Carousel";
+import EditProductPanel from "@components/EditProductPanel";
+import OdrerForm from "@components/forms/OdrerForm";
+import Layout from "@components/layouts/Layout";
+import Button from "@components/UI/Button";
+import ProductService from "@services/ProductService";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setProduct } from "@store/reducers/product/productSlice";
+import { CategoryType } from "types/CategoryType";
+import { IProduct } from "types/IProduct";
+import cl from "@styles/Custom.module.sass";
 
 interface CustomProps {
   fetchedProducts: IProduct[];
-  type: CategoryType
+  type: CategoryType;
 }
 
 const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
@@ -63,7 +63,7 @@ const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
         </div>
         <div className={cl.description_container}>
           <div className={cl.order_btn}>
-            <OdrerForm product_name="Кастом" >Заказать кастом</OdrerForm>
+            <OdrerForm product_name="Кастом">Заказать кастом</OdrerForm>
           </div>
           <div className={cl.description}>
             {activeProduct && (

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/redux";
 import Button from "../UI/Button";
 import EditButton from "../UI/EditButton";
 import Modal from "../UI/Modal";
 import TextInput from "../UI/TextInput";
-import cl from "../../styles/components/forms/EditProductForm.module.sass";
 import Message from "../UI/Message";
-import { IProduct } from "../../types/IProduct";
 import MultiImageInput from "../UI/MultiImageInput";
 import Textarea from "../UI/Textarea";
-import { FilePreview } from "../../types/FilePreview";
-import ImgService from "../../services/ImgService";
-import ProductService from "../../services/ProductService";
-import { updateProduct } from "../../store/reducers/product/productSlice";
+import { FilePreview } from "types/FilePreview";
+import { IProduct } from "types/IProduct";
+import { useAppDispatch } from "@hooks/redux";
+import ImgService from "@services/ImgService";
+import ProductService from "@services/ProductService";
+import { updateProduct } from "@store/reducers/product/productSlice";
+import cl from "@styles/components/forms/EditProductForm.module.sass";
 
 interface EditProductFormProps {
   product: IProduct;

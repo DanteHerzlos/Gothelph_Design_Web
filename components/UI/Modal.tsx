@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "../../styles/components/UI/Modal.module.sass";
+import cl from "@styles/components/UI/Modal.module.sass";
 
 interface ModalProps {
   onClose?: React.MouseEventHandler<HTMLSpanElement>;

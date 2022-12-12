@@ -1,12 +1,12 @@
-import Image from "next/image";
 import React, { useState } from "react";
-import cl from "../styles/components/ImgSlider.module.sass";
-import img1 from "../public/slider-1.webp";
-import img2 from "../public/slider-2.jpg";
-import img3 from "../public/slider-3.jpg";
-import img4 from "../public/slider-4.jpg";
+import Image from "next/image";
+import img1 from "@public/slider-1.webp";
+import img2 from "@public/slider-2.jpg";
+import img3 from "@public/slider-3.jpg";
+import img4 from "@public/slider-4.jpg";
 import LeftIcon from "./Icons/LeftIcon";
 import RightIcon from "./Icons/RightIcon";
+import cl from "@styles/components/ImgSlider.module.sass";
 
 const imgs = [
   {

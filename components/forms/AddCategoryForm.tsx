@@ -1,16 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Button from "../UI/Button";
 import ImageInput from "../UI/ImageInput";
 import TextInput from "../UI/TextInput";
-import { CategoryType } from "../../types/CategoryType";
-import CategoryService from "../../services/CategoryService";
-import { useAppDispatch } from "../../hooks/redux";
-import { addCategory } from "../../store/reducers/category/categorySlice";
 import Modal from "../UI/Modal";
 import AddButton from "../UI/AddButton";
-import cl from "../../styles/components/forms/AddCategoryForm.module.sass";
 import Message from "../UI/Message";
 import Textarea from "../UI/Textarea";
+import { CategoryType } from "types/CategoryType";
+import CategoryService from "@services/CategoryService";
+import { useAppDispatch } from "@hooks/redux";
+import { addCategory } from "@store/reducers/category/categorySlice";
+import cl from "@styles/components/forms/AddCategoryForm.module.sass";
 
 interface AddCategoryFormProps {
   type: CategoryType;

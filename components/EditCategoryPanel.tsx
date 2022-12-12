@@ -1,17 +1,17 @@
 import React from "react";
-import { ICategory } from "../types/ICategory";
+import { ICategory } from "types/ICategory";
+import { CategoryType } from "types/CategoryType";
 import AddCategoryForm from "./forms/AddCategoryForm";
 import DeleteCategoryForm from "./forms/DeleteCategoryForm";
 import EditCategoryForm from "./forms/EditCategoryForm";
-import cl from "../styles/components/EditPanel.module.sass";
-import { CategoryType } from "../types/CategoryType";
+import cl from "@styles/components/EditPanel.module.sass";
 
 interface EditCategoryPanelProps {
   addBtn?: boolean;
   editBtn?: boolean;
   deleteBtn?: boolean;
   className?: string;
-  type: CategoryType
+  type: CategoryType;
   category?: ICategory;
 }
 
@@ -21,7 +21,7 @@ const EditCategoryPanel: React.FC<EditCategoryPanelProps> = ({
   deleteBtn = false,
   className,
   category,
-  type
+  type,
 }) => {
   // if(!isAuth) return <></>
 

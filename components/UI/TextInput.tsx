@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import cl from "../../styles/components/UI/TextInput.module.sass";
+import cl from "@styles/components/UI/TextInput.module.sass";
 
 interface TextInputProps {
   placeholder?: string;
@@ -26,7 +26,7 @@ const TextInput: React.FC<TextInputProps> = ({
 
   const blurHandler = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.currentTarget.value = e.currentTarget.value.trim();
-    setInvalid(!e.currentTarget.checkValidity()) 
+    setInvalid(!e.currentTarget.checkValidity());
   };
 
   return (

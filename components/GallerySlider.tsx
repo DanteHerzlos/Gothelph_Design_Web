@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import cl from "../styles/components/GallerySlider.module.sass";
-import img1 from "../public/slider-1.webp";
-import img2 from "../public/slider-2.jpg";
-import img3 from "../public/slider-3.jpg";
-import img4 from "../public/slider-4.jpg";
+import Image from "next/image";
 import LeftIcon from "./Icons/LeftIcon";
 import RightIcon from "./Icons/RightIcon";
-import Image from "next/image";
 import Lightbox from "./UI/Lightbox";
-import { IImage } from "../types/IImage";
+import { IImage } from "types/IImage";
+import cl from "@styles/components/GallerySlider.module.sass";
 
 interface GallerySliderProps {
   imgs: IImage[];

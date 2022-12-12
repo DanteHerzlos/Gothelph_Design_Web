@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import cl from "../../styles/components/layouts/Footer.module.sass";
+import cl from "@styles/components/layouts/Footer.module.sass";
 
 const Footer = () => {
   return (

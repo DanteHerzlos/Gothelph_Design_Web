@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import cl from "../styles/components/Carousel.module.sass";
-import { IImage } from "../types/IImage";
+import { IImage } from "types/IImage";
+import cl from "@styles/components/Carousel.module.sass";
 
 interface CarouselProps {
-  imgs: IImage[]
-  alt?: string
+  imgs: IImage[];
+  alt?: string;
 }
 
 const Carousel: React.FC<CarouselProps> = ({ imgs, alt }) => {

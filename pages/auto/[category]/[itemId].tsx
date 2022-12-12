@@ -1,15 +1,15 @@
-import React from 'react'
-import AutoLayout from '../../../components/layouts/AutoLayout'
-import GallerySlider from '../../../components/GallerySlider';
-import ItemInfo from '../../../components/ItemInfo';
-import cl from "../../../styles/ProductItem.module.sass";
-import { GetServerSideProps } from 'next';
-import ProductService from '../../../services/ProductService';
-import { IProduct } from '../../../types/IProduct';
+import React from "react";
+import { GetServerSideProps } from "next";
+import AutoLayout from "@components/layouts/AutoLayout";
+import GallerySlider from "@components/GallerySlider";
+import ItemInfo from "@components/ItemInfo";
+import ProductService from "@services/ProductService";
+import { IProduct } from "types/IProduct";
+import cl from "@styles/ProductItem.module.sass";
+
 interface AutoItemProps {
   product: IProduct;
 }
-
 
 const AutoItem: React.FC<AutoItemProps> = ({ product }) => {
   return (
@@ -42,4 +42,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { product: data } };
 };
 
-export default AutoItem
+export default AutoItem;

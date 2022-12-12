@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/redux";
 import Button from "../UI/Button";
 import TextInput from "../UI/TextInput";
-import cl from "../../styles/components/forms/DeleteProductForm.module.sass";
 import Modal from "../UI/Modal";
 import DeleteButton from "../UI/DeleteButton";
 import Message from "../UI/Message";
-import { IProduct } from "../../types/IProduct";
-import ProductService from "../../services/ProductService";
-import { removeProduct } from "../../store/reducers/product/productSlice";
+import { IProduct } from "types/IProduct";
+import ProductService from "@services/ProductService";
+import { useAppDispatch } from "@hooks/redux";
+import { removeProduct } from "@store/reducers/product/productSlice";
+import cl from "@styles/components/forms/DeleteProductForm.module.sass";
 
 interface DeleteProductFormProps {
   product: IProduct;

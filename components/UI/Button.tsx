@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "../../styles/components/UI/Button.module.sass";
+import cl from "@styles/components/UI/Button.module.sass";
 
 interface ButtonProps {
   children?: string;

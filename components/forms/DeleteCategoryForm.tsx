@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/redux";
 import Button from "../UI/Button";
 import TextInput from "../UI/TextInput";
-import cl from "../../styles/components/forms/DeleteCategoryForm.module.sass";
-import { removeCategory } from "../../store/reducers/category/categorySlice";
 import Modal from "../UI/Modal";
 import DeleteButton from "../UI/DeleteButton";
-import { ICategory } from "../../types/ICategory";
+import { ICategory } from "types/ICategory";
 import Message from "../UI/Message";
-import CategoryService from "../../services/CategoryService";
+import CategoryService from "@services/CategoryService";
+import { removeCategory } from "@store/reducers/category/categorySlice";
+import { useAppDispatch } from "@hooks/redux";
+import cl from "@styles/components/forms/DeleteCategoryForm.module.sass";
 
 interface DeleteCategoryFormProps {
   category: ICategory;

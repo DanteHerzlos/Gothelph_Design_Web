@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import cl from "../../styles/components/UI/Message.module.sass";
+import React from "react";
+import cl from "@styles/components/UI/Message.module.sass";
 
 interface MessageProps {
   message: string;
@@ -7,9 +7,13 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message, onClick }) => {
-
-  if(message) return <div onClick={onClick} className={cl.message}>{message}</div>
-  else return <></>
+  if (message)
+    return (
+      <div onClick={onClick} className={cl.message}>
+        {message}
+      </div>
+    );
+  else return <></>;
 };
 
 export default Message;

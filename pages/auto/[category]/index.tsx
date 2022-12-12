@@ -1,15 +1,16 @@
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import AutoLayout from "../../../components/layouts/AutoLayout";
-import Card from "../../../components/Card";
-import cl from "../../../styles/Clothes.module.sass";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import ProductService from "../../../services/ProductService";
-import { IProduct } from "../../../types/IProduct";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { setProduct } from "../../../store/reducers/product/productSlice";
-import EditProductPanel from "../../../components/EditProductPanel";
 import Link from "next/link";
+import AutoLayout from "@components/layouts/AutoLayout";
+import EditProductPanel from "@components/EditProductPanel";
+import Card from "@components/Card";
+import ProductService from "@services/ProductService";
+import { IProduct } from "types/IProduct";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setProduct } from "@store/reducers/product/productSlice";
+import cl from "@styles/Clothes.module.sass";
+
 interface AutoCategoryProps {
   fetchedProducts: IProduct[];
 }
@@ -59,6 +60,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   return { props: { fetchedProducts: data } };
 };
-
 
 export default AutoCategory;

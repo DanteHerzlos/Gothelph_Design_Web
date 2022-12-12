@@ -1,8 +1,7 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import cl from "../../styles/components/UI/ImageInput.module.sass";
+import React, { useState } from "react";
 import AddIcon from "../Icons/AddIcon";
-
+import cl from "@styles/components/UI/ImageInput.module.sass";
 interface ImageInputProps {
   required?: boolean;
   name?: string;

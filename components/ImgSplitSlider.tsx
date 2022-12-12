@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import cl from "../styles/components/ImgSplitSlider.module.sass";
 import LeftIcon from "./Icons/LeftIcon";
 import RightIcon from "./Icons/RightIcon";
 import Image from "next/image";
-import { ICategory } from "../types/ICategory";
+import { ICategory } from "types/ICategory";
+import cl from "@styles/components/ImgSplitSlider.module.sass";
 
 interface ImgSplitSliderProps {
   categories: ICategory[];

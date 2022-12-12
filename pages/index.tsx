@@ -1,12 +1,12 @@
-import cl from "../styles/Home.module.sass";
-import logo from "../public/logo.png";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import HomeMenu from "../components/HomeMenu";
-import Triangle from "../components/Shapes/Triangle";
-import ImgSlider from "../components/ImgSlider";
-import Footer from "../components/layouts/Footer";
-import useElementOnScreenOnce from "../hooks/useElementOnScreenOnce";
+import Image from "next/image";
+import logo from "@public/logo.png";
+import HomeMenu from "@components/HomeMenu";
+import Triangle from "@components/Shapes/Triangle";
+import ImgSlider from "@components/ImgSlider";
+import Footer from "@components/layouts/Footer";
+import useElementOnScreenOnce from "@hooks/useElementOnScreenOnce";
+import cl from "@styles/Home.module.sass";
 
 export default function Home() {
   const [scroll, setScroll] = useState<number>(0);
@@ -15,7 +15,6 @@ export default function Home() {
     rootMargin: "-100px",
     treshold: 1.0,
   });
-  
 
   useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -26,7 +25,6 @@ export default function Home() {
       setScroll(s);
     });
   }, []);
-
 
   return (
     <>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import cl from "../../styles/components/forms/OdrerForm.module.sass";
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
 import Textarea from "../UI/Textarea";
 import TextInput from "../UI/TextInput";
+import cl from "@styles/components/forms/OdrerForm.module.sass";
 
 interface OdrerFormProps {
   className?: string;
@@ -23,7 +23,9 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
   return (
     <>
       <div className={cl.modal_btn}>
-        <Button className={className} onClick={() => setOpen(true)}>{children}</Button>
+        <Button className={className} onClick={() => setOpen(true)}>
+          {children}
+        </Button>
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
         <form className={cl.form}>

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../../hooks/redux";
 import Button from "../UI/Button";
 import EditButton from "../UI/EditButton";
 import ImageInput from "../UI/ImageInput";
 import Modal from "../UI/Modal";
 import TextInput from "../UI/TextInput";
-import { ICategory } from "../../types/ICategory";
-import cl from "../../styles/components/forms/EditCategoryForm.module.sass";
 import Message from "../UI/Message";
-import CategoryService from "../../services/CategoryService";
-import { updateCategory } from "../../store/reducers/category/categorySlice";
 import Textarea from "../UI/Textarea";
+import { ICategory } from "types/ICategory";
+import { useAppDispatch } from "@hooks/redux";
+import CategoryService from "@services/CategoryService";
+import { updateCategory } from "@store/reducers/category/categorySlice";
+import cl from "@styles/components/forms/EditCategoryForm.module.sass";
 
 interface EditCategoryFormProps {
   category: ICategory;
@@ -24,16 +24,14 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const form = e.currentTarget;
-    const formData = new FormData();    
+    const formData = new FormData();
     if (form.file.files.length) {
       formData.append("file", form.file.files[0]);
     }
     formData.append("category", form.category.value);
 
-    
-    
     setIsLoading(true);
     try {
       const data = await CategoryService.updateCategory(
