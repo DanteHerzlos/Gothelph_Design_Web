@@ -3,14 +3,20 @@ import AutoLayout from '../../../components/layouts/AutoLayout'
 import GallerySlider from '../../../components/GallerySlider';
 import ItemInfo from '../../../components/ItemInfo';
 import cl from "../../../styles/ProductItem.module.sass";
+import { GetServerSideProps } from 'next';
+import ProductService from '../../../services/ProductService';
+import { IProduct } from '../../../types/IProduct';
+interface AutoItemProps {
+  product: IProduct;
+}
 
 
-const AutoItem = () => {
+const AutoItem: React.FC<AutoItemProps> = ({ product }) => {
   return (
     <AutoLayout title="название товара">
       <div className={cl.body}>
-        <GallerySlider>
-          <ItemInfo />
+        <GallerySlider imgs={product.imgs}>
+          <ItemInfo product={product} />
         </GallerySlider>
       </div>
       <div className={cl.delivery_info}>
@@ -27,6 +33,13 @@ const AutoItem = () => {
       </div>
     </AutoLayout>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const data = await ProductService.getProductById(
+    context.query["itemId"] as string
+  );
+  return { props: { product: data } };
+};
 
 export default AutoItem
