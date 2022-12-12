@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Layout from "./Layout";
-import Button from "../UI/Button";
 import cl from "../../styles/components/layouts/ClothesLayout.module.sass";
+import OdrerForm from "../forms/OdrerForm";
 
 interface ClothesLayoutProps {
   title?: string;
@@ -20,7 +20,7 @@ const ClothesLayout: React.FC<ClothesLayoutProps> = ({ title, children }) => {
         </div>
         {children}
         <div className={cl.btn}>
-          <Button>Заказать индивидуальный пошив</Button>
+          <OdrerForm product_name="Индивидуальный пошив">Заказать индивидуальный пошив</OdrerForm>
         </div>
       </div>
     </Layout>
