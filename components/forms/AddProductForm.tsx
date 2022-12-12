@@ -61,46 +61,32 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
       <Modal open={open} onClose={(e) => setOpen(false)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Добавить продукт</h2>
-          <br />
           <TextInput
             required
             name="short_title"
             id="short_title"
             placeholder="Кароткое название продукта"
           />
-          <br />
-          <br />
           <TextInput
             name="long_title"
             id="long_title"
             placeholder="Длинное название продукта"
           />
-          <br />
-          <br />
           <Textarea id="body" name="body" placeholder="Описание товара" />
-          <br />
-          <br />
           <TextInput name="sizes" id="sizes" placeholder="Размеры" />
-          <br />
-          <br />
           <TextInput
             pattern={"[0-9]+"}
             name="price"
             id="price"
             placeholder="Цена"
           />
-          <br />
-          <br />
           <h3>Фото продукта:</h3>
-          <br />
           <MultiImageInput
             setFilesPreview={setFiles}
             filesPreview={files}
             required
           />
-          <br />
           <Message message={errorMessage} onClick={() => setErrorMessage("")} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Добавить
           </Button>

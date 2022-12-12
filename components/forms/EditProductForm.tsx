@@ -82,7 +82,6 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Изменить продукт</h2>
-          <br />
           <TextInput
             required
             defaultValue={product.title}
@@ -90,32 +89,24 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
             id="short_title"
             placeholder="Кароткое название продукта"
           />
-          <br />
-          <br />
           <TextInput
             defaultValue={product.long_title}
             name="long_title"
             id="long_title"
             placeholder="Длинное название продукта"
           />
-          <br />
-          <br />
           <Textarea
             defaultValue={product.body}
             id="body"
             name="body"
             placeholder="Описание товара"
           />
-          <br />
-          <br />
           <TextInput
             defaultValue={product.sizes?.join(", ")}
             name="sizes"
             id="sizes"
             placeholder="Размеры"
           />
-          <br />
-          <br />
           <TextInput
             defaultValue={product.price}
             pattern={"[0-9]+"}
@@ -123,18 +114,13 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
             id="price"
             placeholder="Цена"
           />
-          <br />
-          <br />
           <h3>Фото продукта:</h3>
-          <br />
           <MultiImageInput
             filesPreview={files}
             setFilesPreview={setFiles}
             name="file"
           />
-          <br />
           <Message message={errorMessage} onClick={() => setErrorMessage("")} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Изменить
           </Button>

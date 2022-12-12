@@ -59,21 +59,16 @@ const DeleteCategoryForm: React.FC<DeleteCategoryFormProps> = ({
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Удалить категорию {category.title}?</h2>
-          <br />
           <h3>
             Для удаления введите id категории: <b>{category._id}</b>
           </h3>
-          <br />
           <TextInput
             required
             name="confirm"
             id="name"
             placeholder="Название категории"
           />
-          <br />
-          <br />
           <Message onClick={() => setErrorMessage("")} message={errorMessage} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Удалить
           </Button>

@@ -56,21 +56,16 @@ const DeleteProductForm: React.FC<DeleteProductFormProps> = ({ product }) => {
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Удалить продукт {product.title}?</h2>
-          <br />
           <h3>
             Для удаления введите id продукта: <b>{product._id}</b>
           </h3>
-          <br />
           <TextInput
             required
             name="confirm"
             id="name"
             placeholder="ID продукта"
           />
-          <br />
-          <br />
           <Message onClick={() => setErrorMessage("")} message={errorMessage} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Удалить
           </Button>

@@ -48,24 +48,16 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
       <Modal open={open} onClose={(e) => setOpen(false)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Добавить категорию</h2>
-          <br />
           <TextInput
             required
             name="category"
             id="name"
             placeholder="Название категории"
           />
-          <br />
-          <br />
           <Textarea id="body" name="body" placeholder="Описание категории" />
-          <br />
-          <br />
           <h3>Изоброжение обложки:</h3>
-          <br />
           <ImageInput required name="file" />
-          <br />
           <Message message={errorMessage} onClick={() => setErrorMessage("")} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Добавить
           </Button>

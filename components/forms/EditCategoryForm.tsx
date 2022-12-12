@@ -64,7 +64,6 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
         <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Изменить категорию {category.title}</h2>
-          <br />
           <TextInput
             defaultValue={category.title}
             required
@@ -72,26 +71,19 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
             id="name"
             placeholder="Название категории"
           />
-          <br />
-          <br />
           <Textarea
             defaultValue={category.body}
             id="body"
             name="body"
             placeholder="Описание категории"
           />
-          <br />
-          <br />
           <h3>Изоброжение обложки:</h3>
-          <br />
           <ImageInput
             id={category._id}
             defaultValue={category.url_img}
             name="file"
           />
-          <br />
           <Message message={errorMessage} />
-          <br />
           <Button type="submit" progress={isLoading}>
             Изменить
           </Button>
