@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
 import EditButton from "../UI/EditButton";
 import ImageInput from "../UI/ImageInput";
@@ -21,6 +21,14 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const form = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (form.current) {
+      form.current.body.value = category.body;
+      form.current.category.value = category.title;
+    }
+  }, [category]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,6 +39,7 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
       formData.append("file", form.file.files[0]);
     }
     formData.append("category", form.category.value);
+    formData.append("body", form.body.value);
 
     setIsLoading(true);
     try {
@@ -62,7 +71,7 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
     <>
       <EditButton onClick={(e) => onOpenModal(e)} />
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
-        <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
+        <form ref={form} onSubmit={(e) => onSubmit(e)} className={cl.form}>
           <h2>Изменить категорию {category.title}</h2>
           <TextInput
             defaultValue={category.title}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
 import EditButton from "../UI/EditButton";
 import Modal from "../UI/Modal";
@@ -22,13 +22,29 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
   const [files, setFiles] = useState<FilePreview[]>(
     product.imgs.map((img) => {
       return { url: img.url, position: img.position, file: null };
     })
   );
+  const form = useRef<HTMLFormElement>(null);
 
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (form.current) {
+      form.current.short_title.value = product.title;
+      form.current.long_title.value = product.long_title;
+      form.current.body.value = product.body;
+      form.current.sizes.value = product.sizes;
+      form.current.price.value = product.price;
+      setFiles(
+        product.imgs.map((img) => {
+          return { url: img.url, position: img.position, file: null };
+        })
+      );
+    }
+  }, [product]);
+
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -80,38 +96,38 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
     <>
       <EditButton onClick={(e) => onOpenModal(e)} />
       <Modal open={open} onClose={(e) => onCloseModal(e)}>
-        <form onSubmit={(e) => onSubmit(e)} className={cl.form}>
-          <h2>Изменить продукт</h2>
+        <form ref={form} onSubmit={(e) => onSubmit(e)} className={cl.form}>
+          <h2>Изменить продукт {product.title}</h2>
           <TextInput
             required
             defaultValue={product.title}
             name="short_title"
-            id="short_title"
+            // id="short_title"
             placeholder="Кароткое название продукта"
           />
           <TextInput
             defaultValue={product.long_title}
             name="long_title"
-            id="long_title"
+            // id="long_title"
             placeholder="Длинное название продукта"
           />
           <Textarea
             defaultValue={product.body}
-            id="body"
+            // id="body"
             name="body"
             placeholder="Описание товара"
           />
           <TextInput
             defaultValue={product.sizes?.join(", ")}
             name="sizes"
-            id="sizes"
+            // id="sizes"
             placeholder="Размеры"
           />
           <TextInput
             defaultValue={product.price}
             pattern={"[0-9]+"}
             name="price"
-            id="price"
+            // id="price"
             placeholder="Цена"
           />
           <h3>Фото продукта:</h3>
