@@ -9,7 +9,10 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
   if (!title) return <></>;
   return (
     <div className={cl.header}>
-      <h1>{title}</h1>
+      <h1 className={cl.header__title}>
+        <span className={cl.header__title__gothelph}>GOTHELPH</span>{" "}
+        {title.toUpperCase()}
+      </h1>
     </div>
   );
 };
