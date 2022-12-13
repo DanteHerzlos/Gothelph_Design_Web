@@ -49,15 +49,9 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
             {categories &&
               categories.map((category) => (
                 <div key={category._id} className={cl.menu_btns__btn}>
-                  <EditCategoryPanel
-                    className={cl.edit_panel}
-                    type={type}
-                    category={category}
-                    editBtn
-                    deleteBtn
-                  />
                   <Link href={[rootPath, category._id].join("/")}>
                     <Button
+                      className={cl.btn}
                       onMouseOver={() => overHandler(category)}
                       white={category._id === activeCategory?._id}
                     >
@@ -71,6 +65,7 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
         {categories && (
           <div className={cl.slider}>
             <ImgSplitSlider
+              type={type}
               activeCategory={activeCategory}
               categories={categories}
             />

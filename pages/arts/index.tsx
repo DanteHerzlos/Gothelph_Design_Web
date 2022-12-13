@@ -11,24 +11,38 @@ import { setProduct } from "@store/reducers/product/productSlice";
 import { CategoryType } from "types/CategoryType";
 import { IProduct } from "types/IProduct";
 import cl from "@styles/Arts.module.sass";
+import CategoryService from "@services/CategoryService";
+import { ICategory } from "types/ICategory";
+import { setCategory } from "@store/reducers/category/categorySlice";
+import EditCategoryPanel from "@components/EditCategoryPanel";
 
 interface ArtsProps {
   fetchedProducts: IProduct[];
+  fetchedCategories: ICategory[];
   type: CategoryType;
 }
 
-const Arts: React.FC<ArtsProps> = ({ fetchedProducts, type }) => {
+const Arts: React.FC<ArtsProps> = ({
+  fetchedProducts,
+  fetchedCategories,
+  type,
+}) => {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.productReducer);
+  const { categories } = useAppSelector((state) => state.categoryReducer);
 
   useEffect(() => {
     dispatch(setProduct(fetchedProducts));
-  }, [dispatch, fetchedProducts]);
+    dispatch(setCategory(fetchedCategories));
+  }, [dispatch, fetchedProducts, fetchedCategories]);
 
   return (
     <Layout title="ARTS">
       <>
-        <div className={cl.slider}>{/* <ImgSplitSlider /> */}</div>
+        <div className={cl.slider}>
+          <EditCategoryPanel className={cl.edit_panel} type={type} addBtn />
+          <ImgSplitSlider type={type} categories={categories} />
+        </div>
         <div className={cl.services}>
           <div className={cl.service_title}>
             <EditProductPanel
@@ -68,10 +82,16 @@ const Arts: React.FC<ArtsProps> = ({ fetchedProducts, type }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
+  const categories = await CategoryService.getCategories(type);
+  const products = await ProductService.getProductsByCategory(type);
 
-  const data = await ProductService.getProductsByCategory(type);
-
-  return { props: { fetchedProducts: data, type: type } };
+  return {
+    props: {
+      fetchedProducts: products,
+      fetchedCategories: categories,
+      type: type,
+    },
+  };
 };
 
 export default Arts;

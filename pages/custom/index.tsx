@@ -33,17 +33,25 @@ const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
   }, [dispatch, fetchedProducts]);
 
   return (
-    <Layout title="Custom Collection">
+    <Layout title="Custom">
       <>
         <div className={cl.carousel_container}>
           <div className={cl.carousel_btns}>
-            <EditProductPanel category={type} addBtn />
+            {activeProduct ? (
+              <EditProductPanel
+                product={activeProduct}
+                editBtn
+                deleteBtn
+                category={type}
+                addBtn
+              />
+            ) : (
+              <EditProductPanel category={type} addBtn />
+            )}
             <div className={cl.carousel_btns_btns}>
               {products &&
                 products.map((product) => (
                   <div key={product._id} className={cl.btn}>
-                    <EditProductPanel product={product} editBtn deleteBtn />
-
                     <Button
                       className={
                         product._id === activeProduct?._id ? cl._active : ""
