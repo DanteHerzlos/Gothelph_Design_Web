@@ -10,11 +10,12 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import { CategoryType } from "types/CategoryType";
 import { IProduct } from "types/IProduct";
-import cl from "@styles/Arts.module.sass";
 import CategoryService from "@services/CategoryService";
 import { ICategory } from "types/ICategory";
 import { setCategory } from "@store/reducers/category/categorySlice";
 import EditCategoryPanel from "@components/EditCategoryPanel";
+import cl from "@styles/Arts.module.sass";
+import CardLightBox from "@components/CardLightBox";
 
 interface ArtsProps {
   fetchedProducts: IProduct[];
@@ -58,14 +59,8 @@ const Arts: React.FC<ArtsProps> = ({
               products.map((product) => (
                 <div key={product._id} className={cl.cards__card}>
                   <EditProductPanel product={product} editBtn deleteBtn />
-                  <Card
-                    key={product._id}
-                    src={product.imgs[0].url}
-                    title={
-                      product.price
-                        ? product.title + " " + product.price + "₽"
-                        : product.title
-                    }
+                  <CardLightBox
+                    product={product}
                     className={cl.card}
                   />
                 </div>
