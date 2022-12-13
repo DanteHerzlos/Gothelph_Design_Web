@@ -5,6 +5,7 @@ import dbConnect from "@lib/dbConnect";
 import Product from "@models/Product";
 import Category from "@models/Category";
 import { IImage } from "types/IImage";
+import { isValidObjectId } from "mongoose";
 
 export const config = {
   api: {
@@ -18,7 +19,15 @@ const handler: NextApiHandler = async (req, res) => {
     const { id } = query;
     try {
       await dbConnect();
+
+      if (!isValidObjectId(id)) {
+        return res.status(404).send({ notFound: true });
+      }
       const product = await Product.findById(id);
+
+      if (product === null) {
+        return res.status(404).send({ notFound: true });
+      }
       return res.status(200).send(product);
     } catch (error: any) {
       return res.status(500).send(error.message);

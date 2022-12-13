@@ -1,7 +1,11 @@
-import { ICategory } from "../types/ICategory";
+import { ICategory, ICategoryPopulated } from "../types/ICategory";
 import { $authHost, $host } from "./index";
 
 export default class CategoryService {
+  static async getCategoryById(id: string): Promise<ICategoryPopulated> {
+    return await $host(`/category/${id}`);
+  }
+
   static async getCategories(type: string): Promise<ICategory[]> {
     return await $host(`/category?type=${type}`);
   }

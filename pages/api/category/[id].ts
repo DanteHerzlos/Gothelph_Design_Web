@@ -2,9 +2,11 @@ import { NextApiHandler } from "next";
 import formidable, { File } from "formidable";
 import fs from "fs";
 import dbConnect from "@lib/dbConnect";
+import Product from "@models/Product";
 import Category from "@models/Category";
 import saveFile from "@handlers/saveFile";
 import updateFiledataToDB from "@handlers/updateFiledataToDB";
+import { isValidObjectId } from "mongoose";
 
 export const config = {
   api: {
@@ -13,10 +15,30 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  const { query } = req;
+  const { id } = query;
+
+  if (req.method === "GET") {
+    try {
+      await dbConnect();
+      if (!isValidObjectId(id)) {
+        return res.status(404).send({ notFound: true });
+      }
+      const category = await Category.findById(id).populate({
+        path: "products",
+        model: Product,
+      });
+      if (category === null) {
+        return res.status(404).send({ notFound: true });
+      }
+      return res.status(200).send(category);
+    } catch (error: any) {
+      return res.status(500).send(error.message);
+    }
+  }
+
   if (req.method === "DELETE") {
     try {
-      const { query } = req;
-      const { id } = query;
       await dbConnect();
       const category = await Category.findByIdAndDelete(id);
       if (category) {
@@ -31,11 +53,8 @@ const handler: NextApiHandler = async (req, res) => {
     }
   }
 
-  if (req.method === "PUT") {   
-    const { query } = req;
-    const { id } = query;
+  if (req.method === "PUT") {
     const form = new formidable.IncomingForm();
-
     form.parse(req, async (err, fields, data) => {
       try {
         await dbConnect();

@@ -13,7 +13,7 @@ interface AutoItemProps {
 
 const AutoItem: React.FC<AutoItemProps> = ({ product }) => {
   return (
-    <AutoLayout title="название товара">
+    <AutoLayout title={product.title}>
       <div className={cl.body}>
         <GallerySlider imgs={product.imgs}>
           <ItemInfo product={product} />
@@ -39,6 +39,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await ProductService.getProductById(
     context.query["itemId"] as string
   );
+
+  if (data.notFound) {
+    return {
+      redirect: {
+        permanent: true,
+        destination: "/404",
+      },
+    };
+  }
   return { props: { product: data } };
 };
 

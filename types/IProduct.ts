@@ -9,4 +9,5 @@ export interface IProduct {
   price?: string;
   category?: string;
   imgs: IImage[];
+  notFound?: boolean
 }

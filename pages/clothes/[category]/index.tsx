@@ -5,7 +5,7 @@ import Link from "next/link";
 import EditProductPanel from "@components/EditProductPanel";
 import ClothesLayout from "@components/layouts/ClothesLayout";
 import Card from "@components/Card";
-import ProductService from "@services/ProductService";
+import CategoryService from "@services/CategoryService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import { IProduct } from "types/IProduct";
@@ -13,10 +13,12 @@ import cl from "@styles/Clothes.module.sass";
 
 interface ClothesCategoryProps {
   fetchedProducts: IProduct[];
+  categoryTitle: string;
 }
 
 const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   fetchedProducts,
+  categoryTitle,
 }) => {
   const router = useRouter();
   const rootPath = router.asPath;
@@ -29,7 +31,7 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   }, [dispatch, fetchedProducts]);
 
   return (
-    <ClothesLayout title={"КАТАЛОГ " + category}>
+    <ClothesLayout title={"КАТАЛОГ " + categoryTitle}>
       <div className={cl.container}>
         <div className={cl.categories}>
           <EditProductPanel
@@ -57,10 +59,25 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await ProductService.getProductsByCategory(
+  const data = await CategoryService.getCategoryById(
     context.query["category"] as string
   );
-  return { props: { fetchedProducts: data } };
+
+  if (data.notFound) {
+    return {
+      redirect: {
+        permanent: true,
+        destination: "/404",
+      },
+    };
+  }
+
+  return {
+    props: {
+      fetchedProducts: data.products,
+      categoryTitle: data.title,
+    },
+  };
 };
 
 export default ClothesCategory;

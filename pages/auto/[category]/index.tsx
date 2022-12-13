@@ -5,17 +5,21 @@ import Link from "next/link";
 import AutoLayout from "@components/layouts/AutoLayout";
 import EditProductPanel from "@components/EditProductPanel";
 import Card from "@components/Card";
-import ProductService from "@services/ProductService";
 import { IProduct } from "types/IProduct";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/Clothes.module.sass";
+import CategoryService from "@services/CategoryService";
 
 interface AutoCategoryProps {
   fetchedProducts: IProduct[];
+  categoryTitle: string;
 }
 
-const AutoCategory: React.FC<AutoCategoryProps> = ({ fetchedProducts }) => {
+const AutoCategory: React.FC<AutoCategoryProps> = ({
+  fetchedProducts,
+  categoryTitle,
+}) => {
   const router = useRouter();
   const rootPath = router.asPath;
   const { category } = router.query;
@@ -27,7 +31,7 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({ fetchedProducts }) => {
   }, [dispatch, fetchedProducts]);
 
   return (
-    <AutoLayout title={"автотовары " + category}>
+    <AutoLayout title={"автотовары " + categoryTitle}>
       <div className={cl.container}>
         <div className={cl.categories}>
           <EditProductPanel
@@ -55,10 +59,24 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({ fetchedProducts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await ProductService.getProductsByCategory(
+  const data = await CategoryService.getCategoryById(
     context.query["category"] as string
   );
-  return { props: { fetchedProducts: data } };
+
+  if (data.notFound) {
+    return {
+      redirect: {
+        permanent: true,
+        destination: "/404",
+      },
+    };
+  }
+  return {
+    props: {
+      fetchedProducts: data.products,
+      categoryTitle: data.title,
+    },
+  };
 };
 
 export default AutoCategory;
