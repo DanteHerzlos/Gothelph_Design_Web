@@ -64,11 +64,15 @@ const GallerySlider: React.FC<GallerySliderProps> = ({ children, imgs }) => {
             </div>
           ))}
         </div>
-        {isLightbox && (
-          <Lightbox onClose={() => setIsLightbox(false)}>
-            <Image fill className={cl.lightbox} src={imgs[active].url} alt="" />
-          </Lightbox>
-        )}
+        <Lightbox open={isLightbox} onClose={() => setIsLightbox(false)}>
+          <Image
+            width={1920}
+            height={1080}
+            className={cl.lightbox}
+            src={imgs[active].url}
+            alt=""
+          />
+        </Lightbox>
       </div>
       {children && <div className={cl.body}>{children}</div>}
     </div>

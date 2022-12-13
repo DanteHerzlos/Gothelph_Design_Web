@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import EditCategoryPanel from "./EditCategoryPanel";
-import LeftIcon from "./Icons/LeftIcon";
-import RightIcon from "./Icons/RightIcon";
+import ArrowButton from "./UI/ArrowButton";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import cl from "@styles/components/ImgSlider.module.sass";
@@ -57,12 +56,16 @@ const ImgSlider: React.FC<ImgSliderProps> = ({ categories, type }) => {
               alt={category.title}
             ></Image>
           ))}
-          <div onClick={onLeftClick} className={cl.btn_left}>
-            <LeftIcon />
-          </div>
-          <div onClick={onRightClick} className={cl.btn_right}>
-            <RightIcon />
-          </div>
+          <ArrowButton
+            direction="left"
+            onClick={onLeftClick}
+            className={cl.btn_left}
+          />
+          <ArrowButton
+            direction="right"
+            onClick={onRightClick}
+            className={cl.btn_right}
+          />
         </div>
       </div>
       <div className={cl.description}>
