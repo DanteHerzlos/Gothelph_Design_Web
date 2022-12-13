@@ -1,10 +1,7 @@
-import { $authHost, $host } from ".";
+import { $authHost } from ".";
 import { IImage } from "../types/IImage";
 
 export default class ImgService {
-  static async getImgs(type: string): Promise<IImage[]> {
-    return await $host(`/img?type=${type}`);
-  }
   static async postImg(fd: FormData): Promise<IImage> {
     return await $authHost(`/img`, { body: fd, method: "post" });
   }

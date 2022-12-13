@@ -10,14 +10,18 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/Clothes.module.sass";
 import CategoryService from "@services/CategoryService";
+import { ICategory } from "types/ICategory";
+import { setCategory } from "@store/reducers/category/categorySlice";
 
 interface AutoCategoryProps {
+  autoServices: ICategory[];
   fetchedProducts: IProduct[];
   categoryTitle: string;
 }
 
 const AutoCategory: React.FC<AutoCategoryProps> = ({
   fetchedProducts,
+  autoServices,
   categoryTitle,
 }) => {
   const router = useRouter();
@@ -28,7 +32,8 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({
 
   useEffect(() => {
     dispatch(setProduct(fetchedProducts));
-  }, [dispatch, fetchedProducts]);
+    dispatch(setCategory(autoServices));
+  }, [dispatch, fetchedProducts, autoServices]);
 
   return (
     <AutoLayout title={"автотовары " + categoryTitle}>
@@ -62,6 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await CategoryService.getCategoryById(
     context.query["category"] as string
   );
+  const services = await CategoryService.getCategories("auto_services");
 
   if (data.notFound) {
     return {
@@ -73,6 +79,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   return {
     props: {
+      autoServices: services,
       fetchedProducts: data.products,
       categoryTitle: data.title,
     },

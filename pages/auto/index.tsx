@@ -15,10 +15,15 @@ import cl from "@styles/Auto.module.sass";
 
 interface AutoProps {
   fetchedCategories: ICategory[];
+  autoServices: ICategory[];
   type: CategoryType;
 }
 
-const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
+const Auto: React.FC<AutoProps> = ({
+  fetchedCategories,
+  autoServices,
+  type,
+}) => {
   const router = useRouter();
   const rootPath = router.asPath;
   const dispatch = useAppDispatch();
@@ -28,12 +33,14 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
   );
 
   useEffect(() => {
-    setActiveCategory(categories[0]);
-  }, [categories]);
+    setActiveCategory(
+      categories.filter((category) => category.type === type)[0]
+    );
+  }, [categories, type]);
 
   useEffect(() => {
-    dispatch(setCategory(fetchedCategories));
-  }, [dispatch, fetchedCategories]);
+    dispatch(setCategory([...fetchedCategories, ...autoServices]));
+  }, [dispatch, fetchedCategories, autoServices]);
 
   const overHandler = (category: ICategory) => {
     setActiveCategory(category);
@@ -47,19 +54,21 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
 
           <div className={cl.menu_btns}>
             {categories &&
-              categories.map((category) => (
-                <div key={category._id} className={cl.menu_btns__btn}>
-                  <Link href={[rootPath, category._id].join("/")}>
-                    <Button
-                      className={cl.btn}
-                      onMouseOver={() => overHandler(category)}
-                      white={category._id === activeCategory?._id}
-                    >
-                      {category.title}
-                    </Button>
-                  </Link>
-                </div>
-              ))}
+              categories
+                .filter((category) => category.type === type)
+                .map((category) => (
+                  <div key={category._id} className={cl.menu_btns__btn}>
+                    <Link href={[rootPath, category._id].join("/")}>
+                      <Button
+                        className={cl.btn}
+                        onMouseOver={() => overHandler(category)}
+                        white={category._id === activeCategory?._id}
+                      >
+                        {category.title}
+                      </Button>
+                    </Link>
+                  </div>
+                ))}
           </div>
         </div>
         {categories && (
@@ -67,7 +76,9 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
             <ImgSplitSlider
               type={type}
               activeCategory={activeCategory}
-              categories={categories}
+              categories={categories.filter(
+                (category) => category.type === type
+              )}
             />
           </div>
         )}
@@ -79,7 +90,10 @@ const Auto: React.FC<AutoProps> = ({ fetchedCategories, type }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
   const data = await CategoryService.getCategories(type);
-  return { props: { fetchedCategories: data, type: type } };
+  const services = await CategoryService.getCategories("auto_services");
+  return {
+    props: { fetchedCategories: data, type: type, autoServices: services },
+  };
 };
 
 export default Auto;

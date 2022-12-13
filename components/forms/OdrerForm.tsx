@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
 import Textarea from "../UI/Textarea";
@@ -7,7 +7,7 @@ import cl from "@styles/components/forms/OdrerForm.module.sass";
 
 interface OdrerFormProps {
   className?: string;
-  children?: string;
+  children?: string | ReactElement;
   product_name?: string;
   product_price?: string;
 }
@@ -20,13 +20,24 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  return (
-    <>
-      <div className={cl.modal_btn}>
+  const content = () => {
+    if (typeof children === "string") {
+      return (
         <Button className={className} onClick={() => setOpen(true)}>
           {children}
         </Button>
+      );
+    }
+    return (
+      <div className={className} onClick={() => setOpen(true)}>
+        {children}
       </div>
+    );
+  };
+
+  return (
+    <>
+      <div className={cl.modal_btn}>{content()}</div>
       <Modal open={open} onClose={() => setOpen(false)}>
         <form className={cl.form}>
           <h2>Оформление заказа</h2>
