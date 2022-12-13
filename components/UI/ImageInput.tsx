@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "../Icons/AddIcon";
 import cl from "@styles/components/UI/ImageInput.module.sass";
 interface ImageInputProps {
@@ -16,6 +16,10 @@ const ImageInput: React.FC<ImageInputProps> = ({
   id,
 }) => {
   const [filePreview, setFilePreview] = useState<string>(defaultValue);
+
+  useEffect(() => {
+    setFilePreview(defaultValue);
+  }, [defaultValue]);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilePreview(
