@@ -3,6 +3,7 @@ import { NextApiHandler } from "next";
 import fs from "fs";
 import saveFile from "@handlers/saveFile";
 import Product from "@models/Product";
+import { getSession } from "next-auth/react";
 
 export const config = {
   api: {
@@ -11,7 +12,14 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  const session = getSession({ req });
+
   if (req.method === "POST") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     let path: string | null = null;
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, data) => {
@@ -33,6 +41,11 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "DELETE") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     try {
       const { query } = req;
 

@@ -6,6 +6,7 @@ import Product from "@models/Product";
 import Category from "@models/Category";
 import { IImage } from "types/IImage";
 import { isValidObjectId } from "mongoose";
+import { getSession } from "next-auth/react";
 
 export const config = {
   api: {
@@ -14,9 +15,10 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  const { query } = req;
+  const { id } = query;
+  const session = getSession({ req });
   if (req.method === "GET") {
-    const { query } = req;
-    const { id } = query;
     try {
       await dbConnect();
 
@@ -35,9 +37,12 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "DELETE") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     try {
-      const { query } = req;
-      const { id } = query;
       await dbConnect();
       const product = await Product.findByIdAndDelete(id);
       if (product.category.match(/^[0-9a-fA-F]{24}$/)) {
@@ -59,8 +64,11 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "PUT") {
-    const { query } = req;
-    const { id } = query;
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     const form = new formidable.IncomingForm();
 
     form.parse(req, async (err, fields, data) => {

@@ -4,6 +4,7 @@ import dbConnect from "@lib/dbConnect";
 import Category from "@models/Category";
 import saveFile from "@handlers/saveFile";
 import saveFiledataToDB from "@handlers/saveFiledataToDB";
+import { getSession } from "next-auth/react";
 
 export const config = {
   api: {
@@ -12,14 +13,21 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  const session = await getSession({ req });
+
   if (req.method === "POST") {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, data) => {
       try {
+        if (!session) {
+          return res
+            .status(403)
+            .send({ message: "Неавторизованный пользователь!" });
+        }
         await dbConnect();
 
         const path = saveFile(data.file as File, fields.type as string);
-        
+
         const categoryData = {
           title: fields.category as string,
           type: fields.type as string,
@@ -38,14 +46,12 @@ const handler: NextApiHandler = async (req, res) => {
   if (req.method === "GET") {
     try {
       await dbConnect();
-      const categories = await Category.find({ type: req.query["type"] });   
+      const categories = await Category.find({ type: req.query["type"] });
       return res.status(200).send(categories);
     } catch (error: any) {
       return res.status(500).send(error.message);
     }
   }
 };
-
-
 
 export default handler;

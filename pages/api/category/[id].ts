@@ -7,6 +7,7 @@ import Category from "@models/Category";
 import saveFile from "@handlers/saveFile";
 import updateFiledataToDB from "@handlers/updateFiledataToDB";
 import { isValidObjectId } from "mongoose";
+import { getSession } from "next-auth/react";
 
 export const config = {
   api: {
@@ -17,6 +18,7 @@ export const config = {
 const handler: NextApiHandler = async (req, res) => {
   const { query } = req;
   const { id } = query;
+  const session = await getSession({ req });
 
   if (req.method === "GET") {
     try {
@@ -38,6 +40,11 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "DELETE") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     try {
       await dbConnect();
       const category = await Category.findByIdAndDelete(id);
@@ -54,6 +61,11 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "PUT") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, data) => {
       try {

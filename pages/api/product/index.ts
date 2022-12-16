@@ -5,6 +5,7 @@ import Product from "@models/Product";
 import Category from "@models/Category";
 import { IProduct } from "types/IProduct";
 import { IImage } from "types/IImage";
+import { getSession } from "next-auth/react";
 
 export const config = {
   api: {
@@ -13,7 +14,13 @@ export const config = {
 };
 
 const handler: NextApiHandler = async (req, res) => {
+  const session = getSession({ req });
   if (req.method === "POST") {
+    if (!session) {
+      return res
+        .status(403)
+        .send({ message: "Неавторизованный пользователь!" });
+    }
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, data) => {
       try {
