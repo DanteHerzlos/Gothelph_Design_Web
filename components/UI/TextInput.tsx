@@ -10,6 +10,7 @@ interface TextInputProps {
   defaultValue?: string | number | readonly string[] | undefined;
   required?: boolean;
   pattern?: string;
+  type?: React.HTMLInputTypeAttribute;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -21,6 +22,7 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
   required,
   pattern,
+  type,
 }) => {
   const [invalid, setInvalid] = useState<boolean>(false);
 
@@ -31,6 +33,8 @@ const TextInput: React.FC<TextInputProps> = ({
 
   return (
     <input
+      autoComplete="on"
+      type={type}
       onInvalid={() => setInvalid(true)}
       onBlur={(e) => blurHandler(e)}
       pattern={pattern}

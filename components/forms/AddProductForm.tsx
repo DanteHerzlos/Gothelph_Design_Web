@@ -26,11 +26,16 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const form = e.currentTarget;
     const productImgs = [];
 
     setIsLoading(true);
     try {
+      if (files.length === 0) {
+        setErrorMessage("Добавте фотографии повторно!");
+        return;
+      }
       for (const file of files) {
         const imgFormData = new FormData();
         if (file.file !== null) imgFormData.append("file", file.file);
@@ -44,6 +49,10 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
       ProductformData.append("imgs", JSON.stringify(productImgs));
       ProductformData.append("category", category);
       const product = await ProductService.postProduct(ProductformData);
+      if (product.message) {
+        setErrorMessage(product.message);
+        return;
+      }
       dispatch(addProduct(product));
       setFiles([]);
       form.reset();

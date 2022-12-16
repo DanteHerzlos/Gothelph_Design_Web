@@ -26,9 +26,10 @@
       "@hooks/*": ["hooks/*"],
       "@store/*": ["store/*"],
       "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"],
       "@handlers/*": ["handlers/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/admin.jsmin.utils/admin.jsils/utils/admin.js", "utils/admin.js"],
   "exclude": ["node_modules"]
 }

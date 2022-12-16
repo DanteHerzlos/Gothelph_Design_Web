@@ -4,7 +4,9 @@ import { CategoryType } from "types/CategoryType";
 import AddCategoryForm from "./forms/AddCategoryForm";
 import DeleteCategoryForm from "./forms/DeleteCategoryForm";
 import EditCategoryForm from "./forms/EditCategoryForm";
+import { useSession } from "next-auth/react";
 import cl from "@styles/components/EditPanel.module.sass";
+
 
 interface EditCategoryPanelProps {
   addBtn?: boolean;
@@ -23,7 +25,9 @@ const EditCategoryPanel: React.FC<EditCategoryPanelProps> = ({
   category,
   type,
 }) => {
-  // if(!isAuth) return <></>
+  const { data: session } = useSession();
+
+  if (!session) return <></>;
 
   return (
     <div className={cl.panel + " " + className}>

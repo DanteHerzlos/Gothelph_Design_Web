@@ -3,6 +3,7 @@ import { IProduct } from "types/IProduct";
 import AddProductForm from "./forms/AddProductForm";
 import DeleteProductForm from "./forms/DeleteProductForm";
 import EditProductForm from "./forms/EditProductForm";
+import { useSession } from "next-auth/react";
 import cl from "@styles/components/EditPanel.module.sass";
 
 interface EditProductPanelProps {
@@ -22,7 +23,9 @@ const EditProductPanel: React.FC<EditProductPanelProps> = ({
   product,
   category,
 }) => {
-  // if(!isAuth) return <></>
+  const { data: session } = useSession();
+
+  if (!session) return <></>;
 
   return (
     <div className={cl.panel + " " + className}>

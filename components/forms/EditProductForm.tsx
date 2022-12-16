@@ -31,6 +31,10 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
   const form = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
+    if (files.length === 0) {
+      setErrorMessage("Добавте фотографии повторно!");
+      return;
+    }
     if (form.current) {
       form.current.short_title.value = product.title;
       form.current.long_title.value = product.long_title;
@@ -43,8 +47,7 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
         })
       );
     }
-  }, [product]);
-
+  }, [product, files.length]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
