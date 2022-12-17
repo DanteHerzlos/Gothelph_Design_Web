@@ -6,7 +6,6 @@ import AutoLayout from "@components/layouts/AutoLayout";
 import ImgSplitSlider from "@components/ImgSplitSlider";
 import Button from "@components/UI/Button";
 import EditCategoryPanel from "@components/EditCategoryPanel";
-import CategoryService from "@services/CategoryService";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
@@ -89,8 +88,13 @@ const Auto: React.FC<AutoProps> = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
-  const data = await CategoryService.getCategories(type);
-  const services = await CategoryService.getCategories("auto_services");
+  const res_data = await fetch(process.env.API_URL + "/category?type=" + type);
+  const data = await res_data.json();
+
+  const res_services = await fetch(
+    process.env.API_URL + "/category?type=auto_services"
+  );
+  const services = await res_services.json();
   return {
     props: { fetchedCategories: data, type: type, autoServices: services },
   };

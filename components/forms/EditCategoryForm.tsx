@@ -8,7 +8,6 @@ import Message from "../UI/Message";
 import Textarea from "../UI/Textarea";
 import { ICategory } from "types/ICategory";
 import { useAppDispatch } from "@hooks/redux";
-import CategoryService from "@services/CategoryService";
 import { updateCategory } from "@store/reducers/category/categorySlice";
 import cl from "@styles/components/forms/EditCategoryForm.module.sass";
 
@@ -43,10 +42,11 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
 
     setIsLoading(true);
     try {
-      const data = await CategoryService.updateCategory(
-        category._id!,
-        formData
-      );
+      const res = await fetch("/api/category/" + category._id, {
+        body: formData,
+        method: "put",
+      });
+      const data = await res.json();
       dispatch(updateCategory(data));
       form.reset();
       setOpen(false);

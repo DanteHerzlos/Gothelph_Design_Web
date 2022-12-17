@@ -9,12 +9,10 @@ import ImgSlider from "@components/ImgSlider";
 import Footer from "@components/layouts/Footer";
 import useElementOnScreenOnce from "@hooks/useElementOnScreenOnce";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import CategoryService from "@services/CategoryService";
 import { setCategory } from "@store/reducers/category/categorySlice";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import cl from "@styles/Home.module.sass";
-
 
 interface HomeProps {
   fetchedCategories: ICategory[];
@@ -117,10 +115,10 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
   );
 };
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const type = 'benefits'
-  const data = await CategoryService.getCategories(type);
+  const type = "benefits";
+  const res = await fetch(process.env.API_URL +  "/category?type=" + type);
+  const data = await res.json()
   return { props: { fetchedCategories: data, type: type } };
 };
 

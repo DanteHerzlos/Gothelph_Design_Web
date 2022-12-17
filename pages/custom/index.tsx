@@ -5,7 +5,6 @@ import EditProductPanel from "@components/EditProductPanel";
 import OdrerForm from "@components/forms/OdrerForm";
 import Layout from "@components/layouts/Layout";
 import Button from "@components/UI/Button";
-import ProductService from "@services/ProductService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import { CategoryType } from "types/CategoryType";
@@ -90,7 +89,8 @@ const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
-  const data = await ProductService.getProductsByCategory(type);
+  const res = await fetch(process.env.API_URL + "/product?category=" + type);
+  const data = await res.json();
 
   return { props: { fetchedProducts: data, type: type } };
 };

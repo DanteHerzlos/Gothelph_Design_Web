@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { GetServerSideProps } from "next";
-import Card from "@components/Card";
 import EditProductPanel from "@components/EditProductPanel";
 import OdrerForm from "@components/forms/OdrerForm";
 import ImgSplitSlider from "@components/ImgSplitSlider";
 import Layout from "@components/layouts/Layout";
-import ProductService from "@services/ProductService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import { CategoryType } from "types/CategoryType";
 import { IProduct } from "types/IProduct";
-import CategoryService from "@services/CategoryService";
 import { ICategory } from "types/ICategory";
 import { setCategory } from "@store/reducers/category/categorySlice";
 import EditCategoryPanel from "@components/EditCategoryPanel";
@@ -59,10 +56,7 @@ const Arts: React.FC<ArtsProps> = ({
               products.map((product) => (
                 <div key={product._id} className={cl.cards__card}>
                   <EditProductPanel product={product} editBtn deleteBtn />
-                  <CardLightBox
-                    product={product}
-                    className={cl.card}
-                  />
+                  <CardLightBox product={product} className={cl.card} />
                 </div>
               ))}
           </div>
@@ -77,8 +71,13 @@ const Arts: React.FC<ArtsProps> = ({
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
-  const categories = await CategoryService.getCategories(type);
-  const products = await ProductService.getProductsByCategory(type);
+  const res_cat = await fetch(process.env.API_URL + "/category?type=" + type);
+  const categories = await res_cat.json();
+
+  const res_prod = await fetch(
+    process.env.API_URL + "/product?category=" + type
+  );
+  const products = await res_prod.json();
 
   return {
     props: {

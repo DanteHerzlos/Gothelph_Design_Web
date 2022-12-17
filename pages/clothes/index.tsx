@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import Card from "@components/Card";
 import ClothesLayout from "@components/layouts/ClothesLayout";
 import EditCategoryPanel from "@components/EditCategoryPanel";
-import CategoryService from "@services/CategoryService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setCategory } from "@store/reducers/category/categorySlice";
 import { ICategory } from "types/ICategory";
@@ -58,7 +57,8 @@ const Clothes: React.FC<ClothesProps> = ({ fetchedCategories, type }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = context.resolvedUrl.slice(1);
-  const data = await CategoryService.getCategories(type);
+  const res = await fetch(process.env.API_URL + "/category?type=" + type);
+  const data = await res.json();
   return { props: { fetchedCategories: data, type: type } };
 };
 

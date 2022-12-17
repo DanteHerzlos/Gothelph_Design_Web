@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next";
 import ClothesLayout from "@components/layouts/ClothesLayout";
 import GallerySlider from "@components/GallerySlider";
 import ItemInfo from "@components/ItemInfo";
-import ProductService from "@services/ProductService";
 import { IProduct } from "types/IProduct";
 import cl from "@styles/ProductItem.module.sass";
 
@@ -36,9 +35,9 @@ const ClothesItem: React.FC<ClothesItemProps> = ({ product }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await ProductService.getProductById(
-    context.query["itemId"] as string
-  );
+  const productId = context.query["itemId"];
+  const res = await fetch(process.env.API_URL + "/product/" + productId);
+  const data = await res.json();
 
   if (data.notFound) {
     return {

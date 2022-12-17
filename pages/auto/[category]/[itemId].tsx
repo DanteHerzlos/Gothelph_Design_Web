@@ -3,9 +3,7 @@ import { GetServerSideProps } from "next";
 import AutoLayout from "@components/layouts/AutoLayout";
 import GallerySlider from "@components/GallerySlider";
 import ItemInfo from "@components/ItemInfo";
-import ProductService from "@services/ProductService";
 import { IProduct } from "types/IProduct";
-import CategoryService from "@services/CategoryService";
 import { ICategory } from "types/ICategory";
 import { useAppDispatch } from "@hooks/redux";
 import { setCategory } from "@store/reducers/category/categorySlice";
@@ -47,10 +45,14 @@ const AutoItem: React.FC<AutoItemProps> = ({ product, autoServices }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await ProductService.getProductById(
-    context.query["itemId"] as string
+  const productId = context.query["itemId"];
+  const res = await fetch(process.env.API_URL + "/product/" + productId);
+  const data = await res.json();
+
+  const res_services = await fetch(
+    process.env.API_URL + "/category?type=auto_services"
   );
-  const services = await CategoryService.getCategories("auto_services");
+  const services = await res_services.json();
 
   if (data.notFound) {
     return {

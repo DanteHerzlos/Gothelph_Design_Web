@@ -5,7 +5,6 @@ import Modal from "../UI/Modal";
 import DeleteButton from "../UI/DeleteButton";
 import { ICategory } from "types/ICategory";
 import Message from "../UI/Message";
-import CategoryService from "@services/CategoryService";
 import { removeCategory } from "@store/reducers/category/categorySlice";
 import { useAppDispatch } from "@hooks/redux";
 import cl from "@styles/components/forms/DeleteCategoryForm.module.sass";
@@ -40,7 +39,10 @@ const DeleteCategoryForm: React.FC<DeleteCategoryFormProps> = ({
       setIsLoading(true);
 
       try {
-        const data = await CategoryService.removeCategory(category._id);
+        const res = await fetch("/api/category/" + category._id, {
+          method: "delete",
+        });
+        const data = await res.json();
         if (data) dispatch(removeCategory(category._id));
         setOpen(false);
       } catch (error: any) {

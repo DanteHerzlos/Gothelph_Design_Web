@@ -5,7 +5,6 @@ import Modal from "../UI/Modal";
 import DeleteButton from "../UI/DeleteButton";
 import Message from "../UI/Message";
 import { IProduct } from "types/IProduct";
-import ProductService from "@services/ProductService";
 import { useAppDispatch } from "@hooks/redux";
 import { removeProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/components/forms/DeleteProductForm.module.sass";
@@ -37,7 +36,10 @@ const DeleteProductForm: React.FC<DeleteProductFormProps> = ({ product }) => {
       setIsLoading(true);
 
       try {
-        const data = await ProductService.removeProduct(product._id);
+        const res = await fetch("/api/product/" + product._id, {
+          method: "delete",
+        });
+        const data = await res.json();
         if (data) dispatch(removeProduct(product._id));
         setOpen(false);
       } catch (error: any) {

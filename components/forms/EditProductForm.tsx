@@ -9,8 +9,6 @@ import Textarea from "../UI/Textarea";
 import { FilePreview } from "types/FilePreview";
 import { IProduct } from "types/IProduct";
 import { useAppDispatch } from "@hooks/redux";
-import ImgService from "@services/ImgService";
-import ProductService from "@services/ProductService";
 import { updateProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/components/forms/EditProductForm.module.sass";
 
@@ -57,13 +55,19 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
     setIsLoading(true);
     try {
       if (files[0].file !== null) {
-        await ImgService.removeImgByProductId(product._id!);
+        await fetch("api/img?product=" + product._id, {
+          method: "delete",
+        });
         for (const file of files) {
           const imgFormData = new FormData();
           imgFormData.append("file", file.file!);
           imgFormData.append("position", file.position.toString());
           imgFormData.append("type", "product");
-          const img = await ImgService.postImg(imgFormData);
+          const res = await fetch("/api/img", {
+            body: imgFormData,
+            method: "post",
+          });
+          const img = await res.json();
           productImgs.push(img);
         }
       } else {
@@ -72,10 +76,13 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
 
       const ProductformData = new FormData(form);
       ProductformData.append("imgs", JSON.stringify(productImgs));
-      const updatedProduct = await ProductService.updateProduct(
-        product._id!,
-        ProductformData
-      );
+
+      const res = await fetch("/api/product/" + product._id, {
+        method: "put",
+        body: ProductformData,
+      });
+      const updatedProduct = await res.json();
+
       dispatch(updateProduct(updatedProduct));
       setOpen(false);
     } catch (error: any) {

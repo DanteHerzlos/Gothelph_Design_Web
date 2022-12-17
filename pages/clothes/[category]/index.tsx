@@ -5,7 +5,6 @@ import Link from "next/link";
 import EditProductPanel from "@components/EditProductPanel";
 import ClothesLayout from "@components/layouts/ClothesLayout";
 import Card from "@components/Card";
-import CategoryService from "@services/CategoryService";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { setProduct } from "@store/reducers/product/productSlice";
 import { IProduct } from "types/IProduct";
@@ -59,9 +58,9 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await CategoryService.getCategoryById(
-    context.query["category"] as string
-  );
+  const categoryId = context.query["category"];
+  const res = await fetch(process.env.API_URL + "/category/" + categoryId);
+  const data = await res.json();
 
   if (data.notFound) {
     return {

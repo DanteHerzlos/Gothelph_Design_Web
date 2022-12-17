@@ -6,9 +6,7 @@ import AddButton from "../UI/AddButton";
 import Message from "../UI/Message";
 import Textarea from "../UI/Textarea";
 import MultiImageInput from "../UI/MultiImageInput";
-import ImgService from "@services/ImgService";
 import { useAppDispatch } from "@hooks/redux";
-import ProductService from "@services/ProductService";
 import { addProduct } from "@store/reducers/product/productSlice";
 import { FilePreview } from "types/FilePreview";
 import cl from "@styles/components/forms/AddProductForm.module.sass";
@@ -41,14 +39,25 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
         if (file.file !== null) imgFormData.append("file", file.file);
         imgFormData.append("position", file.position.toString());
         imgFormData.append("type", "product");
-        const img = await ImgService.postImg(imgFormData);
+
+        const res = await fetch("/api/img", {
+          body: imgFormData,
+          method: "post",
+        });
+        const img = await res.json()
         productImgs.push(img);
       }
 
       const ProductformData = new FormData(form);
       ProductformData.append("imgs", JSON.stringify(productImgs));
       ProductformData.append("category", category);
-      const product = await ProductService.postProduct(ProductformData);
+
+      const res = await fetch("/api/product", {
+        method: "post",
+        body: ProductformData,
+      });
+      const product = await res.json();
+
       if (product.message) {
         setErrorMessage(product.message);
         return;

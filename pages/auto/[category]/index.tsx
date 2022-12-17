@@ -6,12 +6,12 @@ import AutoLayout from "@components/layouts/AutoLayout";
 import EditProductPanel from "@components/EditProductPanel";
 import Card from "@components/Card";
 import { IProduct } from "types/IProduct";
+import { ICategory } from "types/ICategory";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { setCategory } from "@store/reducers/category/categorySlice";
 import { setProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/Clothes.module.sass";
-import CategoryService from "@services/CategoryService";
-import { ICategory } from "types/ICategory";
-import { setCategory } from "@store/reducers/category/categorySlice";
+
 
 interface AutoCategoryProps {
   autoServices: ICategory[];
@@ -64,10 +64,14 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await CategoryService.getCategoryById(
-    context.query["category"] as string
+  const categoryId = context.query["category"];
+  const res = await fetch(process.env.API_URL + "/category/" + categoryId);
+  const data = await res.json();
+
+  const res_services = await fetch(
+    process.env.API_URL + "/category?type=auto_services"
   );
-  const services = await CategoryService.getCategories("auto_services");
+  const services = await res_services.json();
 
   if (data.notFound) {
     return {

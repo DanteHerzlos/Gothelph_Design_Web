@@ -7,7 +7,6 @@ import AddButton from "../UI/AddButton";
 import Message from "../UI/Message";
 import Textarea from "../UI/Textarea";
 import { CategoryType } from "types/CategoryType";
-import CategoryService from "@services/CategoryService";
 import { useAppDispatch } from "@hooks/redux";
 import { addCategory } from "@store/reducers/category/categorySlice";
 import cl from "@styles/components/forms/AddCategoryForm.module.sass";
@@ -31,7 +30,11 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
     setIsLoading(true);
 
     try {
-      const data = await CategoryService.postCategory(formData);
+      const res = await fetch("/api/category", {
+        body: formData,
+        method: "post",
+      });
+      const data = await res.json();
       dispatch(addCategory(data));
       form.reset();
       setOpen(false);
