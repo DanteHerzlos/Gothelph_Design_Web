@@ -19,6 +19,27 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
   product_price,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
+  const onFinish = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const order = product_price
+      ? product_name + " " + product_price + "p"
+      : product_name;
+    formData.append("order", order as string);
+    try {
+      const res = await fetch("/api/sendmail", {
+        method: "post",
+        body: formData,
+      });
+      const data = await res.json();
+      setOpen(false);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   const content = () => {
     if (typeof children === "string") {
@@ -39,7 +60,7 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
     <>
       <div className={cl.modal_btn}>{content()}</div>
       <Modal open={open} onClose={() => setOpen(false)}>
-        <form className={cl.form}>
+        <form onSubmit={(e) => onFinish(e)} className={cl.form}>
           <h2>Оформление заказа</h2>
           <div className={cl.order_details}>
             <div className={cl.order_details__title}>
@@ -52,15 +73,15 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
               {product_price ? <p>{product_price}₽</p> : <p>---</p>}
             </div>
           </div>
-          <TextInput name="name" placeholder="Имя..." />
+          <TextInput required name="name" placeholder="Имя..." />
           <TextInput name="city" placeholder="Город..." />
-          <TextInput name="tel" placeholder="Телефон..." />
-          <TextInput name="email" placeholder="Email..." />
+          <TextInput required name="phone" placeholder="Телефон..." />
+          <TextInput required name="email" placeholder="Email..." />
           <Textarea
             name="message"
             placeholder="Дополнительная информация по заказу"
           />
-          <Button>Заказать</Button>
+          <Button progress={isLoading}>Заказать</Button>
         </form>
       </Modal>
     </>

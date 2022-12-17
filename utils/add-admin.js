@@ -17,7 +17,9 @@ const User = mongoose.model("User", UserSchema);
 
 const createAdmin = async () => {
   await mongoose.connect(MONGODB_URI);
-  const isAlreadyExist = await User.findOne({ email: "admin@email.com" });
+  const isAlreadyExist = await User.findOne({
+    email: process.env.ADMIN_EMAIL,
+  });
 
   if (isAlreadyExist) {
     console.log("The admin already exist");
@@ -25,9 +27,9 @@ const createAdmin = async () => {
     return;
   }
 
-  const pass = await bcrypt.hash("admin", 10);
+  const pass = bcrypt.hash(process.env.ADMIN_PASS, 10);
   const user = await User.create({
-    email: "admin@email.com",
+    email: process.env.ADMIN_EMAIL,
     password: pass,
   });
   console.log(user);
