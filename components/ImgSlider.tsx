@@ -29,6 +29,17 @@ const ImgSlider: React.FC<ImgSliderProps> = ({ categories, type }) => {
     setDirection(cl.right);
   };
 
+  const directionClass = (index: number) => {
+    switch(index) {
+      case active:
+        return [cl._active, direction].join(" ");
+      case previous:
+        return [cl._prev, direction].join(" ");
+      default:
+        return ""
+    }
+  };
+
   return (
     <>
       <div className={cl.container}>
@@ -43,14 +54,9 @@ const ImgSlider: React.FC<ImgSliderProps> = ({ categories, type }) => {
         <div className={cl.slider}>
           {categories.map((category, index) => (
             <Image
-              fill
-              className={
-                index === active
-                  ? [cl._active, direction].join(" ")
-                  : index === previous
-                  ? [cl._prev, direction].join(" ")
-                  : ""
-              }
+              width={1920}
+              height={1080}
+              className={directionClass(index)}
               key={category._id}
               src={category.url_img}
               alt={category.title}

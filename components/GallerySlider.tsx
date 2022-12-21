@@ -31,6 +31,7 @@ const GallerySlider: React.FC<GallerySliderProps> = ({ children, imgs }) => {
       <div className={cl.slider}>
         <div onClick={() => setIsLightbox(true)} className={cl.slider_img_box}>
           <Image
+            sizes="100vw"
             fill
             className={cl.slider_img_box__img}
             src={imgs[active].url}
@@ -57,6 +58,7 @@ const GallerySlider: React.FC<GallerySliderProps> = ({ children, imgs }) => {
             >
               <Image
                 fill
+                sizes="25vw"
                 onClick={() => setActive(index)}
                 src={img.url}
                 alt=""

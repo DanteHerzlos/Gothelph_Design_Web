@@ -25,7 +25,7 @@ const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
           <h1>{title?.toUpperCase()}</h1>
         </div>
         <div className={cl.img_divider}>
-          <Image src={divider} alt="" />
+          <Image priority src={divider} alt="" />
         </div>
         {children}
         <div className={cl.services}>

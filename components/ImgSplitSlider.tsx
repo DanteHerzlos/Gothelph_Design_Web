@@ -7,7 +7,6 @@ import { CategoryType } from "types/CategoryType";
 import { ICategory } from "types/ICategory";
 import cl from "@styles/components/ImgSplitSlider.module.sass";
 
-
 interface ImgSplitSliderProps {
   categories: ICategory[];
   activeCategory?: ICategory | null;
@@ -41,6 +40,17 @@ const ImgSplitSlider: React.FC<ImgSplitSliderProps> = ({
     setBodyDirection(cl.up);
   };
 
+  const directionClass = (index: number, direction: string) => {
+    switch (index) {
+      case active:
+        return [cl._active, direction].join(" ");
+      case previous:
+        return [cl._prev, direction].join(" ");
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className={cl.container}>
       <div className={cl.slider}>
@@ -66,13 +76,8 @@ const ImgSplitSlider: React.FC<ImgSplitSliderProps> = ({
           {categories.map((category, index) => (
             <Image
               fill
-              className={
-                index === active
-                  ? [cl._active, imgDirection].join(" ")
-                  : index === previous
-                  ? [cl._prev, imgDirection].join(" ")
-                  : ""
-              }
+              sizes="(max-width: 1200px) 100vw, 50vw"
+              className={directionClass(index, imgDirection)}
               key={index}
               src={category.url_img}
               alt={category.title}
@@ -81,16 +86,7 @@ const ImgSplitSlider: React.FC<ImgSplitSliderProps> = ({
         </div>
         <div className={cl.body}>
           {categories.map((category, index) => (
-            <div
-              className={
-                index === active
-                  ? [cl._active, bodyDirection].join(" ")
-                  : index === previous
-                  ? [cl._prev, bodyDirection].join(" ")
-                  : ""
-              }
-              key={index}
-            >
+            <div className={directionClass(index, bodyDirection)} key={index}>
               <h1 className={cl.body__title}>{category.title}</h1>
               <p>{category.body}</p>
             </div>

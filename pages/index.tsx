@@ -77,11 +77,9 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
           />
         </div>
         <div className={cl.description}>
-          <span className={cl.textXL}>Приветствия</span>
+          <h2>Приветствия</h2>
+          <p>Описание и всё такое.</p>
           <p>
-            Описание и всё такое.
-            <br />
-            <br />
             AIGUL KASSYMOVA – это бренд одежды, созданный в 2006 году дизайнером
             Айгуль Касымовой. Компания начала свой пусть в 1997 году с создания
             ателье, которое успешно функционирует и по сей день. Бренд
@@ -89,15 +87,15 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
             его пределами. Отдельной линией AIGUL KASSYMOVA выделяет
             национальную одежду, интегрируя ее в современном мире, а также
             создание свадебных платьев.
-            <br />
-            <br />
+          </p>
+          <p>
             За тринадцать лет существования зарекомендовал себя как узнаваемый и
             динамично развивающийся бренд. Также AIGUL KASSYMOVA участвовал в
             международных неделях моды по всему миру. Бренд стремительно
             приобретает известность на мировом уровне с 2016 года представлен на
             выставке Pitti Super в Милане.
-            <br />
-            <br />
+          </p>
+          <p>
             Мы очень ценим доверие наших клиентов, поэтому всегда стремимся к
             отличному сервису и качеству наших изделий.
           </p>
@@ -117,8 +115,8 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const type = "benefits";
-  const res = await fetch(process.env.API_URL +  "/category?type=" + type);
-  const data = await res.json()
+  const res = await fetch(process.env.API_URL + "/category?type=" + type);
+  const data = await res.json();
   return { props: { fetchedCategories: data, type: type } };
 };
 

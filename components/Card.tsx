@@ -11,7 +11,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ className, title, onClick, src }) => {
   return (
     <div onClick={onClick} className={cl.card + " " + className}>
-      <Image fill src={src} alt={title || ""} />
+      <Image priority width={800} height={600} src={src} alt={title || ""} />
       {title && <span>{title}</span>}
     </div>
   );

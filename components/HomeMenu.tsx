@@ -19,7 +19,14 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
       >
-        <Image className={cl.img} src={menu1} alt="" />
+        <Image
+          width={800}
+          height={600}
+          priority
+          className={cl.img}
+          src={menu1}
+          alt="Custom"
+        />
         <span style={{ animationDelay: -scroll + "s" }}>КАСТОМ</span>
       </Link>
       <Link
@@ -27,7 +34,14 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
       >
-        <Image className={cl.img} src={menu2} alt="" />
+        <Image
+          width={800}
+          height={600}
+          priority
+          className={cl.img}
+          src={menu2}
+          alt="Clothes"
+        />
         <span style={{ animationDelay: -scroll + "s" }}>ШМОТКИ</span>
       </Link>
       <Link
@@ -35,7 +49,14 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
       >
-        <Image className={cl.img} src={menu3} alt="" />
+        <Image
+          width={800}
+          height={600}
+          priority
+          className={cl.img}
+          src={menu3}
+          alt="Arts"
+        />
         <span style={{ animationDelay: -scroll + "s" }}>КАРТИНЫ</span>
       </Link>
       <Link
@@ -43,7 +64,14 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
       >
-        <Image className={cl.img} src={menu4} alt="" />
+        <Image
+          width={800}
+          height={600}
+          priority
+          className={cl.img}
+          src={menu4}
+          alt="Auto"
+        />
         <span style={{ animationDelay: -scroll + "s" }}>АВТОТЕМА</span>
       </Link>
     </div>
