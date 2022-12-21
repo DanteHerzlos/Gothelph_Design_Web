@@ -13,6 +13,7 @@ import { setCategory } from "@store/reducers/category/categorySlice";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import cl from "@styles/Home.module.sass";
+import description_img from "@public/second_section_photo.jpg";
 
 interface HomeProps {
   fetchedCategories: ICategory[];
@@ -64,8 +65,16 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
           <div
             ref={animRef}
             className={isVisible ? [cl.img, cl._anim].join(" ") : cl.img}
-          ></div>
+          >
+            <Image
+              className={cl.description_img__img}
+              fill
+              src={description_img}
+              alt=""
+            />
+          </div>
           <Triangle
+            fill="true"
             className={
               isVisible ? [cl.triangle1, cl._anim].join(" ") : cl.triangle1
             }
