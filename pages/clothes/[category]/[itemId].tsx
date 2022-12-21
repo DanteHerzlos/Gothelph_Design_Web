@@ -13,7 +13,10 @@ interface ClothesItemProps {
 
 const ClothesItem: React.FC<ClothesItemProps> = ({ product }) => {
   return (
-    <ClothesLayout title={product.title}>
+    <ClothesLayout
+      keywords={`купить ${product.title}, ${product.title}, цена ${product.title}, ${product.long_title}`}
+      title={product.title}
+    >
       <div className={cl.body}>
         <GallerySlider imgs={product.imgs}>
           <ItemInfo product={product} />

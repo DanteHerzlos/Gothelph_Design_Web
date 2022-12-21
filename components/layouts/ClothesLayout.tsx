@@ -6,11 +6,23 @@ import cl from "@styles/components/layouts/ClothesLayout.module.sass";
 interface ClothesLayoutProps {
   title?: string;
   children: ReactNode;
+  keywords?: string;
 }
 
-const ClothesLayout: React.FC<ClothesLayoutProps> = ({ title, children }) => {
+const ClothesLayout: React.FC<ClothesLayoutProps> = ({
+  title,
+  children,
+  keywords,
+}) => {
   return (
-    <Layout title="CLOTHES">
+    <Layout
+      header_title="CLOTHES"
+      title="CLOTHES"
+      keywords={
+        "clothes, одежда, пошив одежды на заказ, дизайнерская одежда, " +
+        keywords
+      }
+    >
       <div
         style={{ backgroundImage: `url(/Triangle.svg)` }}
         className={cl.background}

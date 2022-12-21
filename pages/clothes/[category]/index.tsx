@@ -30,7 +30,10 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
   }, [dispatch, fetchedProducts]);
 
   return (
-    <ClothesLayout title={"КАТАЛОГ " + categoryTitle}>
+    <ClothesLayout
+      keywords={`купить ${categoryTitle}`}
+      title={"КАТАЛОГ " + categoryTitle}
+    >
       <div className={cl.container}>
         <div className={cl.categories}>
           <EditProductPanel
@@ -38,7 +41,7 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
             className={cl.edit_panel}
             addBtn
           />
-          {products &&
+          {products.length ? (
             products.map((product) => (
               <div className={cl.card_editpanel} key={product._id}>
                 <EditProductPanel product={product} editBtn deleteBtn />
@@ -50,7 +53,12 @@ const ClothesCategory: React.FC<ClothesCategoryProps> = ({
                   />
                 </Link>
               </div>
-            ))}
+            ))
+          ) : (
+            <div className={cl.card}>
+              <h2>В этом каталоге еще нет товаров...</h2>
+            </div>
+          )}
         </div>
       </div>
     </ClothesLayout>

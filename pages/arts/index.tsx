@@ -35,7 +35,11 @@ const Arts: React.FC<ArtsProps> = ({
   }, [dispatch, fetchedProducts, fetchedCategories]);
 
   return (
-    <Layout title="ARTS">
+    <Layout
+      header_title="ARTS"
+      title="ARTS"
+      keywords="arts, рисунки, рисунки на заказ, портреты, портреты на заказ"
+    >
       <>
         <div className={cl.slider}>
           <EditCategoryPanel className={cl.edit_panel} type={type} addBtn />

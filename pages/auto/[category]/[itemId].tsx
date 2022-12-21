@@ -23,7 +23,10 @@ const AutoItem: React.FC<AutoItemProps> = ({ product, autoServices }) => {
   }, [dispatch, autoServices]);
 
   return (
-    <AutoLayout title={product.title}>
+    <AutoLayout
+      keywords={`купить ${product.title}, ${product.title}, цена ${product.title}, ${product.long_title}`}
+      title={product.title}
+    >
       <div className={cl.body}>
         <GallerySlider imgs={product.imgs}>
           <ItemInfo product={product} />

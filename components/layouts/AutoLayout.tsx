@@ -11,12 +11,21 @@ import OdrerForm from "@components/forms/OdrerForm";
 interface AutoLayoutProps {
   title?: string;
   children?: ReactNode;
+  keywords?: string
 }
 
-const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
+const AutoLayout: React.FC<AutoLayoutProps> = ({
+  title,
+  children,
+  keywords,
+}) => {
   const { categories } = useAppSelector((state) => state.categoryReducer);
   return (
-    <Layout title="AUTO">
+    <Layout
+      header_title="AUTO"
+      title="AUTO"
+      keywords={"автотовары, услуги автоателье, автоаксессуары, " + keywords}
+    >
       <div
         style={{ backgroundImage: `url(/AutoTriangle.svg)` }}
         className={cl.background}
@@ -46,7 +55,10 @@ const AutoLayout: React.FC<AutoLayoutProps> = ({ title, children }) => {
                     editBtn
                     deleteBtn
                   />
-                  <OdrerForm product_name={service.title} product_price={service.body}>
+                  <OdrerForm
+                    product_name={service.title}
+                    product_price={service.body}
+                  >
                     <Card
                       title={service.title}
                       src={service.url_img}

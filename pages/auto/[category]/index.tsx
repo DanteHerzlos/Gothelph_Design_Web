@@ -36,7 +36,10 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({
   }, [dispatch, fetchedProducts, autoServices]);
 
   return (
-    <AutoLayout title={"автотовары " + categoryTitle}>
+    <AutoLayout
+      keywords={`купить ${categoryTitle}`}
+      title={"автотовары " + categoryTitle}
+    >
       <div className={cl.container}>
         <div className={cl.categories}>
           <EditProductPanel
@@ -44,11 +47,14 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({
             className={cl.edit_panel}
             addBtn
           />
-          {products &&
+          {products.length ? (
             products.map((product) => (
               <div className={cl.card_editpanel} key={product._id}>
                 <EditProductPanel product={product} editBtn deleteBtn />
-                <Link href={[rootPath, product._id].join("/")}>
+                <Link
+                  as={[rootPath, product._id].join("/")}
+                  href={[rootPath, product._id].join("/")}
+                >
                   <Card
                     title={product.title}
                     src={product.imgs[0].url}
@@ -56,7 +62,12 @@ const AutoCategory: React.FC<AutoCategoryProps> = ({
                   />
                 </Link>
               </div>
-            ))}
+            ))
+          ) : (
+            <div className={cl.card}>
+              <h2>В этом каталоге еще нет товаров...</h2>
+            </div>
+          )}
         </div>
       </div>
     </AutoLayout>
