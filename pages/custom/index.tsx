@@ -35,7 +35,7 @@ const Custom: React.FC<CustomProps> = ({ fetchedProducts, type }) => {
     <Layout
       header_title="Custom"
       title="CUSTOM"
-      keywords="Custom, кастом, кастом на заказ, сшить одежду на заказ, кастомные касухи, касуха"
+      keywords="Custom, кастом, кастом на заказ, кастом на заказ в Москве, сшить одежду на заказ, кастомные косухи, косуха, роспись ожежды, декорирование одежды"
     >
       <>
         <div className={cl.carousel_container}>

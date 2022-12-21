@@ -2,6 +2,7 @@ import React from 'react'
 import cl from "@styles/components/DeliveryInfo.module.sass";
 
 const DeliveryInfo = () => {
+  return (<></>)
   return (
     <div className={cl.delivery_info}>
       <h2> ДОСТАВКА В МОСКВА</h2>

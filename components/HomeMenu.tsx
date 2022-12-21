@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import menu1 from "@public/menu-1.jpg";
-import menu2 from "@public/menu-2.jpg";
-import menu3 from "@public/menu-3.jpg";
-import menu4 from "@public/menu-4.jpeg";
+import menu_custom from "@public/menu-custom.jpg";
+import menu_clothes from "@public/menu-clothes.jpg";
+import menu_arts from "@public/menu-arts.jpg";
+import menu_auto from "@public/menu-auto.jpg";
 import cl from "@styles/components/HomeMenu.module.sass";
 
 interface HomeMenuProps {
@@ -24,7 +24,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
           height={600}
           priority
           className={cl.img}
-          src={menu1}
+          src={menu_custom}
           alt="Custom"
         />
         <span style={{ animationDelay: -scroll + "s" }}>КАСТОМ</span>
@@ -39,7 +39,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
           height={600}
           priority
           className={cl.img}
-          src={menu2}
+          src={menu_clothes}
           alt="Clothes"
         />
         <span style={{ animationDelay: -scroll + "s" }}>ШМОТКИ</span>
@@ -54,7 +54,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
           height={600}
           priority
           className={cl.img}
-          src={menu3}
+          src={menu_arts}
           alt="Arts"
         />
         <span style={{ animationDelay: -scroll + "s" }}>КАРТИНЫ</span>
@@ -69,7 +69,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
           height={600}
           priority
           className={cl.img}
-          src={menu4}
+          src={menu_auto}
           alt="Auto"
         />
         <span style={{ animationDelay: -scroll + "s" }}>АВТОТЕМА</span>

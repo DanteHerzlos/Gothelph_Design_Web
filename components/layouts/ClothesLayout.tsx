@@ -12,14 +12,14 @@ interface ClothesLayoutProps {
 const ClothesLayout: React.FC<ClothesLayoutProps> = ({
   title,
   children,
-  keywords,
+  keywords = "",
 }) => {
   return (
     <Layout
       header_title="CLOTHES"
-      title="CLOTHES"
+      title="ОДЕЖДА"
       keywords={
-        "clothes, одежда, пошив одежды на заказ, дизайнерская одежда, " +
+        "clothes, одежда, пошив одежды на заказ, дизайнерская одежда, корсеты, корсеты на заказ, готическая одежда в Москве, неформальная одежда, футболки, готические штаны, черные штаны, черная футболка, кимоно, пошив кимоно, рубашки, готические рубашки, мужские рубашки, " +
         keywords
       }
     >

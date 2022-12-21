@@ -17,14 +17,17 @@ interface AutoLayoutProps {
 const AutoLayout: React.FC<AutoLayoutProps> = ({
   title,
   children,
-  keywords,
+  keywords="",
 }) => {
   const { categories } = useAppSelector((state) => state.categoryReducer);
   return (
     <Layout
       header_title="AUTO"
-      title="AUTO"
-      keywords={"автотовары, услуги автоателье, автоаксессуары, " + keywords}
+      title="АВТОТОВАРЫ"
+      keywords={
+        "автотовары, услуги автоателье, автоаксессуары, перетяжка руля, перетяжка руля в Москве, перетяжка мотосидений, " +
+        keywords
+      }
     >
       <div
         style={{ backgroundImage: `url(/AutoTriangle.svg)` }}

@@ -38,7 +38,7 @@ const Arts: React.FC<ArtsProps> = ({
     <Layout
       header_title="ARTS"
       title="ARTS"
-      keywords="arts, рисунки, рисунки на заказ, портреты, портреты на заказ"
+      keywords="arts, рисунки, рисунки на заказ, портреты, портреты на заказ, портреты на заказ Москва, эскизы"
     >
       <>
         <div className={cl.slider}>
