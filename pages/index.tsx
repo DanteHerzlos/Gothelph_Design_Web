@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import logo from "@public/logo.png";
+import text_logo from "@public/Text_logo_White2.png";
+import description_img from "@public/second_section_photo.jpg";
 import EditCategoryPanel from "@components/EditCategoryPanel";
 import HomeMenu from "@components/HomeMenu";
 import Triangle from "@components/Shapes/Triangle";
@@ -13,7 +15,6 @@ import { setCategory } from "@store/reducers/category/categorySlice";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import cl from "@styles/Home.module.sass";
-import description_img from "@public/second_section_photo.jpg";
 
 interface HomeProps {
   fetchedCategories: ICategory[];
@@ -53,6 +54,13 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
           style={{ animationDelay: -scroll + "s" }}
           className={cl.logo}
           src={logo}
+          alt=""
+        />
+        <Image
+          priority
+          style={{ animationDelay: -scroll + "s" }}
+          className={cl.text_logo}
+          src={text_logo}
           alt=""
         />
         <div style={{ animationDelay: -scroll + "s" }} className={cl.title}>

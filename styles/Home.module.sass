@@ -16,6 +16,15 @@
   animation-iteration-count: 1
   animation-fill-mode: both
 
+.text_logo
+  left: calc(50vw - 169px)
+  top: calc(80vh)
+  position: fixed
+  animation: text_logo 1s linear normal
+  animation-play-state: paused
+  animation-iteration-count: 1
+  animation-fill-mode: both
+
 .title
   user-select: none
   top: calc(50vh - 200px)
@@ -28,6 +37,12 @@
   animation-fill-mode: both
   span
     font-size: 3rem
+
+@keyframes text_logo
+  5%
+    opacity: 0
+  100%
+    opacity: 0
 
 
 @keyframes logo
