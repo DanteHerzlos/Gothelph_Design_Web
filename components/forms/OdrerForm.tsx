@@ -21,7 +21,6 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
   const onFinish = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -76,7 +75,12 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
           <TextInput required name="name" placeholder="Имя..." />
           <TextInput name="city" placeholder="Город..." />
           <TextInput required name="phone" placeholder="Телефон..." />
-          <TextInput required name="email" placeholder="Email..." />
+          <TextInput
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            required
+            name="email"
+            placeholder="Email..."
+          />
           <Textarea
             name="message"
             placeholder="Дополнительная информация по заказу"

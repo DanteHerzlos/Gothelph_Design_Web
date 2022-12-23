@@ -5,7 +5,7 @@ import cl from "@styles/components/layouts/Footer.module.sass";
 const Footer = () => {
   return (
     <div className={cl.footer}>
-      <Link target="_blank" className={cl.btn} href="https://t.me/Gothelph">
+      <Link target="_blank" className={cl.btn} href="https://t.me/gothelph_com">
         TELEGRAM
       </Link>
       <Link

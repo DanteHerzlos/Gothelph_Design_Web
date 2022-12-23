@@ -55,7 +55,9 @@ const ItemInfo: React.FC<ItemInfoProps> = ({ product }) => {
       <div className={cl.info}>
         <h3>{product.long_title}</h3>
         <br />
-        <p>{product.body}</p>
+        {product.body.split("\n").map((text, index) => (
+          <p key={index}>{text}</p>
+        ))}
       </div>
     </div>
   );
