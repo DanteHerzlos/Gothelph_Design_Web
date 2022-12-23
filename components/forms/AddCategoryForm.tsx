@@ -10,6 +10,7 @@ import { CategoryType } from "types/CategoryType";
 import { useAppDispatch } from "@hooks/redux";
 import { addCategory } from "@store/reducers/category/categorySlice";
 import cl from "@styles/components/forms/AddCategoryForm.module.sass";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 interface AddCategoryFormProps {
   type: CategoryType;
@@ -26,10 +27,16 @@ const AddCategoryForm: React.FC<AddCategoryFormProps> = ({ type }) => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    formData.delete("file");
     formData.append("type", type);
     setIsLoading(true);
 
     try {
+      const fileUrl = await firebaseStorageService.save(
+        form.file.files[0]
+      );
+
+      formData.append("fileUrl", fileUrl);
       const res = await fetch("/api/category", {
         body: formData,
         method: "post",

@@ -11,6 +11,7 @@ import { IProduct } from "types/IProduct";
 import { useAppDispatch } from "@hooks/redux";
 import { updateProduct } from "@store/reducers/product/productSlice";
 import cl from "@styles/components/forms/EditProductForm.module.sass";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 interface EditProductFormProps {
   product: IProduct;
@@ -59,16 +60,11 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
           method: "delete",
         });
         for (const file of files) {
-          const imgFormData = new FormData();
-          imgFormData.append("file", file.file!);
-          imgFormData.append("position", file.position.toString());
-          imgFormData.append("type", "product");
-          const res = await fetch("/api/img", {
-            body: imgFormData,
-            method: "post",
+          const fileUrl = await firebaseStorageService.save(file.file!);
+          productImgs.push({
+            position: file.position.toString(),
+            url: fileUrl,
           });
-          const img = await res.json();
-          productImgs.push(img);
         }
       } else {
         productImgs.push(...files);

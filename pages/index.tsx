@@ -96,7 +96,7 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
         </div>
         <div className={cl.description}>
           <h1>Gothelph Design</h1>
-          <p>Gothelph - жуткий кошмар любого мидгардского сметрного.</p>
+          <p>Gothelph - жуткий кошмар любого мидгардского смертного.</p>
           <p>
             Дэто не типичная коммерческая организация с пресным обслуживанием и
             трепетным отношением к клиентам, а сверхмрачный творческий проект с

@@ -1,12 +1,12 @@
 import { NextApiHandler } from "next";
 import formidable from "formidable";
-import fs from "fs";
 import dbConnect from "@lib/dbConnect";
 import Product from "@models/Product";
 import Category from "@models/Category";
 import { IImage } from "types/IImage";
 import { isValidObjectId } from "mongoose";
 import { getSession } from "next-auth/react";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 export const config = {
   api: {
@@ -52,9 +52,8 @@ const handler: NextApiHandler = async (req, res) => {
       }
       if (product.imgs.length) {
         for (const img of product.imgs) {
-          const path = "./public" + img.url;
-          fs.unlinkSync(path);
-          console.log("file has been deleted: " + path);
+          await firebaseStorageService.delete(img.url);
+          console.log("file has been deleted: " + img.url);
         }
       }
       return res.status(200).send(product);

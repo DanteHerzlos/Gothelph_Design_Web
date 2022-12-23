@@ -10,6 +10,7 @@ import { ICategory } from "types/ICategory";
 import { useAppDispatch } from "@hooks/redux";
 import { updateCategory } from "@store/reducers/category/categorySlice";
 import cl from "@styles/components/forms/EditCategoryForm.module.sass";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 interface EditCategoryFormProps {
   category: ICategory;
@@ -31,17 +32,17 @@ const EditCategoryForm: React.FC<EditCategoryFormProps> = ({ category }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const form = e.currentTarget;
     const formData = new FormData();
-    if (form.file.files.length) {
-      formData.append("file", form.file.files[0]);
-    }
     formData.append("category", form.category.value);
     formData.append("body", form.body.value);
-
+    
     setIsLoading(true);
     try {
+      if (form.file.files.length) {
+        const fileUrl = await firebaseStorageService.save(form.file.files[0]);
+        formData.append("fileUrl", fileUrl);
+      }
       const res = await fetch("/api/category/" + category._id, {
         body: formData,
         method: "put",

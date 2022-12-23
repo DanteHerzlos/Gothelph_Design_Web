@@ -1,8 +1,7 @@
 import { NextApiHandler } from "next";
-import formidable, { File } from "formidable";
+import formidable from "formidable";
 import dbConnect from "@lib/dbConnect";
 import Category from "@models/Category";
-import saveFile from "@handlers/saveFile";
 import saveFiledataToDB from "@handlers/saveFiledataToDB";
 import { getSession } from "next-auth/react";
 
@@ -25,14 +24,12 @@ const handler: NextApiHandler = async (req, res) => {
             .send({ message: "Неавторизованный пользователь!" });
         }
         await dbConnect();
-
-        const path = saveFile(data.file as File, fields.type as string);
-
+        
         const categoryData = {
           title: fields.category as string,
           type: fields.type as string,
           body: fields.body as string,
-          url_img: path,
+          url_img: fields.fileUrl as string,
         };
         const newCategory = await saveFiledataToDB(categoryData);
 

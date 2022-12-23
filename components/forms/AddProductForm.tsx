@@ -10,6 +10,7 @@ import { useAppDispatch } from "@hooks/redux";
 import { addProduct } from "@store/reducers/product/productSlice";
 import { FilePreview } from "types/FilePreview";
 import cl from "@styles/components/forms/AddProductForm.module.sass";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 interface AddProductFormProps {
   category: string;
@@ -35,17 +36,11 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ category }) => {
         return;
       }
       for (const file of files) {
-        const imgFormData = new FormData();
-        if (file.file !== null) imgFormData.append("file", file.file);
-        imgFormData.append("position", file.position.toString());
-        imgFormData.append("type", "product");
-
-        const res = await fetch("/api/img", {
-          body: imgFormData,
-          method: "post",
+        const fileUrl = await firebaseStorageService.save(file.file!);
+        productImgs.push({
+          position: file.position.toString(),
+          url: fileUrl,
         });
-        const img = await res.json()
-        productImgs.push(img);
       }
 
       const ProductformData = new FormData(form);

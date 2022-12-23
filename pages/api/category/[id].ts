@@ -1,13 +1,12 @@
 import { NextApiHandler } from "next";
-import formidable, { File } from "formidable";
-import fs from "fs";
+import formidable from "formidable";
 import dbConnect from "@lib/dbConnect";
 import Product from "@models/Product";
 import Category from "@models/Category";
-import saveFile from "@handlers/saveFile";
 import updateFiledataToDB from "@handlers/updateFiledataToDB";
 import { isValidObjectId } from "mongoose";
 import { getSession } from "next-auth/react";
+import { firebaseStorageService } from "@lib/firebaseStorageService";
 
 export const config = {
   api: {
@@ -48,12 +47,8 @@ const handler: NextApiHandler = async (req, res) => {
     try {
       await dbConnect();
       const category = await Category.findByIdAndDelete(id);
-      if (category) {
-        const path = "./public/" + category.url_img;
-        fs.unlinkSync(path);
-        console.log("file has been delete: " + path);
-      }
-
+      await firebaseStorageService.delete(category.url_img);
+      console.log("delete file: ", category.url_img);
       return res.status(200).send(category);
     } catch (error: any) {
       return res.status(500).send(error.message);
@@ -71,15 +66,14 @@ const handler: NextApiHandler = async (req, res) => {
       try {
         await dbConnect();
         let categoryData;
-        if (data.hasOwnProperty("file")) {
+        if (fields.hasOwnProperty("fileUrl")) {
           const category = await Category.findById(id);
-          const path = saveFile(data.file as File, category.type as string);
-          fs.unlinkSync("./public" + category.url_img);
-          console.log("delete file: ", "./public" + category.url_img);
+          firebaseStorageService.delete(category.url_img);
+          console.log("delete file: ", category.url_img);
           categoryData = {
             title: fields.category as string,
             body: fields.body as string,
-            url_img: path,
+            url_img: fields.fileUrl,
           };
         } else {
           categoryData = {
