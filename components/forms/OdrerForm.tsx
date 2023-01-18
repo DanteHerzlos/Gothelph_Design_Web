@@ -28,6 +28,7 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
       ? product_name + " " + product_price + "p"
       : product_name;
     formData.append("order", order as string);
+    setIsLoading(true);
     try {
       const res = await fetch("/api/sendmail", {
         method: "post",
@@ -37,6 +38,8 @@ const OdrerForm: React.FC<OdrerFormProps> = ({
       setOpen(false);
     } catch (error: any) {
       console.log(error.message);
+    } finally {
+      setIsLoading(false)
     }
   };
 

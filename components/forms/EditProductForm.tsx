@@ -40,11 +40,6 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
       form.current.body.value = product.body;
       form.current.sizes.value = product.sizes;
       form.current.price.value = product.price;
-      setFiles(
-        product.imgs.map((img) => {
-          return { url: img.url, position: img.position, file: null };
-        })
-      );
     }
   }, [product, files.length]);
 
@@ -56,9 +51,10 @@ const EditProductForm: React.FC<EditProductFormProps> = ({ product }) => {
     setIsLoading(true);
     try {
       if (files[0].file !== null) {
-        await fetch("api/img?product=" + product._id, {
-          method: "delete",
-        });
+        for (const img of product.imgs) {
+          await firebaseStorageService.delete(img.url);
+          console.log("file has been deleted: " + img.url);
+        }
         for (const file of files) {
           const fileUrl = await firebaseStorageService.save(file.file!);
           productImgs.push({

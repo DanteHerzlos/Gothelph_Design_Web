@@ -88,7 +88,10 @@ const ImgSplitSlider: React.FC<ImgSplitSliderProps> = ({
           {categories.map((category, index) => (
             <div className={directionClass(index, bodyDirection)} key={index}>
               <h1 className={cl.body__title}>{category.title}</h1>
-              <p>{category.body}</p>
+              {category.body &&
+                category.body
+                  .split("\n")
+                  .map((text, index) => <p key={index}>{text}</p>)}
             </div>
           ))}
         </div>
