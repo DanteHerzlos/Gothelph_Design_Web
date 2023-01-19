@@ -15,6 +15,7 @@ const Sidebar = () => {
   return (
     <>
       <div
+        data-testid={"sidebar_open_btn"}
         onClick={() => setIsOpen(true)}
         className={isOpen ? [cl.btn, cl.open].join(" ") : cl.btn}
       >
@@ -26,7 +27,11 @@ const Sidebar = () => {
       >
         <div onClick={(e) => e.stopPropagation()} className={cl.sidebar}>
           {routes.map((route, index) => (
-            <Link key={index} href={route.href}>
+            <Link
+              data-testid={route.testid}
+              key={index}
+              href={route.href}
+            >
               <div
                 className={
                   route.href === active

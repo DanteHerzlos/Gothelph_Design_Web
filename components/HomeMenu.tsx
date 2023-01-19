@@ -15,6 +15,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
   return (
     <div className={cl.menu}>
       <Link
+        data-testid="custom"
         href="/custom"
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
@@ -30,6 +31,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         <span style={{ animationDelay: -scroll + "s" }}>КАСТОМ</span>
       </Link>
       <Link
+        data-testid="clothes"
         href="/clothes"
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
@@ -45,6 +47,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         <span style={{ animationDelay: -scroll + "s" }}>ШМОТКИ</span>
       </Link>
       <Link
+        data-testid="arts"
         href="/arts"
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}
@@ -60,6 +63,7 @@ const HomeMenu: React.FC<HomeMenuProps> = ({ scroll }) => {
         <span style={{ animationDelay: -scroll + "s" }}>КАРТИНЫ</span>
       </Link>
       <Link
+        data-testid="auto"
         href="/auto"
         style={{ animationDelay: -scroll + "s" }}
         className={cl.menu_btn}

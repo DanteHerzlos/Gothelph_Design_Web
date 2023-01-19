@@ -30,6 +30,6 @@
       "@handlers/*": ["handlers/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/admin.jsmin.utils/admin.jsils/utils/admin.js", "utils/admin.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/admin.jsmin.utils/admin.jsils/utils/admin.js", "utils/admin.js", "cypress/tsconfig.json", "cypress/tsconfig.json"],
   "exclude": ["node_modules"]
 }
