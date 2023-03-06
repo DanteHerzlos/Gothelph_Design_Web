@@ -52,7 +52,7 @@ const Arts: React.FC<ArtsProps> = ({
               className={cl.edit_panel}
               addBtn
             />
-            <h3>ПРАЙС</h3>
+            <h3>ГАЛЕРЕЯ</h3>
           </div>
 
           <div className={cl.cards}>
