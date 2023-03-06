@@ -15,6 +15,7 @@ import { setCategory } from "@store/reducers/category/categorySlice";
 import { ICategory } from "types/ICategory";
 import { CategoryType } from "types/CategoryType";
 import cl from "@styles/Home.module.sass";
+import Head from "next/head";
 
 interface HomeProps {
   fetchedCategories: ICategory[];
@@ -47,6 +48,16 @@ const Home: React.FC<HomeProps> = ({ fetchedCategories, type }) => {
 
   return (
     <>
+      <Head>
+        <title>Gothelph Design</title>
+        <meta name="keywords" content={"gothelph, design"}></meta>
+        <meta name="description" content={"Gothelph Design"}></meta>
+        <meta charSet="utf-8"></meta>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+      </Head>
       <div className={cl.scroll_animation}>
         <div className={cl.logo_background}></div>
         <Image
